@@ -37,6 +37,7 @@ class BotController extends Controller
         $update = $client->getUpdate();
 
         return 1;
+        /**
         $menu["inline_keyboard"] = [
 
         ];
@@ -62,6 +63,6 @@ class BotController extends Controller
                     }
                     break;
             }
-        }
+        }**/
     }
 }
