@@ -36,7 +36,7 @@ class BotController extends Controller
         $client = new Client(Config::get('telegram.bots.mybot.token'), false);
         $update = $client->getUpdate();
 
-        return 1;
+        return json_decode('{"message_id":1,"from":{"id":1,"first_name":"FirstName","last_name":"LastName","username":"username"},"chat":{"id":1,"first_name":"FirstName","last_name":"LastName","username":"username","type":"private"},"date":1460957457,"text":"test message"}');
         /**
         $menu["inline_keyboard"] = [
 
