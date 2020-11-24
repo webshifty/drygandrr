@@ -10,7 +10,7 @@ use Telegram\Bot\Laravel\Facades\Telegram;
 
 class BotController extends Controller
 {
-    public function test()
+    public static function test()
     {
         //$telegram = new Api();
         $response = Telegram::getMe();

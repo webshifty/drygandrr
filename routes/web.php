@@ -18,7 +18,7 @@ use App\Http\Controllers\BotController;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::post('/bot/getupdates', BotController::getUpdates());
+Route::post('/bot/getupdates', BotController::test());
 Route::post('bot/sendmessage', function() {
     Telegram::sendMessage([
         'chat_id' => 'RECIPIENT_CHAT_ID',
