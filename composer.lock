@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "932bc02c8d2d692bba3c4def4dff129b",
+    "content-hash": "265b066f61348bf0719c541b0db570fc",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -201,6 +201,44 @@
                 "map"
             ],
             "time": "2020-10-02T16:03:48+00:00"
+        },
+        {
+            "name": "davtur19/turibot",
+            "version": "1.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/davtur19/TuriBot.git",
+                "reference": "c4e666d8192f4350805eb2f341155b1dc17df4ff"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/davtur19/TuriBot/zipball/c4e666d8192f4350805eb2f341155b1dc17df4ff",
+                "reference": "c4e666d8192f4350805eb2f341155b1dc17df4ff",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "php": "^7.1"
+            },
+            "type": "project",
+            "autoload": {
+                "psr-4": {
+                    "TuriBot\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "AGPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "davtur19",
+                    "email": "dav.tur19@gmail.com"
+                }
+            ],
+            "description": "A simple way to communicate with Telegram APIs in PHP.",
+            "time": "2020-11-06T17:19:27+00:00"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",

@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Telegram\Bot\Laravel\Facades\Telegram;
 use App\Http\Controllers\BotController;
 
 /*
@@ -18,14 +17,7 @@ use App\Http\Controllers\BotController;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::post('/bot/getupdates', BotController::test());
-Route::post('bot/sendmessage', function() {
-    Telegram::sendMessage([
-        'chat_id' => 'RECIPIENT_CHAT_ID',
-        'text' => 'Hello world!'
-    ]);
-    return;
-});
+Route::post('/bot/getupdates', BotController::income());
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
