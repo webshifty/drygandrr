@@ -28,3 +28,7 @@ Route::post('bot/sendmessage', function() {
     ]);
     return;
 });
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard');

@@ -9,14 +9,17 @@
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
+        "ext-json": "*",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "6.5",
         "irazasyed/telegram-bot-sdk": "dev-develop",
         "laravel/framework": "^8.12",
+        "laravel/jetstream": "^1.6",
+        "laravel/sanctum": "^2.6",
         "laravel/tinker": "^2.5",
-        "torann/geoip": "^3.0",
-        "ext-json": "*"
+        "livewire/livewire": "^2.0",
+        "torann/geoip": "^3.0"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
