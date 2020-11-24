@@ -36,6 +36,7 @@ class BotController extends Controller
         $client = new Client(Config::get('telegram.bots.mybot.token'), false);
         $update = $client->getUpdate();
 
+        return 1;
         $menu["inline_keyboard"] = [
 
         ];
