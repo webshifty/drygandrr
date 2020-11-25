@@ -42,7 +42,7 @@ class BotController extends Controller
         $client->sendMessage($chatId, $reply, null, null, null, null, null);
         exit();
 **/
-        $menu["inline_keyboard"] = [
+        $menu["keyboard"] = [
             [
                 [
                     "text" => "\xE2\x98\x80 Поделиться геолокацией \xE2\x98\x80",
