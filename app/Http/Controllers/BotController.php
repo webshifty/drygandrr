@@ -212,7 +212,6 @@ class BotController extends Controller
                     //    exit();
                     //}
                     break;
-                     **/
                 case 0:
                     $reply = "По запросу \"<b>" . $text . "</b>\" ничего не найдено.";
                     $client->sendMessage($chatId, $reply, 'HTML');
@@ -223,9 +222,10 @@ class BotController extends Controller
                     $client->sendMessage($chatId, $reply, 'HTML');
                     exit();
                     break;
+                     **/
             }
         }
-
+/**
         if (isset($update->callback_query)) {
             $id = $update->callback_query->id;
             $message_chat_id = $update->callback_query->message->chat->id;
@@ -247,6 +247,6 @@ class BotController extends Controller
                     break;
 
             }
-        }
+        }**/
     }
 }
