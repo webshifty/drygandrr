@@ -200,6 +200,7 @@ class BotController extends Controller
                         exit();
                     }
                     break;
+                    /**
                 case !is_null($update->message->text):
                     //$addCity = TelegramBotData::addCity($client->easy->from_id, $text);
 
@@ -211,6 +212,7 @@ class BotController extends Controller
                     //    exit();
                     //}
                     break;
+                     **/
                 case 0:
                     $reply = "По запросу \"<b>" . $text . "</b>\" ничего не найдено.";
                     $client->sendMessage($chatId, $reply, 'HTML');
