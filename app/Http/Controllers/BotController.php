@@ -35,9 +35,7 @@ class BotController extends Controller
     {
         $client = new Client(Config::get('telegram.bots.mybot.token'), false);
         $update = $client->getUpdate();
-        if (!isset($update)) {
-            exit('json error');
-        }
+
 /**
         $chatId = $client->easy->chat_id;
         $reply = "" . $client->easy->text;
@@ -191,12 +189,12 @@ class BotController extends Controller
                         $userName = ", ".$update->message->chat->first_name;
                         $reply = "Привет". $userName ."!\nЯ могу тебе подобрать лук на сегодня или рассказать погоду в твоем городе \xF0\x9F\x98\x8A";
                         //$reply_markup = TelegramBotData::replyKeyboardMarkup(['keyboard' => $keyboard, 'resize_keyboard' => true, 'one_time_keyboard' => false]);
-                        $client->sendMessage($chatId, $reply, null, null, null, null, $menu);
+                        $client->sendMessage($chatId, $reply, null, null, null, null, null);
                         exit();
                     } else {
                         $userName = "";
                         $reply = "Привет". $userName ."!\nЯ могу тебе подобрать лук на сегодня или рассказать погоду в твоем городе \xF0\x9F\x98\x8A";
-                        $client->sendMessage($chatId, $reply, null, null, null, null, $menu);
+                        $client->sendMessage($chatId, $reply, null, null, null, null, null);
                         exit();
                     }
                     break;
