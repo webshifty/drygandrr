@@ -65,14 +65,14 @@ class BotController extends Controller
         $menuQuestion["inline_keyboard"] = [
             [
                 [
-                    "text" => "\xF0\x9F\x91\x9A Задати питання? \xF0\x9F\x91\x96",
-                    "callback_data" => "whatWear",
+                    "text" => "\xE2\x9D\x94 Задати питання? \xE2\x9D\x94",
+                    "callback_data" => "writeQuestion",
                 ],
             ],
             [
                 [
-                    "text" => "\xF0\x9F\x91\x91 Шукати в базi \xF0\x9F\x91\x91",
-                    "callback_data" => "https://umuse.info/fashion",
+                    "text" => "\xF0\x9F\x93\x9A Шукати в базi \xF0\x9F\x93\x9A",
+                    "callback_data" => "findInBase",
                 ],
             ],
         ];
