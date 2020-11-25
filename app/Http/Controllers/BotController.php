@@ -38,12 +38,12 @@ class BotController extends Controller
         if (!isset($update)) {
             exit('json error');
         }
-
+/**
         $chatId = $client->easy->chat_id;
         $reply = "" . $client->easy->text;
         $client->sendMessage($chatId, $reply, null, null, null, null, null);
         exit();
-
+**/
         $menu["inline_keyboard"] = [
             [
                 [
