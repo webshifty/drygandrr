@@ -25,4 +25,15 @@ class TelegramBotData extends Model
             DB::table('tg_users')->insert($data);
         }
     }
+
+    public static function addCountry($id, $country)
+    {
+        $data = [
+            'country' => $country,
+            'updated_at' => Carbon::now()
+        ];
+        $country = DB::table('tg_users')->where('tg_id', $id)->update($data);
+
+        return $country;
+    }
 }

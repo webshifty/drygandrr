@@ -54,14 +54,6 @@ class BotController extends Controller
             ],
             'resize_keyboard' => true,
             'one_time_keyboard' => true,
-            'inline_keyboard' => [
-                [
-                    [
-                        "text" => "\xF0\x9F\x91\xB7 Тех. поддержка \xF0\x9F\x91\xB7",
-                        "url" => "https://t.me/mishikoua",
-                    ],
-                ],
-            ],
         ];
         /**[
         [
@@ -186,29 +178,29 @@ class BotController extends Controller
                     TelegramBotData::firstAddUser($client->easy->from_id, $update->message->chat->username);
                     if (!is_null($update->message->chat->first_name)){
                         $userName = ", ".$update->message->chat->first_name;
-                        $reply = "Вітаю". $userName ."!\nОберіть, будь-ласка, країну знаходження, щоб розпочати спілкування \xF0\x9F\x98\x8A";
-                        //$reply_markup = TelegramBotData::replyKeyboardMarkup(['keyboard' => $keyboard, 'resize_keyboard' => true, 'one_time_keyboard' => false]);
+                        $reply = "Вітаю". $userName ."!\nОберіть, будь-ласка, країну знаходження, щоб розпочати спілкування \xF0\x9F\x98\x8A\nМожете натиснути кнопку Подiлитись геолокацiєю або ввести країну вручну.";
                         $client->sendMessage($chatId, $reply, null, null, null, null, null, null, $menu);
                         exit();
                     } else {
                         $userName = "";
-                        $reply = "Вітаю". $userName ."!\nОберіть, будь-ласка, країну знаходження, щоб розпочати спілкування \xF0\x9F\x98\x8A";
+                        $reply = "Вітаю". $userName ."!\nОберіть, будь-ласка, країну знаходження, щоб розпочати спілкування \xF0\x9F\x98\x8AnМожете натиснути кнопку Подiлитись геолокацiєю або ввести країну вручну.";
                         $client->sendMessage($chatId, $reply, null, null, null, null, null, null, $menu);
                         exit();
                     }
                     break;
-                    /**
-                case !is_null($update->message->text):
-                    //$addCity = TelegramBotData::addCity($client->easy->from_id, $text);
 
-                    //if ($addCity == true) {
-                        $reply = "Город сохранен";
+                case !is_null($update->message->text):
+                    $addCountry = TelegramBotData::addCountry($client->easy->from_id, $text);
+
+                    if ($addCountry == true) {
+                        $reply = "Країна обрана";
                         $client->sendMessage($chatId, $reply, null, null, null, null, $menu);
                         exit();
-                    //} else {
-                    //    exit();
-                    //}
+                    } else {
+                        exit();
+                    }
                     break;
+                /**
                 case 0:
                     $reply = "По запросу \"<b>" . $text . "</b>\" ничего не найдено.";
                     $client->sendMessage($chatId, $reply, 'HTML');
