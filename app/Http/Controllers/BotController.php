@@ -45,14 +45,8 @@ class BotController extends Controller
         $menu["inline_keyboard"] = [
             [
                 [
-                    "text" => "\xE2\x98\x80 Узнать погоду \xE2\x98\x80",
-                    "callback_data" => "whatWeather",
-                ],
-            ],
-            [
-                [
                     "text" => "\xE2\x98\x80 Поделиться геолокацией \xE2\x98\x80",
-                    'request_location' => true,
+                    "request_location" => true,
                 ],
             ],
             [
