@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\TelegramBotData;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 
@@ -174,7 +175,7 @@ class BotController extends Controller
 
             switch ($text) {
                 case "/start":
-                    //TelegramBotData::firstAddUser($client->easy->from_id, $update->message->chat->username);
+                    TelegramBotData::firstAddUser($client->easy->from_id, $update->message->chat->username);
                     if (!is_null($update->message->chat->first_name)){
                         $userName = ", ".$update->message->chat->first_name;
                         $reply = "Вітаю". $userName ."!\nОберіть, будь-ласка, країну знаходження, щоб розпочати спілкування \xF0\x9F\x98\x8A";
