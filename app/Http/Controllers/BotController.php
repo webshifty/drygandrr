@@ -70,8 +70,10 @@ class BotController extends Controller
                 ],
             ],
             [
-                "text" => "\xF0\x9F\x91\x91 Шукати в базi \xF0\x9F\x91\x91",
-                "callback_data" => "https://umuse.info/fashion",
+                [
+                    "text" => "\xF0\x9F\x91\x91 Шукати в базi \xF0\x9F\x91\x91",
+                    "callback_data" => "https://umuse.info/fashion",
+                ],
             ],
         ];
 
