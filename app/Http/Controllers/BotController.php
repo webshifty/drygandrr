@@ -61,31 +61,17 @@ class BotController extends Controller
         "url" => "https://t.me/mishikoua",
         ],
         ],
-        'resize_keyboard'=>true,
-        'one_time_keyboard'=>true,
          * **/
-        $menu2["inline_keyboard"] = [
+        $menuQuestion["inline_keyboard"] = [
             [
                 [
-                    "text" => "\xF0\x9F\x91\x9A Что надеть? \xF0\x9F\x91\x96",
+                    "text" => "\xF0\x9F\x91\x9A Задати питання? \xF0\x9F\x91\x96",
                     "callback_data" => "whatWear",
                 ],
             ],
             [
-                [
-                    "text" => "\xF0\x9F\x91\x91 Статьи о моде \xF0\x9F\x91\x91",
-                    "url" => "https://umuse.info/fashion",
-                ],
-                [
-                    "text" => "\xE2\x99\x88 Гороскопы \xE2\x99\x8D",
-                    "url" => "https://umuse.info/horoscopes",
-                ],
-            ],
-            [
-                [
-                    "text" => "\xF0\x9F\x91\xB7 Тех. поддержка \xF0\x9F\x91\xB7",
-                    "url" => "https://t.me/mnadmn",
-                ],
+                "text" => "\xF0\x9F\x91\x91 Шукати в базi \xF0\x9F\x91\x91",
+                "callback_data" => "https://umuse.info/fashion",
             ],
         ];
 
@@ -194,7 +180,7 @@ class BotController extends Controller
 
                     if ($addCountry == true) {
                         $reply = "Країна обрана";
-                        $client->sendMessage($chatId, $reply, null, null, null, null, $menu);
+                        $client->sendMessage($chatId, $reply, null, null, null, null, null, null, $menuQuestion);
                         exit();
                     } else {
                         exit();
