@@ -187,14 +187,14 @@ class BotController extends Controller
                     //TelegramBotData::firstAddUser($client->easy->from_id, $update->message->chat->username);
                     if (!is_null($update->message->chat->first_name)){
                         $userName = ", ".$update->message->chat->first_name;
-                        $reply = "Привет". $userName ."!\nЯ могу тебе подобрать лук на сегодня или рассказать погоду в твоем городе \xF0\x9F\x98\x8A";
+                        $reply = "Вітаю". $userName ."!\nОберіть, будь-ласка, країну знаходження, щоб розпочати спілкування \xF0\x9F\x98\x8A";
                         //$reply_markup = TelegramBotData::replyKeyboardMarkup(['keyboard' => $keyboard, 'resize_keyboard' => true, 'one_time_keyboard' => false]);
-                        $client->sendMessage($chatId, $reply, null, null, null, null, null, $menu);
+                        $client->sendMessage($chatId, $reply, null, null, null, null, null, null, $menu);
                         exit();
                     } else {
                         $userName = "";
-                        $reply = "Привет". $userName ."!\nЯ могу тебе подобрать лук на сегодня или рассказать погоду в твоем городе \xF0\x9F\x98\x8A";
-                        $client->sendMessage($chatId, $reply, null, null, null, null, null, $menu);
+                        $reply = "Вітаю". $userName ."!\nОберіть, будь-ласка, країну знаходження, щоб розпочати спілкування \xF0\x9F\x98\x8A";
+                        $client->sendMessage($chatId, $reply, null, null, null, null, null, null, $menu);
                         exit();
                     }
                     break;
