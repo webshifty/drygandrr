@@ -38,7 +38,7 @@ class BotController extends Controller
 
 
         $chatId = $client->easy->chat_id;
-        $userName = ", ".$update->message->chat->first_name;
+        $userName = ", ";
         $reply = "Привет". $userName;
         $client->sendMessage($chatId, $reply, null, null, null, null, null);
         exit();
