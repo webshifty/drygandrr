@@ -51,24 +51,14 @@ class BotController extends Controller
             ],
             [
                 [
-                    "text" => "\xF0\x9F\x91\x9A Что надеть? \xF0\x9F\x91\x96",
-                    "callback_data" => "whatWear",
-                ],
-            ],
-            [
-                [
-                    "text" => "\xF0\x9F\x91\x91 Статьи о моде \xF0\x9F\x91\x91",
-                    "url" => "https://umuse.info/fashion",
-                ],
-                [
-                    "text" => "\xE2\x99\x88 Гороскопы \xE2\x99\x8D",
-                    "url" => "https://umuse.info/horoscopes",
+                    "text" => "\xE2\x98\x80 Поделиться геолокацией \xE2\x98\x80",
+                    'request_location' => true,
                 ],
             ],
             [
                 [
                     "text" => "\xF0\x9F\x91\xB7 Тех. поддержка \xF0\x9F\x91\xB7",
-                    "url" => "https://t.me/mnadmn",
+                    "url" => "https://t.me/mishikoua",
                 ],
             ],
         ];
