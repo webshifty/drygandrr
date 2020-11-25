@@ -54,9 +54,10 @@ class BotController extends Controller
                     "text" => "\xF0\x9F\x91\xB7 Тех. поддержка \xF0\x9F\x91\xB7",
                     "url" => "https://t.me/mishikoua",
                 ],
-            ],**/
+            ],
             'resize_keyboard'=>true,
             'one_time_keyboard'=>true,
+             * **/
         ];
 
         $menu2["inline_keyboard"] = [
