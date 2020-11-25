@@ -42,24 +42,25 @@ class BotController extends Controller
         $client->sendMessage($chatId, $reply, null, null, null, null, null);
         exit();
 **/
-        $menu["keyboard"] = [
+        $menu = [
+            'keyboard' =>[
             [
                 [
                     "text" => "\xE2\x98\x80 Поделиться геолокацией \xE2\x98\x80",
                     "request_location" => true,
                 ],
             ],
-            /**[
-                [
-                    "text" => "\xF0\x9F\x91\xB7 Тех. поддержка \xF0\x9F\x91\xB7",
-                    "url" => "https://t.me/mishikoua",
-                ],
-            ],
-            'resize_keyboard'=>true,
-            'one_time_keyboard'=>true,
-             * **/
+]
         ];
-
+        /**[
+        [
+        "text" => "\xF0\x9F\x91\xB7 Тех. поддержка \xF0\x9F\x91\xB7",
+        "url" => "https://t.me/mishikoua",
+        ],
+        ],
+        'resize_keyboard'=>true,
+        'one_time_keyboard'=>true,
+         * **/
         $menu2["inline_keyboard"] = [
             [
                 [
