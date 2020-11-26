@@ -213,12 +213,14 @@ class BotController extends Controller
                             ];
                         }
                         $reply = "Оберiть тематику питання";
-                        $reply2 = json_encode($menuCategories["inline_keyboard"]);
                         $client->sendMessage($message_chat_id, $reply, null, null, null, null, null, null, $menuCategories);
                         exit();
                         break;
 
                     case "category<id>":
+                        $reply = "Оберiть тематику питання";
+                        $reply2 = json_encode($update->callback_query->data);
+                        $client->sendMessage($message_chat_id, $reply2, null, null, null, null, null, null, $menuQuestion);
                         exit();
                         break;
                         /**
