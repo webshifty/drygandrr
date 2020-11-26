@@ -203,7 +203,7 @@ class BotController extends Controller
 
                     case "findInBase":
                         $reply = "Оберiть тематику питання";
-                        $client->sendMessage($message_chat_id, $reply, null, null, null, null, null, null, $menuQuestion);
+                        $client->sendMessage($message_chat_id, json_decode($reply), null, null, null, null, null, null, $menuQuestion);
                         exit();
                         break;
                     /**
