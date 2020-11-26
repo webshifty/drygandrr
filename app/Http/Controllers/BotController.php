@@ -47,7 +47,7 @@ class BotController extends Controller
             'keyboard' => [
                 [
                     [
-                        "text" => "\xE2\x98\x80 Поделиться геолокацией \xE2\x98\x80",
+                        "text" => "\xE2\x98\x80 Подiлитись геолокацiєю \xE2\x98\x80",
                         "request_location" => true,
                     ],
                 ],
@@ -181,6 +181,7 @@ class BotController extends Controller
                     break;
                 case "findInBase":
                     $categories = TelegramBotData::getAllQuestionCategories();
+                    $menuCategories["inline_keyboard"] = [];
                     foreach ($categories as $category) {
                         $menuCategories["inline_keyboard"] = [
                             [
