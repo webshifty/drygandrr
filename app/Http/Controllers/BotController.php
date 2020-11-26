@@ -183,7 +183,7 @@ class BotController extends Controller
                     $categories = TelegramBotData::getAllQuestionCategories();
                     $menuCategories["inline_keyboard"] = [];
                     foreach ($categories as $category) {
-                        $menuCategories["inline_keyboard"] = [
+                        $menuCat[] = [
                             [
                                 [
                                     "text" => "\xF0\x9F\x91\xA8 .$category->name",
@@ -193,7 +193,7 @@ class BotController extends Controller
                         ];
                     }
                     $reply = "Оберiть тематику питання";
-                    $client->sendMessage($chatId, json_decode($menuCategories), null, null, null, null, null, null, null);
+                    $client->sendMessage($chatId, json_decode($menuCat), null, null, null, null, null, null, null);
 
                     break;
                 /**
