@@ -178,6 +178,7 @@ class BotController extends Controller
                     break;
 
                 case "writeQuestion":
+                    exit();
                     break;
                 case "findInBase":
                     $categories = TelegramBotData::getAllQuestionCategories();
@@ -195,7 +196,7 @@ class BotController extends Controller
                     }
                     $reply = "Оберiть тематику питання";
                     $client->sendMessage($chatId, $reply);
-
+                    exit();
                     break;
                 /**
                 case 0:
