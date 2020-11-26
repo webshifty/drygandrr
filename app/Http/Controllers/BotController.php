@@ -195,7 +195,7 @@ class BotController extends Controller
                         $menuCategories["inline_keyboard"] = $menuCat;
                     }
                     $reply = "Оберiть тематику питання";
-                    $client->sendMessage($chatId, $reply);
+                    $client->sendMessage($chatId, $reply, null, null, null, null, null, null, null);
                     exit();
                     break;
                 /**
