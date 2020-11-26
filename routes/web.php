@@ -21,4 +21,4 @@ Route::post('/bot/getupdates', BotController::income());
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
-})->name('dashboard');
+})->name('admin/dashboard');
