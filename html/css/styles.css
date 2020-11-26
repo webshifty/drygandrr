@@ -79,6 +79,7 @@ body {
     height: 100%;
     display: flex;
     flex-direction: column;
+    font-size: 18px;
 }
 
 a {
@@ -217,3 +218,34 @@ main {
 }
 
 /* // dashboard */
+
+.wrapper {
+    position: relative;
+}
+
+.sidebar {
+    width: 256px;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.top {
+    left: 256px;
+    height: 60px;
+    position: absolute;
+    right: 0;
+}
+
+.content {
+    position: absolute;
+    top: 60px;
+    left: 256px;
+    bottom: 0;
+    right: 0;
+}
+
+table {
+    width: 100%
+}
