@@ -194,7 +194,7 @@ class BotController extends Controller
                         $menuCategories["inline_keyboard"] = $menuCat;
                     }
                     $reply = "Оберiть тематику питання";
-                    $client->debug($chatId, json_decode(dd($menuCategories)), dd($menuCategories["inline_keyboard"]));
+                    $client->debug($chatId, json_decode(dd(1)));
 
                     break;
                 /**
