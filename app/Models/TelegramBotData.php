@@ -38,7 +38,7 @@ class TelegramBotData extends Model
     }
 
     public static function getAllQuestionCategories () {
-        $categories = DB::table('question_categories')->select()->get();
+        $categories = DB::table('question_categories')->select()->get()->toArray();
 
         return $categories;
     }
