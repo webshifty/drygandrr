@@ -203,6 +203,7 @@ class BotController extends Controller
 
                     case "findInBase":
                         $categories = TelegramBotData::getAllQuestionCategories();
+                        $menuCategories["inline_keyboard"] = [];
                         for($i=0; $i <= count($categories); $i++) {
                             $menuCategories["inline_keyboard"] = [
                                 [
