@@ -248,7 +248,7 @@ class BotController extends Controller
                      * **/
                 }
             }
-
+/**
         $categories = TelegramBotData::getAllQuestionCategories();
         $menuCategories["inline_keyboard"] = [];
         foreach ($categories as $category) {
@@ -260,6 +260,6 @@ class BotController extends Controller
             ];
         }
         dd($menuCategories["inline_keyboard"]);
-
+**/
         }
 }
