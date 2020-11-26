@@ -181,26 +181,26 @@ class BotController extends Controller
                     exit();
                     break;
                 case "findInBase":
-                    /**
-                    //$categories = TelegramBotData::getAllQuestionCategories();
-
-                    $menuCategories["inline_keyboard"] = [];
-                    foreach ($categories as $category) {
-                        $menuCat[] = [
-                            [
-                                [
-                                    "text" => "\xF0\x9F\x91\xA8 .$category->name",
-                                    "callback_data" => "category.$category->id",
-                                ],
-                            ],
-                        ];
-                        $menuCategories["inline_keyboard"] = $menuCat;
-                    }
-                     * **/
                     $reply = "Оберiть тематику питання";
                     $client->sendMessage($chatId, $reply, null, null, null, null, null, null, $menuQuestion);
                     exit();
                     break;
+                /**
+                //$categories = TelegramBotData::getAllQuestionCategories();
+
+                $menuCategories["inline_keyboard"] = [];
+                foreach ($categories as $category) {
+                $menuCat[] = [
+                [
+                [
+                "text" => "\xF0\x9F\x91\xA8 .$category->name",
+                "callback_data" => "category.$category->id",
+                ],
+                ],
+                ];
+                $menuCategories["inline_keyboard"] = $menuCat;
+                }
+                 * **/
                 /**
                 case 0:
                     $reply = "По запросу \"<b>" . $text . "</b>\" ничего не найдено.";
