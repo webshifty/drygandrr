@@ -181,7 +181,7 @@ class BotController extends Controller
                     exit();
                     break;
                 case "findInBase":
-                    $categories = TelegramBotData::getAllQuestionCategories();
+                    //$categories = TelegramBotData::getAllQuestionCategories();
                     /**
                     $menuCategories["inline_keyboard"] = [];
                     foreach ($categories as $category) {
