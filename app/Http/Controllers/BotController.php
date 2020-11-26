@@ -205,7 +205,7 @@ class BotController extends Controller
                         $categories = TelegramBotData::getAllQuestionCategories();
                         $menuCategories["inline_keyboard"] = [];
                         for($i=0; $i <= $categories; $i++) {
-                            $menuCategories["inline_keyboard"] = [
+                            $menuCategories["inline_keyboard"][] = [
                                 [
                                     [
                                         "text" => "\xF0\x9F\x91\xA8 " .$categories[$i]->name,
