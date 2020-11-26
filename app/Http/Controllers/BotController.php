@@ -204,17 +204,18 @@ class BotController extends Controller
                     case "findInBase":
                         $categories = TelegramBotData::getAllQuestionCategories();
                         $menuCategories["inline_keyboard"] = [];
-                        for($i=0; $i <= count($categories); $i++) {
+                        for($i=0; $i < count($categories); $i++) {
                             $menuCategories["inline_keyboard"] = [
                                 [
                                     [
-                                        "text" => "\xF0\x9F\x91\xA8 " . $categories[$i]['name'],
-                                        "callback_data" => "category" . $categories[$i]['id'],
+                                        "text" => "\xF0\x9F\x91\xA8 " . $categories[$i]->name,
+                                        "callback_data" => "category" . $categories[$i]->id,
                                     ],
                                 ],
                             ];
                         }
                         $reply = "Оберiть тематику питання";
+                        dd($menuCategories["inline_keyboard"]);
                         $reply2 = json_encode($menuCategories["inline_keyboard"]);
                         $client->sendMessage($message_chat_id, $reply2, null, null, null, null, null, null, $menuQuestion);
                         exit();
@@ -249,5 +250,20 @@ class BotController extends Controller
                      * **/
                 }
             }
+            /**
+        $categories = TelegramBotData::getAllQuestionCategories();
+        $menuCategories["inline_keyboard"] = [];
+        for($i=0; $i < count($categories); $i++) {
+            $menuCategories["inline_keyboard"] = [
+                [
+                    [
+                        "text" => "\xF0\x9F\x91\xA8 " . $categories[$i]->name,
+                        "callback_data" => "category" . $categories[$i]->id,
+                    ],
+                ],
+            ];
+        }
+        dd($menuCategories["inline_keyboard"]);
+        **/
         }
 }
