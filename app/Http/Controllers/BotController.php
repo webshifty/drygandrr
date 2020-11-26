@@ -65,7 +65,7 @@ class BotController extends Controller
         $menuQuestion["inline_keyboard"] = [
             [
                 [
-                    "text" => "\xE2\x9D\x94 Задати питання? \xE2\x9D\x94",
+                    "text" => "\xE2\x9D\x93 Задати питання? \xE2\x9D\x93",
                     "callback_data" => "writeQuestion",
                 ],
             ],
@@ -133,21 +133,6 @@ class BotController extends Controller
             ],
         ];
 
-        $menuGender["inline_keyboard"] = [
-            [
-                [
-                    "text" => "\xF0\x9F\x91\xA8 М",
-                    "callback_data" => "men",
-                ],
-            ],
-            [
-                [
-                    "text" => "\xF0\x9F\x91\xA9 Ж",
-                    "callback_data" => "women",
-                ],
-            ],
-        ];
-
         $menuWeatherCityError["inline_keyboard"] = [
             [
                 [
@@ -187,6 +172,25 @@ class BotController extends Controller
                     } else {
                         exit();
                     }
+                    break;
+
+                case "writeQuestion":
+                    break;
+                case "findInBase":
+                    $categories = TelegramBotData::getAllQuestionCategories();
+                    foreach ($categories as $category) {
+                        $menuCategories["inline_keyboard"] = [
+                            [
+                                [
+                                    "text" => "\xF0\x9F\x91\xA8 .$category->name",
+                                    "callback_data" => "category.$category->id",
+                                ],
+                            ],
+                        ];
+                    }
+                    $reply = "Оберiть тематику питання";
+                    $client->sendMessage($chatId, $reply, null, null, null, null, null, null, $menuCategories);
+
                     break;
                 /**
                 case 0:

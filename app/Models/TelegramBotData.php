@@ -36,4 +36,10 @@ class TelegramBotData extends Model
 
         return $country;
     }
+
+    public static function getAllQuestionCategories () {
+        $categories = DB::table('question_categories')->select()->get();
+
+        return $categories;
+    }
 }
