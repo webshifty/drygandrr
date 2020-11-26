@@ -1,0 +1,219 @@
+@font-face {
+    font-family: 'Lato';
+    src: local('Lato Regular'), local('Lato-Regular'), url('../fonts/latoregular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Lato';
+    src: local('Lato Medium'), local('Lato-Medium'), url('../fonts/latomedium.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Lato';
+    src: local('Lato Bold'), local('Lato-Bold'), url('../fonts/latobold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+
+/*  reset css */
+* {
+    box-sizing: border-box;
+}
+
+*:focus {
+    outline: none;
+}
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    font-family: 'Lato';
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+a {
+    text-decoration: none;
+    color: #004BC1;
+    font-size: 18px;
+    line-height: 22px;
+}
+
+.button {
+    background: #004BC1;
+    box-shadow: 0px 16px 24px rgba(0, 0, 0, 0.06), 0px 2px 6px rgba(0, 0, 0, 0.04), 0px 0px 1px rgba(0, 0, 0, 0.04);
+    border-radius: 4px;
+    height: 56px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    width: 100%;
+    border: none;
+    cursor: pointer;
+}
+
+::placeholder {
+    font-size: 18px;
+    color: #595959;
+}
+
+
+form {
+    margin-top: 64px;
+    max-width: 360px;
+    width: 100%;
+}
+
+form input {
+    width: 100%;
+}
+
+form h2 {
+    font-weight: 500;
+    font-size: 32px;
+    line-height: 38px;
+    text-align: center;
+    margin-bottom: 41px;
+}
+
+input,
+select {
+    background: #FFFFFF;
+    border: 1px solid #BABABA;
+    border-radius: 4px;
+    height: 56px;
+    padding: 16px;
+    font-size: 18px;
+    width: 100%;
+}
+
+.field {
+    margin-bottom: 32px;
+}
+
+.field a {
+    margin-top: 11px;
+    display: inline-block;
+}
+
+.links {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 39px;
+}
+
+
+/* // header */
+
+header {
+    height: 80px;
+    background: #004BC1;
+}
+
+.header-content {
+    max-width: 1280px;
+    margin: auto;
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    height: 100%;
+    padding: 0 15px;
+}
+
+.logo {
+    width: 203px;
+    height: 55px;
+}
+
+nav ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    display: flex;
+    height: 100%;
+}
+
+nav ul li {
+    height: 100%;
+}
+
+nav ul li a {
+    height: 100%;
+    display: block;
+    padding: 0 20px;
+    color: #fff;
+    text-decoration: none;
+}
+
+main {
+    background: #F6F8FE;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.country {
+    position: relative;
+}
+
+.country label {
+    position: absolute;
+    background: #fff;
+    font-size: 12px;
+    line-height: 0;
+    padding: 0 3px;
+    left: 20px;
+    top: -5px;
+    height: 7px;
+}
+
+/* // dashboard */
