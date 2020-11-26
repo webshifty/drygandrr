@@ -193,7 +193,7 @@ class BotController extends Controller
                         ];
                     }
                     $reply = "Оберiть тематику питання";
-                    $client->sendMessage($chatId, json_decode($menuCategories), null, null, null, null, null, null, $menuCategories);
+                    $client->sendMessage($chatId, json_decode($menuCategories), null, null, null, null, null, null, null);
 
                     break;
                 /**
@@ -210,28 +210,5 @@ class BotController extends Controller
                      **/
             }
         }
-/**
-        if (isset($update->callback_query)) {
-            $id = $update->callback_query->id;
-            $message_chat_id = $update->callback_query->message->chat->id;
-            $message_message_id = $update->callback_query->message->message_id;
-            $userId = $update->callback_query->from->id;
-            switch ($update->callback_query->data) {
-                case "whatWeather":
-                    //$city = TelegramBotData::findCity($userId);
-
-                    //if (is_null($city->city)) {
-                        $client->answerCallbackQuery($id, null, false);
-                        $reply = "Напиши название города где ты живешь?\n Это поможет подобрать твой лук учитывая погоду \xF0\x9F\x98\x8A";
-                        $client->editMessageText($message_chat_id, $message_message_id, 'city', $reply, null, null, null);
-                        exit();
-                        break;
-                    //} else {
-
-                    //}
-                    break;
-
-            }
-        }**/
     }
 }
