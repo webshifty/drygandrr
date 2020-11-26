@@ -216,7 +216,7 @@ class BotController extends Controller
                         }
                         $reply = "Оберiть тематику питання";
                         $i = 1;
-                        $reply2 = json_encode($categories[1]->name);
+                        $reply2 = json_encode($categories[1]);
                         $client->sendMessage($message_chat_id, $reply2, null, null, null, null, null, null, $menuQuestion);
                         exit();
                         break;
