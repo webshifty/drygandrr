@@ -208,8 +208,8 @@ class BotController extends Controller
                             $menuCat[] = [
                                 [
                                     [
-                                        "text" => "\xF0\x9F\x91\xA8 .$category->name",
-                                        "callback_data" => "category.$category->id",
+                                        "text" => "\xF0\x9F\x91\xA8 " .$category->name,
+                                        "callback_data" => "category" .$category->id,
                                     ],
                                 ],
                             ];
