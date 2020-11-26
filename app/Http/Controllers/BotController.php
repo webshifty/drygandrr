@@ -37,12 +37,12 @@ class BotController extends Controller
         $client = new Client(Config::get('telegram.bots.mybot.token'), false);
         $update = $client->getUpdate();
 
-/**
+
         $chatId = $client->easy->chat_id;
         $reply = "" . $client->easy->text;
         $client->sendMessage($chatId, $reply, null, null, null, null, null);
         exit();
-**/
+
         $menu = [
             'keyboard' => [
                 [
@@ -181,8 +181,9 @@ class BotController extends Controller
                     exit();
                     break;
                 case "findInBase":
-                    //$categories = TelegramBotData::getAllQuestionCategories();
                     /**
+                    //$categories = TelegramBotData::getAllQuestionCategories();
+
                     $menuCategories["inline_keyboard"] = [];
                     foreach ($categories as $category) {
                         $menuCat[] = [
