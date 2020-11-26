@@ -207,14 +207,18 @@ class BotController extends Controller
                         foreach ($categories as $category) {
                             $menuCategories["inline_keyboard"][] = [
                                 [
-                                    "text" => "\xF0\x9F\x91\xA8 " . $category->name,
+                                    "text" => "\xF0\x9F\x92\xAC " . $category->name,
                                     "callback_data" => "category" . $category->id,
                                 ],
                             ];
                         }
                         $reply = "Оберiть тематику питання";
                         $reply2 = json_encode($menuCategories["inline_keyboard"]);
-                        $client->sendMessage($message_chat_id, $reply2, null, null, null, null, null, null, $menuCategories);
+                        $client->sendMessage($message_chat_id, $reply, null, null, null, null, null, null, $menuCategories);
+                        exit();
+                        break;
+
+                    case "category<id>":
                         exit();
                         break;
                         /**
