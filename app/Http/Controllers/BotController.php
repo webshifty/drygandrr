@@ -219,7 +219,7 @@ class BotController extends Controller
 
                     case "category1":
                         $reply = "Оберiть тематику питання";
-                        $reply2 = json_encode($update->callback_query->data);
+                        $reply2 = json_encode($update->callback_query);
                         $client->sendMessage($message_chat_id, $reply2, null, null, null, null, null, null, $menuQuestion);
                         exit();
                         break;
