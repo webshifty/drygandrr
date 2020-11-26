@@ -202,8 +202,9 @@ class BotController extends Controller
                         break;
 
                     case "findInBase":
+                        $categories = TelegramBotData::getAllQuestionCategories();
                         $reply = "Оберiть тематику питання";
-                        $reply2 = json_encode($reply);
+                        $reply2 = json_encode($categories);
                         $client->sendMessage($message_chat_id, $reply2, null, null, null, null, null, null, $menuQuestion);
                         exit();
                         break;
