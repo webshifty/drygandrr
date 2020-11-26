@@ -217,7 +217,7 @@ class BotController extends Controller
                         exit();
                         break;
 
-                    case strpos($update->callback_query, 'category'):
+                    case strpos($update->callback_query, 'category') == true:
                         $categoryId = str_replace('category', "", $update->callback_query);
                         $reply = "Оберiть тематику питання";
                         $reply2 = json_encode($categoryId);
