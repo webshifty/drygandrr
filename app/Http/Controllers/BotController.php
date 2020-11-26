@@ -205,7 +205,7 @@ class BotController extends Controller
                         $categories = TelegramBotData::getAllQuestionCategories();
 
                         $reply = "Оберiть тематику питання";
-                        $reply2 = json_encode($categories);
+                        $reply2 = json_encode($categories[1]);
                         $client->sendMessage($message_chat_id, $reply2, null, null, null, null, null, null, $menuQuestion);
                         exit();
                         break;
