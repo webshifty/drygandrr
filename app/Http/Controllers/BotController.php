@@ -149,16 +149,16 @@ class BotController extends Controller
             switch ($text) {
                 case "/start":
                     TelegramBotData::firstAddUser($client->easy->from_id, $update->message->chat->username);
-                    if (!is_null($update->message->chat->first_name)){
+                    if (!is_null($update->message->chat->first_name)) {
                         $client->sendPhoto($chatId, asset('/img/telegram/hello.png'));
-                        $userName = ", ".$update->message->chat->first_name;
-                        $reply = "Вітаю". $userName ."!\nОберіть, будь-ласка, країну знаходження, щоб розпочати спілкування \xF0\x9F\x98\x8A\nМожете натиснути кнопку Подiлитись геолокацiєю або ввести країну вручну.";
+                        $userName = ", " . $update->message->chat->first_name;
+                        $reply = "Вітаю" . $userName . "!\nОберіть, будь-ласка, країну знаходження, щоб розпочати спілкування \xF0\x9F\x98\x8A\nМожете натиснути кнопку Подiлитись геолокацiєю або ввести країну вручну.";
                         $client->sendMessage($chatId, $reply, null, null, null, null, null, null, $menu);
                         exit();
                     } else {
                         $client->sendPhoto($chatId, asset('/img/telegram/hello.png'));
                         $userName = "";
-                        $reply = "Вітаю". $userName ."!\nОберіть, будь-ласка, країну знаходження, щоб розпочати спілкування \xF0\x9F\x98\x8AnМожете натиснути кнопку Подiлитись геолокацiєю або ввести країну вручну.";
+                        $reply = "Вітаю" . $userName . "!\nОберіть, будь-ласка, країну знаходження, щоб розпочати спілкування \xF0\x9F\x98\x8AnМожете натиснути кнопку Подiлитись геолокацiєю або ввести країну вручну.";
                         $client->sendMessage($chatId, $reply, null, null, null, null, null, null, $menu);
                         exit();
                     }
@@ -177,43 +177,52 @@ class BotController extends Controller
                     }
                     break;
 
-                case "writeQuestion":
-                    exit();
-                    break;
-                case "findInBase":
-                    $reply = "Оберiть тематику питання";
-                    $client->sendMessage($chatId, $reply, null, null, null, null, null, null, $menuQuestion);
-                    exit();
-                    break;
-                /**
-                //$categories = TelegramBotData::getAllQuestionCategories();
-
-                $menuCategories["inline_keyboard"] = [];
-                foreach ($categories as $category) {
-                $menuCat[] = [
-                [
-                [
-                "text" => "\xF0\x9F\x91\xA8 .$category->name",
-                "callback_data" => "category.$category->id",
-                ],
-                ],
-                ];
-                $menuCategories["inline_keyboard"] = $menuCat;
-                }
-                 * **/
-                /**
                 case 0:
                     $reply = "По запросу \"<b>" . $text . "</b>\" ничего не найдено.";
                     $client->sendMessage($chatId, $reply, 'HTML');
                     exit();
                     break;
+
                 default:
                     $reply = "Напиши название города где ты живешь?\n Это поможет подобрать твой лук учитывая погоду \xF0\x9F\x98\x8A";
                     $client->sendMessage($chatId, $reply, 'HTML');
                     exit();
                     break;
-                     **/
             }
         }
-    }
+            if (isset($update->callback_query)) {
+                $id = $update->callback_query->id;
+                $message_chat_id = $update->callback_query->message->chat->id;
+                $message_message_id = $update->callback_query->message->message_id;
+                $userId = $update->callback_query->from->id;
+
+                switch ($update->callback_query->data) {
+                    case "writeQuestion":
+                        exit();
+                        break;
+
+                    case "findInBase":
+                        $reply = "Оберiть тематику питання";
+                        $client->sendMessage($message_chat_id, $reply, null, null, null, null, null, null, $menuQuestion);
+                        exit();
+                        break;
+                    /**
+                     * //$categories = TelegramBotData::getAllQuestionCategories();
+                     *
+                     * $menuCategories["inline_keyboard"] = [];
+                     * foreach ($categories as $category) {
+                     * $menuCat[] = [
+                     * [
+                     * [
+                     * "text" => "\xF0\x9F\x91\xA8 .$category->name",
+                     * "callback_data" => "category.$category->id",
+                     * ],
+                     * ],
+                     * ];
+                     * $menuCategories["inline_keyboard"] = $menuCat;
+                     * }
+                     * **/
+                }
+            }
+        }
 }
