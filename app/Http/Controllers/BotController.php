@@ -197,7 +197,7 @@ class BotController extends Controller
                     }
                      * **/
                     $reply = "Оберiть тематику питання";
-                    $client->sendMessage($chatId, $reply, null, null, null, null, null, null );
+                    $client->sendMessage($chatId, $reply, null, null, null, null, null, null, $menuQuestion);
                     exit();
                     break;
                 /**
