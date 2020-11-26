@@ -204,13 +204,11 @@ class BotController extends Controller
                     case "findInBase":
                         $categories = TelegramBotData::getAllQuestionCategories();
                         $menuCategories["inline_keyboard"] = [];
-                        for($i=0; $i < count($categories); $i++) {
-                            $menuCategories["inline_keyboard"] = [
+                        foreach ($categories as $category) {
+                            $menuCategories["inline_keyboard"][] = [
                                 [
-                                    [
-                                        "text" => "\xF0\x9F\x91\xA8 " . $categories[$i]->name,
-                                        "callback_data" => "category" . $categories[$i]->id,
-                                    ],
+                                    "text" => "\xF0\x9F\x91\xA8 " . $category->name,
+                                    "callback_data" => "category" . $category->id,
                                 ],
                             ];
                         }
@@ -250,20 +248,18 @@ class BotController extends Controller
                      * **/
                 }
             }
-            /**
+
         $categories = TelegramBotData::getAllQuestionCategories();
         $menuCategories["inline_keyboard"] = [];
-        for($i=0; $i < count($categories); $i++) {
-            $menuCategories["inline_keyboard"] = [
-                [
+        foreach ($categories as $category) {
+            $menuCategories["inline_keyboard"][] = [
                     [
-                        "text" => "\xF0\x9F\x91\xA8 " . $categories[$i]->name,
-                        "callback_data" => "category" . $categories[$i]->id,
+                        "text" => "\xF0\x9F\x91\xA8 " . $category->name,
+                        "callback_data" => "category" . $category->id,
                     ],
-                ],
             ];
         }
         dd($menuCategories["inline_keyboard"]);
-        **/
+
         }
 }
