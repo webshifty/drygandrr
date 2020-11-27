@@ -128,8 +128,8 @@ class BotController extends Controller
                         $userQuestion = str_replace('/consul', "", $text);
                         TelegramBotData::saveUserQuestion($chatId, $client->easy->from_id, $userQuestion);
                         $client->sendPhoto($chatId, asset('/img/telegram/byebye1.png'));
-                        $reply = "В нашій базі немає відповіді на це питання. Я все передала консулу. Він повернеться з відповіддю в свої робочі години.";
-                        $client->sendMessage($chatId, $reply, null, null, null, null, null, null, $menuInBase);
+                        $reply = "В нашій базі немає відповіді на це питання. Я все передала консулу. Він повернеться з відповіддю в свої робочі години, протягом двох робочих днів.";
+                        $client->sendMessage($chatId, $reply, null, null, null, null, null, null, $menuQuestion);
                         exit();
                     } else {
                         $addCountry = TelegramBotData::addCountry($client->easy->from_id, $text);
