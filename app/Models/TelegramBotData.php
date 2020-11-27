@@ -59,15 +59,22 @@ class TelegramBotData extends Model
         if (is_null($userCountry)){
             $questions = DB::table('questions')->select('id','question')->where('category', $category)->get()->toArray();
 
+            if (empty($questions) || is_null($questions)){
+                $questions = DB::table('questions')->select('id', 'question')->take(5)->get()->toArray();
+
+                return $questions;
+            }
+
             return $questions;
         }
         $questions = DB::table('questions')->select('id','question')->where('country', $userCountry->id)->where('category', $category)->get()->toArray();
-        if (empty($questions)){
+
+        if (empty($questions) || is_null($questions)){
             $questions = DB::table('questions')->select('id', 'question')->where('country', $userCountry->id)->get()->toArray();
 
             return $questions;
         }
-        dd($questions);
+
         return $questions;
     }
 

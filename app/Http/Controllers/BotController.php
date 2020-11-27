@@ -290,5 +290,6 @@ class BotController extends Controller
         }
         dd($menuCategories && $menuWhatWear3);
 **/
+
         }
 }
