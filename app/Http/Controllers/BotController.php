@@ -55,13 +55,7 @@ class BotController extends Controller
             'resize_keyboard' => true,
             'one_time_keyboard' => true,
         ];
-        /**[
-        [
-        "text" => "\xF0\x9F\x91\xB7 Тех. поддержка \xF0\x9F\x91\xB7",
-        "url" => "https://t.me/mishikoua",
-        ],
-        ],
-         * **/
+
         $menuQuestion["inline_keyboard"] = [
             [
                 [
@@ -73,71 +67,6 @@ class BotController extends Controller
                 [
                     "text" => "\xF0\x9F\x93\x9A Шукати в базi \xF0\x9F\x93\x9A",
                     "callback_data" => "findInBase",
-                ],
-            ],
-        ];
-
-        $menuWhatWear2["inline_keyboard"] = [
-            [
-                [
-                    "text" => "\xE2\x9D\x94 Что надеть cегодня? \xE2\x9D\x94",
-                    "callback_data" => "whatWearAllParams",
-                ],
-            ],
-            [
-                [
-                    "text" => "\xE2\x98\x80 Узнать погоду \xE2\x98\x80",
-                    "callback_data" => "whatWeather",
-                ],
-            ],
-            [
-                [
-                    "text" => "\xF0\x9F\x91\x91 Статьи о моде \xF0\x9F\x91\x91",
-                    "url" => "https://umuse.info/fashion",
-                ],
-                [
-                    "text" => "\xE2\x99\x88 Гороскопы \xE2\x99\x8D",
-                    "url" => "https://umuse.info/horoscopes",
-                ],
-            ],
-            [
-                [
-                    "text" => "\xF0\x9F\x91\xB7 Тех. поддержка \xF0\x9F\x91\xB7",
-                    "url" => "https://t.me/mnadmn",
-                ],
-            ],
-        ];
-
-        $menuWhatWear3["inline_keyboard"] = [
-            [
-                [
-                    "text" => "\xF0\x9F\x98\xA8 Покажи другой вариант \xF0\x9F\x98\xA8",
-                    "callback_data" => "whatWearAllParamsRandomId",
-                ],
-            ],
-            [
-                [
-                    "text" => "\xF0\x9F\x91\x91 Статьи о моде \xF0\x9F\x91\x91",
-                    "url" => "https://umuse.info/fashion",
-                ],
-                [
-                    "text" => "\xE2\x99\x88 Гороскопы \xE2\x99\x8D",
-                    "url" => "https://umuse.info/horoscopes",
-                ],
-            ],
-            [
-                [
-                    "text" => "\xF0\x9F\x91\xB7 Тех. поддержка \xF0\x9F\x91\xB7",
-                    "url" => "https://t.me/mnadmn",
-                ],
-            ],
-        ];
-
-        $menuWeatherCityError["inline_keyboard"] = [
-            [
-                [
-                    "text" => "	\xF0\x9F\x8C\x86 Повторно ввести город \xF0\x9F\x8C\x86",
-                    "callback_data" => "whatWeather",
                 ],
             ],
         ];
@@ -175,6 +104,15 @@ class BotController extends Controller
                     } else {
                         exit();
                     }
+                    break;
+
+                case !is_null($update->message):
+
+                    $reply = "Ваша гео";
+                    $reply2 = json_encode($update->message);
+                    $client->sendMessage($chatId, $reply2, null, null, null, null, null, null, $menuQuestion);
+                    exit();
+
                     break;
 
                 case 0:
