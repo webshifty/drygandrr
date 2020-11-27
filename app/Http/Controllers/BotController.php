@@ -222,7 +222,7 @@ class BotController extends Controller
                         $categoryId = str_replace('category', "", $update->callback_query->data);
                         TelegramBotData::saveLastCategory($userId, $categoryId);
                         $questions = TelegramBotData::getQuestionByCountryByCategory($userId, $categoryId);
-                        $menuCategories["inline_keyboard"] = [];
+                        $menuQuestions["inline_keyboard"] = [];
 
                         foreach ($questions as $question) {
                             $menuQuestions["inline_keyboard"][] = [
