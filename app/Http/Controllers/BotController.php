@@ -75,9 +75,6 @@ class BotController extends Controller
             $chatId = $client->easy->chat_id;
             $text = $client->easy->text;
 
-            $reply2 = json_encode($update->callback_query);
-            $client->sendMessage($chatId, $reply2, 'HTML');
-
             switch ($text) {
                 case "/start":
                     TelegramBotData::firstAddUser($client->easy->from_id, $update->message->chat->username);
@@ -105,15 +102,8 @@ class BotController extends Controller
                         $client->sendMessage($chatId, $reply, null, null, null, null, null, null, $menuQuestion);
                         exit();
                     } else {
-                        $reply2 = json_encode($update->message);
-                        $client->sendMessage($chatId, $reply2, null, null, null, null, null, null, $menuQuestion);
                         exit();
                     }
-                    break;
-
-                case !is_null($update->edited_message->location) || !is_null($update->message->location):
-                    $reply2 = json_encode($update->edited_message);
-                    $client->sendMessage($chatId, $reply2, null, null, null, null, null, null, $menuQuestion);
                     break;
 
                 case 0:
@@ -134,10 +124,6 @@ class BotController extends Controller
                 $message_chat_id = $update->callback_query->message->chat->id;
                 $message_message_id = $update->callback_query->message->message_id;
                 $userId = $update->callback_query->from->id;
-
-                    $reply2 = json_encode($update->callback_query);
-                    $reply = "Напиши название города где ты живешь?\n  \xF0\x9F\x98\x8A";
-                    $client->sendMessage($message_chat_id, $reply2, 'HTML');
 
                 switch ($update->callback_query->data) {
                     case "writeQuestion":
@@ -187,13 +173,6 @@ class BotController extends Controller
                         $answer = TelegramBotData::getAnswerById($questionId);
                         $client->sendPhoto($message_chat_id, asset('/img/telegram/byebye.png'));
                         $client->sendMessage($message_chat_id, $answer->answer, null, null, null, null, null, null, $menuQuestion);
-                        exit();
-                        break;
-
-                    default:
-                        $reply2 = json_encode($update->callback_query);
-                        $reply = "Напиши название города где ты живешь?\n  \xF0\x9F\x98\x8A";
-                        $client->sendMessage($message_chat_id, $reply2, 'HTML');
                         exit();
                         break;
                 }
