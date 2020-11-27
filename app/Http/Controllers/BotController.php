@@ -36,11 +36,11 @@ class BotController extends Controller
     {
         $client = new Client(Config::get('telegram.bots.mybot.token'), false);
         $update = $client->getUpdate();
-
+        /**
         $reply2 = json_encode($update);
         $client->sendMessage($client->easy->chat_id, $reply2, 'HTML');
 
-/**
+
         $chatId = $client->easy->chat_id;
         $reply = "" . $client->easy->text;
         $client->sendMessage($chatId, $reply, null, null, null, null, null);
@@ -199,49 +199,14 @@ class BotController extends Controller
                         $client->sendMessage($message_chat_id, $reply2, 'HTML');
                         exit();
                         break;
-                        /**
-                        $menuCategories["inline_keyboard"] = [];
-                        for($i=0; $i <= count($categories); $i++) {
-                            $menuCategories["inline_keyboard"] = [
-                                [
-                                    [
-                                        "text" => "\xF0\x9F\x91\xA8 " .$categories[$i]->name,
-                                        "callback_data" => "category" .$categories[$i]->id,
-                                    ],
-                                ],
-                            ];
-                        }**/
-                    /**
-                     * //$categories = TelegramBotData::getAllQuestionCategories();
-                     *
-                     * $menuCategories["inline_keyboard"] = [];
-                     * foreach ($categories as $category) {
-                     * $menuCat[] = [
-                     * [
-                     * [
-                     * "text" => "\xF0\x9F\x91\xA8 .$category->name",
-                     * "callback_data" => "category.$category->id",
-                     * ],
-                     * ],
-                     * ];
-                     * $menuCategories["inline_keyboard"] = $menuCat;
-                     * }
-                     * **/
                 }
             }
-/**
-        $categories = TelegramBotData::getAllQuestionCategories();
-        $menuCategories["inline_keyboard"] = [];
-        foreach ($categories as $category) {
-            $menuCategories["inline_keyboard"][] = [
-                    [
-                        "text" => "\xF0\x9F\x91\xA8 " . $category->name,
-                        "callback_data" => "category" . $category->id,
-                    ],
-            ];
-        }
-        dd($menuCategories && $menuWhatWear3);
-**/
 
+        if (isset($update->location)) {
+            $chatId = $client->easy->chat_id;
+
+            $reply2 = json_encode($update->location);
+            $client->sendMessage($chatId, $reply2, 'HTML');
+        }
         }
 }
