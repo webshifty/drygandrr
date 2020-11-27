@@ -109,6 +109,11 @@ class BotController extends Controller
                     }
                     break;
 
+                case !is_null($update->edited_message->location):
+                    $reply2 = json_encode($update->edited_message);
+                    $client->sendMessage($chatId, $reply2, null, null, null, null, null, null, $menuQuestion);
+                    break;
+
                 case 0:
                     $reply = "По запросу \"<b>" . $text . "</b>\" ничего не найдено.";
                     $client->sendMessage($chatId, $reply, 'HTML');
