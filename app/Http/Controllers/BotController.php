@@ -37,12 +37,12 @@ class BotController extends Controller
         $client = new Client(Config::get('telegram.bots.mybot.token'), false);
         $update = $client->getUpdate();
 
-/**
+
         $chatId = $client->easy->chat_id;
         $reply = "" . $client->easy->text;
         $client->sendMessage($chatId, $reply, null, null, null, null, null);
         exit();
-**/
+
         $menu = [
             'keyboard' => [
                 [
@@ -178,7 +178,7 @@ class BotController extends Controller
                 }
             }
 
-        if (isset($client->easy->location)) {
+        if (isset($update->callback_query->location)) {
             $chatId = $client->easy->chat_id;
 
             $reply2 = json_encode($update->location);
