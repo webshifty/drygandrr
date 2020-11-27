@@ -115,8 +115,8 @@ class BotController extends Controller
                     break;
 
                 case !is_null($update->message->text):
-                    if (strpos($text, '/consul')) {
-                        $userQuestion = str_replace('/consul', "", $text);
+                    if (strpos($text, 'consul')) {
+                        $userQuestion = str_replace('consul', "", $text);
                         $client->sendPhoto($chatId, asset('/img/telegram/byebye1.png'));
                         $reply = "Я все передала консулу. Він повернеться з відповіддю в свої робочі години.";
                         $reply2 = json_encode($userQuestion);
