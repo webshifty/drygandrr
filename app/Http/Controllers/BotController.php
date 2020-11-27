@@ -77,9 +77,12 @@ class BotController extends Controller
         if (isset($update->message) or isset($update->edited_message)) {
             $chatId = $client->easy->chat_id;
             $text = $client->easy->text;
-            $reply2 = json_encode($update->message->location);
-            $client->sendMessage($client->easy->chat_id, $reply2, 'HTML');
-            exit();
+
+            if (isset($update->message->location)){
+                $reply2 = json_encode($update->message->location->latitude);
+                $client->sendMessage($client->easy->chat_id, $reply2, 'HTML');
+                exit();
+            }
             switch ($text) {
                 case "/start":
                     TelegramBotData::firstAddUser($client->easy->from_id, $update->message->chat->username);
