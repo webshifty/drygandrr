@@ -36,11 +36,11 @@ class BotController extends Controller
     {
         $client = new Client(Config::get('telegram.bots.mybot.token'), false);
         $update = $client->getUpdate();
-
+        /**
         $reply2 = json_encode($update->callback_query);
         $client->sendMessage($client->easy->chat_id, $reply2, 'HTML');
         exit();
-/**
+
         $chatId = $client->easy->chat_id;
         $reply = "" . $client->easy->text;
         $client->sendMessage($chatId, $reply, null, null, null, null, null);
@@ -77,7 +77,9 @@ class BotController extends Controller
         if (isset($update->message) or isset($update->edited_message)) {
             $chatId = $client->easy->chat_id;
             $text = $client->easy->text;
-
+            $reply2 = json_encode($update->message);
+            $client->sendMessage($client->easy->chat_id, $reply2, 'HTML');
+            exit();
             switch ($text) {
                 case "/start":
                     TelegramBotData::firstAddUser($client->easy->from_id, $update->message->chat->username);
