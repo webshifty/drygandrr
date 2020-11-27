@@ -204,6 +204,7 @@ class BotController extends Controller
                     case "findInBase":
                         $categories = TelegramBotData::getAllQuestionCategories();
                         $menuCategories["inline_keyboard"] = [];
+
                         foreach ($categories as $category) {
                             $menuCategories["inline_keyboard"][] = [
                                 [
@@ -221,6 +222,8 @@ class BotController extends Controller
                         $categoryId = str_replace('category', "", $update->callback_query->data);
                         TelegramBotData::saveLastCategory($userId, $categoryId);
                         $questions = TelegramBotData::getQuestionByCountryByCategory($userId, $categoryId);
+                        $menuCategories["inline_keyboard"] = [];
+
                         foreach ($questions as $question) {
                             $menuQuestions["inline_keyboard"][] = [
                                 [
@@ -231,7 +234,7 @@ class BotController extends Controller
                         }
                         $reply = "Оберiть питання яке вас цiкавить";
                         $reply2 = json_encode($categoryId);
-                        $client->sendMessage($message_chat_id, $reply2, null, null, null, null, null, null, $menuQuestions);
+                        $client->sendMessage($message_chat_id, $reply, null, null, null, null, null, null, $menuQuestions);
                         exit();
                         break;
 

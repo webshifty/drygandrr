@@ -57,11 +57,11 @@ class TelegramBotData extends Model
         $userCountry = DB::table('tg_users')->select('tg_users.country', 'countries.id')->where('tg_id', $userId)->join('countries', 'name', 'LIKE', 'tg_users.country')->first();
 
         if (is_null($userCountry)){
-            $questions = DB::table('questions')->select('question')->where('category', $category)->get()->toArray();
+            $questions = DB::table('questions')->select('id','question')->where('category', $category)->get()->toArray();
 
             return $questions;
         }
-        $questions = DB::table('questions')->select('question')->where('country', $userCountry->id)->where('category', $category)->get()->toArray();
+        $questions = DB::table('questions')->select('id','question')->where('country', $userCountry->id)->where('category', $category)->get()->toArray();
         if (empty($questions)){
             $questions = DB::table('questions')->select('id', 'question')->where('country', $userCountry->id)->get()->toArray();
 
