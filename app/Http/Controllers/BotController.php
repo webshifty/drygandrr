@@ -126,10 +126,11 @@ class BotController extends Controller
                 case !is_null($update->message->text):
                     if (strpos($text, '/consul') !== false) {
                         $userQuestion = str_replace('/consul', "", $text);
-                        //TelegramBotData::saveUserQuestion($chatId, $client->easy->from_id, $userQuestion);
+                        $base = TelegramBotData::saveUserQuestion($chatId, $client->easy->from_id, $userQuestion);
                         $client->sendPhoto($chatId, asset('/img/telegram/byebye1.png'));
-                        $reply = "Я все передала консулу. Він повернеться з відповіддю в свої робочі години.";
-                        $client->sendMessage($chatId, $userQuestion, null, null, null, null, null, null, $menuInBase);
+                        $reply2 = json_encode($base);
+                        $reply = "В нашій базі немає відповіді на це питання. Я все передала консулу. Він повернеться з відповіддю в свої робочі години.";
+                        $client->sendMessage($chatId, $reply2, null, null, null, null, null, null, $menuInBase);
                         exit();
                     } else {
                         $addCountry = TelegramBotData::addCountry($client->easy->from_id, $text);

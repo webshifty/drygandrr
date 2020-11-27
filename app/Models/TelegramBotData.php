@@ -95,7 +95,7 @@ class TelegramBotData extends Model
             'user_question' => $question,
             'country' => $userData->country,
             'question_category' => $userData->category_id,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
         ];
         DB::table('users_questions')->insert($data);
     }
