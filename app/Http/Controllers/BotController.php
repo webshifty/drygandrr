@@ -98,11 +98,12 @@ class BotController extends Controller
 
                     if ($addCountry == true) {
                         $client->sendPhoto($chatId, asset('/img/telegram/have_question.png'));
-                        $reply2 = json_encode($update->message);
                         $reply = "Країна обрана";
-                        $client->sendMessage($chatId, $reply2, null, null, null, null, null, null, $menuQuestion);
+                        $client->sendMessage($chatId, $reply, null, null, null, null, null, null, $menuQuestion);
                         exit();
                     } else {
+                        $reply2 = json_encode($update->message);
+                        $client->sendMessage($chatId, $reply2, null, null, null, null, null, null, $menuQuestion);
                         exit();
                     }
                     break;
@@ -114,7 +115,7 @@ class BotController extends Controller
                     break;
 
                 default:
-                    $reply = "Напиши название города где ты живешь?\n Это поможет подобрать твой лук учитывая погоду \xF0\x9F\x98\x8A";
+                    $reply = "Напиши название города где ты живешь?\n  \xF0\x9F\x98\x8A";
                     $client->sendMessage($chatId, $reply, 'HTML');
                     exit();
                     break;
@@ -179,7 +180,7 @@ class BotController extends Controller
 
                     default:
                         $reply2 = json_encode($update->callback_query);
-                        $reply = "Напиши название города где ты живешь?\n Это поможет подобрать твой лук учитывая погоду \xF0\x9F\x98\x8A";
+                        $reply = "Напиши название города где ты живешь?\n  \xF0\x9F\x98\x8A";
                         $client->sendMessage($message_chat_id, $reply2, 'HTML');
                         exit();
                         break;
