@@ -84,4 +84,19 @@ class TelegramBotData extends Model
 
         return $answer;
     }
+
+    public static function saveUserQuestion($chatId, $userId, $question)
+    {
+        $userData = DB::table('tg_users')->where('tg_id', $userId)->first();
+        $data = [
+            'chat_id' => $chatId,
+            'tg_id' => $userId,
+            'tg_username' => $userData->tg_username,
+            'user_question' => $question,
+            'country' => $userData->country,
+            'question_category' => $userData->category_id,
+            'created_at' => Carbon::now()
+        ];
+        DB::table('users_questions')->insert($data);
+    }
 }

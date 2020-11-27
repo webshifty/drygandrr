@@ -74,6 +74,15 @@ class BotController extends Controller
             ],
         ];
 
+        $menuInBase["inline_keyboard"] = [
+            [
+                [
+                    "text" => "\xF0\x9F\x93\x9A Шукати в базi \xF0\x9F\x93\x9A",
+                    "callback_data" => "findInBase",
+                ],
+            ],
+        ];
+
         if (isset($update->message) or isset($update->edited_message)) {
             $chatId = $client->easy->chat_id;
             $text = $client->easy->text;
@@ -117,10 +126,10 @@ class BotController extends Controller
                 case !is_null($update->message->text):
                     if (strpos($text, '/consul') !== false) {
                         $userQuestion = str_replace('/consul', "", $text);
+                        TelegramBotData::saveUserQuestion($chatId, $client->easy->from_id, $userQuestion);
                         $client->sendPhoto($chatId, asset('/img/telegram/byebye1.png'));
                         $reply = "Я все передала консулу. Він повернеться з відповіддю в свої робочі години.";
-                        $reply2 = json_encode($userQuestion);
-                        $client->sendMessage($chatId, $reply2, null, null, null, null, null, null, $menuQuestion);
+                        $client->sendMessage($chatId, $reply, null, null, null, null, null, null, $menuInBase);
                         exit();
                     } else {
                         $addCountry = TelegramBotData::addCountry($client->easy->from_id, $text);
@@ -151,15 +160,6 @@ class BotController extends Controller
                 $userId = $update->callback_query->from->id;
 
                 switch ($update->callback_query->data) {
-                    case strpos($update->callback_query->data, '/consul'):
-                        $userQuestion = str_replace('/consul', "", $update->callback_query->data);
-                        $client->sendPhoto($message_chat_id, asset('/img/telegram/byebye1.png'));
-                        $reply = "Я все передала консулу. Він повернеться з відповіддю в свої робочі години.";
-                        $reply2 = json_encode($userQuestion);
-                        $client->sendMessage($message_chat_id, $reply, null, null, null, null, null, null, $menuQuestion);
-                        exit();
-                        break;
-
                     case "writeQuestion":
                         $reply = "Введіть ваше запитання консулу. Починайте текст питання з команди /consul Далі питання";
                         $client->sendMessage($message_chat_id, $reply, null, null, null, null, null, null, $menuQuestion);
@@ -215,13 +215,5 @@ class BotController extends Controller
                         break;
                 }
             }
-/**
-        if (isset($update->callback_query->location)) {
-            $chatId = $client->easy->chat_id;
-
-            $reply2 = json_encode($update->location);
-            $client->sendMessage($chatId, $reply2, 'HTML');
-        }
- * */
         }
 }
