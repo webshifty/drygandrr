@@ -115,23 +115,25 @@ class BotController extends Controller
                     break;
 
                 case !is_null($update->message->text):
-                    $addCountry = TelegramBotData::addCountry($client->easy->from_id, $text);
-
-                    if ($addCountry == true) {
-                        $client->sendPhoto($chatId, asset('/img/telegram/have_question1.png'));
-                        $reply = $text . " - Країна обрана";
-                        $client->sendMessage($chatId, $reply, null, null, null, null, null, null, $menuQuestion);
+                    if (strpos($update->message->text, '/consul')) {
+                        $userQuestion = str_replace('/consul', "", $update->message->text);
+                        $client->sendPhoto($chatId, asset('/img/telegram/byebye1.png'));
+                        $reply = "Я все передала консулу. Він повернеться з відповіддю в свої робочі години.";
+                        $reply2 = json_encode($userQuestion);
+                        $client->sendMessage($chatId, $reply2, null, null, null, null, null, null, $menuQuestion);
                         exit();
                     } else {
-                        if (strpos($update->message->text, '/consul')){
-                            $userQuestion = str_replace('/consul', "", $update->message->text);
-                            $client->sendPhoto($chatId, asset('/img/telegram/byebye1.png'));
-                            $reply = "Я все передала консулу. Він повернеться з відповіддю в свої робочі години.";
-                            $reply2 = json_encode($userQuestion);
-                            $client->sendMessage($chatId, $reply2, null, null, null, null, null, null, $menuQuestion);
+                        $addCountry = TelegramBotData::addCountry($client->easy->from_id, $text);
+
+                        if ($addCountry == true) {
+                            $client->sendPhoto($chatId, asset('/img/telegram/have_question1.png'));
+                            $reply = $text . " - Країна обрана";
+                            $client->sendMessage($chatId, $reply, null, null, null, null, null, null, $menuQuestion);
+                            exit();
+                        } else {
+
                             exit();
                         }
-                        exit();
                     }
                     break;
 
