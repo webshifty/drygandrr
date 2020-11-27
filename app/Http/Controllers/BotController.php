@@ -227,7 +227,7 @@ class BotController extends Controller
                         foreach ($questions as $question) {
                             $menuQuestions["inline_keyboard"][] = [
                                 [
-                                    "text" => "\xF0\x9F\x92\xAC " . $question->question,
+                                    "text" => "\xE2\x9D\x94 " . $question->question,
                                     "callback_data" => "question" . $question->id,
                                 ],
                             ];
@@ -243,8 +243,14 @@ class BotController extends Controller
 
                         $answer = TelegramBotData::getAnswerById($questionId);
                         $client->sendPhoto($message_chat_id, asset('/img/telegram/byebye.png'));
-                        $reply = "Оберiть питання яке вас цiкавить";
                         $client->sendMessage($message_chat_id, $answer->answer, null, null, null, null, null, null, $menuQuestion);
+                        exit();
+                        break;
+
+                    default:
+                        $reply2 = json_encode($update->callback_query);
+                        $reply = "Напиши название города где ты живешь?\n Это поможет подобрать твой лук учитывая погоду \xF0\x9F\x98\x8A";
+                        $client->sendMessage($message_chat_id, $reply2, 'HTML');
                         exit();
                         break;
                         /**
