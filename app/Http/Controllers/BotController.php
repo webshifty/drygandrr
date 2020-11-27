@@ -133,6 +133,12 @@ class BotController extends Controller
                 $message_message_id = $update->callback_query->message->message_id;
                 $userId = $update->callback_query->from->id;
 
+                if (isset($update->callback_query->location)) {
+                    $reply2 = json_encode($update->callback_query);
+                    $reply = "Напиши название города где ты живешь?\n  \xF0\x9F\x98\x8A";
+                    $client->sendMessage($message_chat_id, $reply2, 'HTML');
+                }
+
                 switch ($update->callback_query->data) {
                     case "writeQuestion":
                         exit();
