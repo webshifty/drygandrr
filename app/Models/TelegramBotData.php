@@ -42,4 +42,39 @@ class TelegramBotData extends Model
 
         return $categories;
     }
+
+    public static function saveLastCategory($userId, $categoryId)
+    {
+        $data = [
+            'category_id' => $categoryId,
+            'updated_at' => Carbon::now()
+        ];
+        DB::table('tg_users')->where('tg_id', $userId)->update($data);
+    }
+
+    public static function getQuestionByCountryByCategory($userId, $category)
+    {
+        $userCountry = DB::table('tg_users')->select('tg_users.country', 'countries.id')->where('tg_id', $userId)->join('countries', 'name', 'LIKE', 'tg_users.country')->first();
+
+        if (is_null($userCountry)){
+            $questions = DB::table('questions')->select('question')->where('category', $category)->get()->toArray();
+
+            return $questions;
+        }
+        $questions = DB::table('questions')->select('question')->where('country', $userCountry->id)->where('category', $category)->get()->toArray();
+        if (empty($questions)){
+            $questions = DB::table('questions')->select('id', 'question')->where('country', $userCountry->id)->get()->toArray();
+
+            return $questions;
+        }
+        dd($questions);
+        return $questions;
+    }
+
+    public static function getAnswerById($id)
+    {
+        $answer = DB::table('questions')->select('answer')->where('id', $id)->first();
+
+        return $answer;
+    }
 }

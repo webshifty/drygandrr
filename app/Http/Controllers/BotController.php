@@ -219,9 +219,29 @@ class BotController extends Controller
 
                     case strpos($update->callback_query->data, 'category'):
                         $categoryId = str_replace('category', "", $update->callback_query->data);
-                        $reply = "Оберiть тематику питання";
+                        TelegramBotData::saveLastCategory($userId, $categoryId);
+                        $questions = TelegramBotData::getQuestionByCountryByCategory($userId, $categoryId);
+                        foreach ($questions as $question) {
+                            $menuQuestions["inline_keyboard"][] = [
+                                [
+                                    "text" => "\xF0\x9F\x92\xAC " . $question->question,
+                                    "callback_data" => "question" . $question->id,
+                                ],
+                            ];
+                        }
+                        $reply = "Оберiть питання яке вас цiкавить";
                         $reply2 = json_encode($categoryId);
-                        $client->sendMessage($message_chat_id, $reply2, null, null, null, null, null, null, $menuQuestion);
+                        $client->sendMessage($message_chat_id, $reply2, null, null, null, null, null, null, $menuQuestions);
+                        exit();
+                        break;
+
+                    case strpos($update->callback_query->data, 'question'):
+                        $questionId = str_replace('question', "", $update->callback_query->data);
+
+                        $answer = TelegramBotData::getAnswerById($questionId);
+                        $client->sendPhoto($message_chat_id, asset('/img/telegram/byebye.png'));
+                        $reply = "Оберiть питання яке вас цiкавить";
+                        $client->sendMessage($message_chat_id, $answer->answer, null, null, null, null, null, null, $menuQuestion);
                         exit();
                         break;
                         /**

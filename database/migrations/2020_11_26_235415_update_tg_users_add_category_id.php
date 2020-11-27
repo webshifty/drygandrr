@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class UpdateQuestionsAddAnswers extends Migration
+class UpdateTgUsersAddCategoryId extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class UpdateQuestionsAddAnswers extends Migration
      */
     public function up()
     {
-        Schema::table('questions', function (Blueprint $table) {
-            $table->longText('answer')->after('question');
+        Schema::table('tg_users', function (Blueprint $table) {
+            $table->integer('category_id')->after('country')->default(0);
         });
     }
 
