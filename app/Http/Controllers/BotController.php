@@ -132,12 +132,6 @@ class BotController extends Controller
                     $client->sendMessage($chatId, $reply, 'HTML');
                     exit();
                     break;
-
-                default:
-                    $reply = "Напиши название города где ты живешь?\n  \xF0\x9F\x98\x8A";
-                    $client->sendMessage($chatId, $reply, 'HTML');
-                    exit();
-                    break;
             }
         }
             if (isset($update->callback_query)) {
@@ -163,6 +157,7 @@ class BotController extends Controller
                                 ],
                             ];
                         }
+                        $client->sendPhoto($message_chat_id, asset('/img/telegram/it_is_our_base.png'));
                         $reply = "Оберiть тематику питання";
                         $client->sendMessage($message_chat_id, $reply, null, null, null, null, null, null, $menuCategories);
                         exit();
@@ -182,6 +177,7 @@ class BotController extends Controller
                                 ],
                             ];
                         }
+                        $client->sendPhoto($message_chat_id, asset('/img/telegram/search_in_base.png'));
                         $reply = "Оберiть питання яке вас цiкавить";
                         $reply2 = json_encode($categoryId);
                         $client->sendMessage($message_chat_id, $reply, null, null, null, null, null, null, $menuQuestions);
