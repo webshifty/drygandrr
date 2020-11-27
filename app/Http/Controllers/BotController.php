@@ -62,7 +62,7 @@ class BotController extends Controller
         $menuQuestion["inline_keyboard"] = [
             [
                 [
-                    "text" => "\xE2\x9D\x93 Задати питання? \xE2\x9D\x93",
+                    "text" => "\xE2\x9D\x93 Задати питання Консулу \xE2\x9D\x93",
                     "callback_data" => "writeQuestion",
                 ],
             ],
@@ -142,6 +142,9 @@ class BotController extends Controller
 
                 switch ($update->callback_query->data) {
                     case "writeQuestion":
+                        $client->sendPhoto($message_chat_id, asset('/img/telegram/byebye.png'));
+                        $reply2 = json_encode("Я все передала консулу");
+                        $client->sendMessage($message_chat_id, $reply2, null, null, null, null, null, null, $menuQuestions);
                         exit();
                         break;
 
