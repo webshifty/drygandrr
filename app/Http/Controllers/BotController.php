@@ -141,10 +141,17 @@ class BotController extends Controller
                 $userId = $update->callback_query->from->id;
 
                 switch ($update->callback_query->data) {
-                    case "writeQuestion":
+                    case strpos($update->callback_query->data, 'consul'):
+                        $userQuestion = str_replace('/consul', "", $update->callback_query->data);
                         $client->sendPhoto($message_chat_id, asset('/img/telegram/byebye1.png'));
                         $reply = "Я все передала консулу. Він повернеться з відповіддю в свої робочі години.";
-                        $reply2 = json_encode("Я все передала консулу");
+                        $reply2 = json_encode($userQuestion);
+                        $client->sendMessage($message_chat_id, $reply, null, null, null, null, null, null, $menuQuestion);
+                        exit();
+                        break;
+
+                    case "writeQuestion":
+                        $reply = "Введіть ваше запитання консулу. Починайте текст питання з команди /consul Далі питання";
                         $client->sendMessage($message_chat_id, $reply, null, null, null, null, null, null, $menuQuestion);
                         exit();
                         break;
