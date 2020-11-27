@@ -144,7 +144,7 @@ class BotController extends Controller
                     case "writeQuestion":
                         $client->sendPhoto($message_chat_id, asset('/img/telegram/byebye1.png'));
                         $reply2 = json_encode("Я все передала консулу");
-                        $client->sendMessage($message_chat_id, $reply2, null, null, null, null, null, null, $menuQuestions);
+                        $client->sendMessage($message_chat_id, $reply2, null, null, null, null, null, null, $menuQuestion);
                         exit();
                         break;
 
