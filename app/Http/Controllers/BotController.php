@@ -143,8 +143,9 @@ class BotController extends Controller
                 switch ($update->callback_query->data) {
                     case "writeQuestion":
                         $client->sendPhoto($message_chat_id, asset('/img/telegram/byebye1.png'));
+                        $reply = "Я все передала консулу. Він повернеться з відповіддю в свої робочі години.";
                         $reply2 = json_encode("Я все передала консулу");
-                        $client->sendMessage($message_chat_id, $reply2, null, null, null, null, null, null, $menuQuestion);
+                        $client->sendMessage($message_chat_id, $reply, null, null, null, null, null, null, $menuQuestion);
                         exit();
                         break;
 
