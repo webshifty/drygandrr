@@ -20,6 +20,7 @@
 /*  reset css */
 * {
     box-sizing: border-box;
+    transition: .4s;
 }
 
 *:focus {
@@ -221,14 +222,22 @@ main {
 
 .wrapper {
     position: relative;
+    height: 100%;
+    background: #F6F8FE;
 }
 
 .sidebar {
     width: 256px;
     height: 100%;
     position: absolute;
+    background-color: #fff;
     left: 0;
     top: 0;
+    box-shadow: 6px 0px 18px rgba(0, 0, 0, 0.06);
+}
+
+.search {
+    background-color: #fff;
 }
 
 .top {
@@ -244,8 +253,113 @@ main {
     left: 256px;
     bottom: 0;
     right: 0;
+    padding: 36px;
 }
 
 table {
-    width: 100%
+    width: 100%;
+    background-color: #fff;
+}
+
+th,td {
+    padding: 11px 32px;
+    border-bottom: 1px solid #EBEFF2;
+    text-align: left;
+    letter-spacing: 0.01em;
+    font-size: 14px;
+
+}
+
+th {
+    line-height: 17px;
+    color: #252525;
+}
+
+td {
+    line-height: 19px;
+    color: #595959;
+}
+
+.sidebar-content  > span {
+    color: #004BC1;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 22px;
+    border-bottom: 1px solid #EBEFF2;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    padding: 0 24px;
+}
+
+.sidebar-content .nav {
+    display: flex;
+    flex-direction: column;
+    min-height: 200px;
+    border-bottom: 1px solid #EBEFF2;
+}
+
+.sidebar-content .nav a {
+    display: flex;
+    align-items: center;
+    padding: 10px 24px;
+    font-size: 14px;
+    line-height: 17px;
+    letter-spacing: 0.01em;
+    color: #595959;
+}
+
+.sidebar-content .nav a.active {
+    border-left: 3px solid #004BC1;
+    background-color: #F6F8FE;
+    color: #252525;
+}
+
+.sidebar-content .nav a svg {
+    margin-right: 14px;
+}
+
+.user {
+    padding: 24px 15px;
+    display: flex;
+    align-items: center;
+}
+
+.user-name {
+    font-size: 14px;
+    line-height: 17px;
+}
+
+.user-email {
+    font-size: 12px;
+    line-height: 14px;
+}
+
+.settings {
+    padding: 22px 24px;
+}
+
+.settings a {
+    display: flex;
+    align-items: center;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 17px;
+    letter-spacing: 0.01em;
+    color: #595959;
+}
+
+.settings a svg {
+    margin-right: 14px;
+}
+
+.action-block {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.action-block button {
+    width: 160px;
+    height: 42px;
+    margin-bottom: 14px;
 }
