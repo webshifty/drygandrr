@@ -99,7 +99,7 @@ class BotController extends Controller
 
                     if ($addCountry == true) {
                         $client->sendPhoto($chatId, asset('/img/telegram/have_question.png'));
-                        $reply = "Країна обрана";
+                        $reply = $text . " - Країна обрана";
                         $client->sendMessage($chatId, $reply, null, null, null, null, null, null, $menuQuestion);
                         exit();
                     } else {
@@ -109,7 +109,7 @@ class BotController extends Controller
                     }
                     break;
 
-                case !is_null($update->edited_message->location):
+                case !is_null($update->edited_message->location) || !is_null($update->message->location):
                     $reply2 = json_encode($update->edited_message);
                     $client->sendMessage($chatId, $reply2, null, null, null, null, null, null, $menuQuestion);
                     break;
