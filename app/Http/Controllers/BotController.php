@@ -36,16 +36,14 @@ class BotController extends Controller
     {
         $client = new Client(Config::get('telegram.bots.mybot.token'), false);
         $update = $client->getUpdate();
-        /**
-        $reply2 = json_encode($update);
-        $client->sendMessage($client->easy->chat_id, $reply2, 'HTML');
+
 
 
         $chatId = $client->easy->chat_id;
         $reply = "" . $client->easy->text;
         $client->sendMessage($chatId, $reply, null, null, null, null, null);
         exit();
-**/
+
         $menu = [
             'keyboard' => [
                 [
