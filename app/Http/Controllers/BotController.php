@@ -81,9 +81,20 @@ class BotController extends Controller
             if (isset($update->message->location)){
                 $weatherJson = @file_get_contents("http://api.openweathermap.org/data/2.5/weather?lat=" . $update->message->location->latitude . "&lon=" . $update->message->location->longitude . "&appid=" . Config::get('constants.weatherKey') . "&lang=ru&units=metric");
                 $country = json_decode($weatherJson, true);
-                $reply2 = json_encode($country['sys']['country']);
-                $client->sendMessage($client->easy->chat_id, $reply2, 'HTML');
-                exit();
+
+                if ($country['sys']['country'] == 'UA'){
+                    $text = 'Україна';
+                }
+                $addCountry = TelegramBotData::addCountry($client->easy->from_id, $text);
+
+                if ($addCountry == true) {
+                    $client->sendPhoto($chatId, asset('/img/telegram/have_question.png'));
+                    $reply = $text . " - Країна обрана";
+                    $client->sendMessage($chatId, $reply, null, null, null, null, null, null, $menuQuestion);
+                    exit();
+                } else {
+                    exit();
+                }
             }
             switch ($text) {
                 case "/start":
