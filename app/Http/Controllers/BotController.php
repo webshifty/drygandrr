@@ -78,17 +78,18 @@ class BotController extends Controller
             switch ($text) {
                 case "/start":
                     TelegramBotData::firstAddUser($client->easy->from_id, $update->message->chat->username);
+                    $reply2 = json_encode($update->message);
                     if (!is_null($update->message->chat->first_name)) {
                         $client->sendPhoto($chatId, asset('/img/telegram/hello.png'));
                         $userName = ", " . $update->message->chat->first_name;
                         $reply = "Вітаю" . $userName . "!\nОберіть, будь-ласка, країну знаходження, щоб розпочати спілкування \xF0\x9F\x98\x8A\nМожете натиснути кнопку Подiлитись геолокацiєю або ввести країну вручну.";
-                        $client->sendMessage($chatId, $reply, null, null, null, null, null, null, $menu);
+                        $client->sendMessage($chatId, $reply2, null, null, null, null, null, null, $menu);
                         exit();
                     } else {
                         $client->sendPhoto($chatId, asset('/img/telegram/hello.png'));
                         $userName = "";
                         $reply = "Вітаю" . $userName . "!\nОберіть, будь-ласка, країну знаходження, щоб розпочати спілкування \xF0\x9F\x98\x8AnМожете натиснути кнопку Подiлитись геолокацiєю або ввести країну вручну.";
-                        $client->sendMessage($chatId, $reply, null, null, null, null, null, null, $menu);
+                        $client->sendMessage($chatId, $reply2, null, null, null, null, null, null, $menu);
                         exit();
                     }
                     break;
