@@ -79,7 +79,9 @@ class BotController extends Controller
             $text = $client->easy->text;
 
             if (isset($update->message->location)){
-                $reply2 = json_encode($update->message->location->latitude);
+                $weatherJson = @file_get_contents("http://api.openweathermap.org/data/2.5/weather?lat=" . $update->message->location->latitude . "&lon=" . $update->message->location->longitude . "&appid=" . Config::get('constants.weatherKey') . "&lang=ru&units=metric");
+                $country = json_decode($weatherJson, true);
+                $reply2 = json_encode($country['sys']['country']);
                 $client->sendMessage($client->easy->chat_id, $reply2, 'HTML');
                 exit();
             }
