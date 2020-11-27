@@ -178,7 +178,7 @@ class BotController extends Controller
                 }
             }
 
-        if (isset($update->location)) {
+        if (isset($client->easy->location)) {
             $chatId = $client->easy->chat_id;
 
             $reply2 = json_encode($update->location);
