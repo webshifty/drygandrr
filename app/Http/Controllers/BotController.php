@@ -127,6 +127,15 @@ class BotController extends Controller
                     }
                     break;
 
+                case strpos($update->message->text, '/consul'):
+                    $userQuestion = str_replace('/consul', "", $update->message->text);
+                    $client->sendPhoto($chatId, asset('/img/telegram/byebye1.png'));
+                    $reply = "Я все передала консулу. Він повернеться з відповіддю в свої робочі години.";
+                    $reply2 = json_encode($userQuestion);
+                    $client->sendMessage($chatId, $reply2, null, null, null, null, null, null, $menuQuestion);
+                    exit();
+                    break;
+
                 case 0:
                     $reply = "По запросу \"<b>" . $text . "</b>\" ничего не найдено.";
                     $client->sendMessage($chatId, $reply, 'HTML');
