@@ -62,7 +62,7 @@ class BotController extends Controller
         $menuQuestion["inline_keyboard"] = [
             [
                 [
-                    "text" => "\xE2\x9D\x93 Задати питання Консулу \xE2\x9D\x93",
+                    "text" => "\xE2\x9D\x93 Задати питання \xE2\x9D\x93",
                     "callback_data" => "writeQuestion",
                 ],
             ],
@@ -161,7 +161,7 @@ class BotController extends Controller
 
                 switch ($update->callback_query->data) {
                     case "writeQuestion":
-                        $reply = "Введіть ваше запитання консулу. Починайте текст питання з команди /consul Далі питання";
+                        $reply = "Введіть ваше запитання. Починайте текст питання з команди /consul Далі питання";
                         $client->sendMessage($message_chat_id, $reply, null, null, null, null, null, null, $menuQuestion);
                         exit();
                         break;
@@ -193,7 +193,7 @@ class BotController extends Controller
                         foreach ($questions as $question) {
                             $menuQuestions["inline_keyboard"][] = [
                                 [
-                                    "text" => "\xE2\x9D\x94 " . $question->question,
+                                    "text" => $question->question,
                                     "callback_data" => "question" . $question->id,
                                 ],
                             ];
