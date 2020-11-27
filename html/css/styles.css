@@ -115,7 +115,7 @@ form {
     width: 100%;
 }
 
-form input {
+form input:not([type=checkbox]) {
     width: 100%;
 }
 
@@ -127,7 +127,7 @@ form h2 {
     margin-bottom: 41px;
 }
 
-input,
+input:not([type=checkbox]),
 select {
     background: #FFFFFF;
     border: 1px solid #BABABA;
@@ -203,11 +203,11 @@ main {
     justify-content: center;
 }
 
-.country {
+.styling-label {
     position: relative;
 }
 
-.country label {
+.styling-label label {
     position: absolute;
     background: #fff;
     font-size: 12px;
@@ -324,6 +324,9 @@ td {
     display: flex;
     align-items: center;
 }
+.user img {
+    margin-right: 14px;
+}
 
 .user-name {
     font-size: 14px;
@@ -362,4 +365,76 @@ td {
     width: 160px;
     height: 42px;
     margin-bottom: 14px;
+}
+
+.js-tab-content {
+    display: none;
+}
+
+.js-tab-content.active {
+    display: block;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    left: 140px;
+    right: 140px;
+    top: 140px;
+    bottom: 140px;
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 52px 78px;
+    z-index: 10;
+}
+
+.overlay {
+    display: none;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(4px);
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.fieldset {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.fieldset .field {
+    width: 30%;
+}
+
+.fieldset .field input,
+.fieldset .field select {
+    width: 100%;
+}
+
+.modal form {
+    max-width: none;
+    margin: 0;
+}
+
+h3 {
+    margin-bottom: 40px;
+}
+
+.actions {
+    display: flex;
+    margin-top: 30px;
+}
+
+.actions .button {
+    width: 200px;
+    margin-right: 14px;
+}
+
+.button.secondary {
+    background: #fff;
+    color: #004BC1;
+    border: 1px solid #004BC1;
 }
