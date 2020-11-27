@@ -115,7 +115,7 @@ class BotController extends Controller
                     break;
 
                 case !is_null($update->message->text):
-                    if (strpos($update->message->text, '/consul')) {
+                    if (strpos($update->message->text, '/consul') != false) {
                         $userQuestion = str_replace('/consul', "", $update->message->text);
                         $client->sendPhoto($chatId, asset('/img/telegram/byebye1.png'));
                         $reply = "Я все передала консулу. Він повернеться з відповіддю в свої робочі години.";
@@ -215,12 +215,13 @@ class BotController extends Controller
                         break;
                 }
             }
-
+/**
         if (isset($update->callback_query->location)) {
             $chatId = $client->easy->chat_id;
 
             $reply2 = json_encode($update->location);
             $client->sendMessage($chatId, $reply2, 'HTML');
         }
+ * */
         }
 }
