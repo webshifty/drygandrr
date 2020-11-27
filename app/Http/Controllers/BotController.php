@@ -37,7 +37,7 @@ class BotController extends Controller
         $client = new Client(Config::get('telegram.bots.mybot.token'), false);
         $update = $client->getUpdate();
 
-        $reply2 = json_encode($update->message);
+        $reply2 = json_encode($update->callback_query);
         $client->sendMessage($client->easy->chat_id, $reply2, 'HTML');
         exit();
 /**
