@@ -75,6 +75,9 @@ class BotController extends Controller
             $chatId = $client->easy->chat_id;
             $text = $client->easy->text;
 
+            $reply2 = json_encode($update->callback_query);
+            $client->sendMessage($chatId, $reply2, 'HTML');
+
             switch ($text) {
                 case "/start":
                     TelegramBotData::firstAddUser($client->easy->from_id, $update->message->chat->username);
