@@ -98,21 +98,13 @@ class BotController extends Controller
 
                     if ($addCountry == true) {
                         $client->sendPhoto($chatId, asset('/img/telegram/have_question.png'));
+                        $reply2 = json_encode($update->message);
                         $reply = "Країна обрана";
-                        $client->sendMessage($chatId, $reply, null, null, null, null, null, null, $menuQuestion);
+                        $client->sendMessage($chatId, $reply2, null, null, null, null, null, null, $menuQuestion);
                         exit();
                     } else {
                         exit();
                     }
-                    break;
-
-                case !is_null($update->message):
-
-                    $reply = "Ваша гео";
-                    $reply2 = json_encode($update->message);
-                    $client->sendMessage($chatId, $reply2, null, null, null, null, null, null, $menuQuestion);
-                    exit();
-
                     break;
 
                 case 0:
