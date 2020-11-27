@@ -77,7 +77,7 @@ class BotController extends Controller
         if (isset($update->message) or isset($update->edited_message)) {
             $chatId = $client->easy->chat_id;
             $text = $client->easy->text;
-            $reply2 = json_encode($update->message);
+            $reply2 = json_encode($update->message->location);
             $client->sendMessage($client->easy->chat_id, $reply2, 'HTML');
             exit();
             switch ($text) {
