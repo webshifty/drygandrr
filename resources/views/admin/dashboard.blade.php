@@ -310,7 +310,10 @@
             <div class="modal-body"></div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Відміна</button>
-                <a class="btn btn-primary" href="{{ url('/') }}">Вийти з системи</a>
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button class="btn btn-primary" href="{{ route('logout') }}">Вийти з системи</button>
+                </form>
             </div>
         </div>
     </div>

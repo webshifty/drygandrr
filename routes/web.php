@@ -25,8 +25,8 @@ Route::post('/bot/getupdates', BotController::income());
 //})->name('dashboard');
 
 Route::get('bot', [BotController::class, 'income']);
-Route::get('/dashboard', [BaseController::class, 'dashboard']);
+Route::get('/dashboard', [BaseController::class, 'dashboard'])->name('requests');
 Route::post('/a/update_lead', [BaseController::class, 'updateUserQuestionInfo']);
-Route::get('/q_base', [BaseController::class, 'questionBase']);
+Route::get('/q_base', [BaseController::class, 'questionBase'])->name('questions');
 Route::post('/a/add_new_qa', [BaseController::class, 'saveNewQA']);
 Route::post('/a/update_qa', [BaseController::class, 'updateQABase']);

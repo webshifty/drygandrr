@@ -22,7 +22,7 @@ class BaseController extends Controller
             'userInfo' => $userInfo,
         ];
 
-        return view('admin.dashboard', ['data' => $data]);
+        return view('admin.dashboard.questions', ['data' => $data]);
     }
 
     public static function updateUserQuestionInfo(Request $request)
@@ -48,7 +48,7 @@ class BaseController extends Controller
             'questionCategories' => $questionCategories,
         ];
 
-        return view('admin.q_base', ['data' => $data]);
+        return view('admin.dashboard.requests', ['data' => $data]);
     }
 
     public function saveNewQA(Request $request)
