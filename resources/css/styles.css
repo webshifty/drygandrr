@@ -326,17 +326,6 @@ td {
     margin-right: 14px;
 }
 
-.action-block {
-    display: flex;
-    justify-content: flex-end;
-}
-
-.action-block button {
-    width: 160px;
-    height: 42px;
-    margin-bottom: 14px;
-}
-
 .js-tab-content {
     display: none;
 }

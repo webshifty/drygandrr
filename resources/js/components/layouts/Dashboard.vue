@@ -6,7 +6,7 @@
 		</div>
 		<div class="main">
 			<div class="top">
-				<SearchBar />
+				<SearchBar @search="$emit('search', $event)" />
 			</div>	
 			<div class="content active" data-tab="1">
 				<Alert />

@@ -32,13 +32,14 @@
 		</a>
 	</div>
 	<div class="sidebar-bottom">
-		<button class="sidebar-bottom__button" href="#">Вийти з системи</button>
+		<button class="sidebar-bottom__button" href="#" @click="logout">Вийти з системи</button>
 	</div>
 </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
+import requestService from '../../services/requestService';
 
 export default {
 	name: 'Sidebar',
@@ -54,6 +55,10 @@ export default {
 	methods: {
 		isPage(page) {
 			return this.routeName === page;
+		},
+		async logout() {
+			await requestService.post(this.routes.logout);
+			location.href = '/';
 		}
 	}
 }

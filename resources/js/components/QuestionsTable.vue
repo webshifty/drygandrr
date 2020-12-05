@@ -1,7 +1,25 @@
 <template>
 	<div>
 		<div class="action-block">
-			<button class="button" v-on:click.prevent="onAdd">Додати</button>
+			<div class="action-block__right">
+				<div class="dropdown">
+					<label for="filter-country">Країна:</label>
+					<select id="filter-country" :value="filter.country" @change="onFilterCountry">
+						<option value="">Усі</option>
+						<option v-for="country in countries" :key="country.id" :value="country.id">{{country.name}}</option>
+					</select>
+				</div>
+				<div class="dropdown">
+					<label for="filter-category">Категорія:</label>
+					<select id="filter-category" :value="filter.category" @change="onFilterCategory">
+						<option value="">Усі</option>
+						<option v-for="category in categories" :key="category.id" :value="category.id">{{category.name}}</option>
+					</select>
+				</div>
+			</div>
+			<div class="action-block__left">
+				<button class="button" v-on:click.prevent="onAdd">Додати</button>
+			</div>
 		</div>
 		<div class="questions-block">
 			<table class="table">
@@ -41,10 +59,14 @@
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
-
 	computed: {
 		...mapGetters('questions', [
 			'questions',
+			'filter',
+		]),
+		...mapGetters('page', [
+			'countries',
+			'categories',
 		]),
 	},
 
@@ -54,6 +76,7 @@ export default {
 		]),
 		...mapActions('questions', [
 			'getQuestions',
+			'changeFilter',
 		]),
 		
 		onEdit(questionId) {
@@ -83,6 +106,20 @@ export default {
 				payload: {
 					questionId
 				},
+			});
+		},
+
+		async onFilterCountry(e) {
+			await this.changeFilter({
+				filter: 'country',
+				value: e.target.value,
+			});
+		},
+
+		async onFilterCategory(e) {
+			await this.changeFilter({
+				filter: 'category',
+				value: e.target.value,
 			});
 		}
 	},
@@ -121,4 +158,46 @@ export default {
 .table__row:hover .table__icon.delete .table__icon-image {
 	display: block;
 }
+
+.action-block {
+	display: flex;
+	align-items: stretch;
+}
+
+.action-block__right,
+.action-block__left {
+	width: 50%;
+}
+
+.action-block__left {
+	text-align: right;
+}
+
+.action-block button {
+    width: 160px;
+    height: 42px;
+    margin-bottom: 14px;
+}
+
+.dropdown {
+	font-size: 14px;
+	display: inline-block;
+	margin-right: 25px;
+}
+
+.dropdown label {
+	color: #575757;
+}
+
+.dropdown select {
+	display: inline-block;
+    width: auto;
+    padding: 2px;
+	height: 36px;
+	font-size: 14px;
+	background-color: transparent;
+	color: #004BC1;
+	border: none;
+}
+
 </style>

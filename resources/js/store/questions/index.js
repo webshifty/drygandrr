@@ -6,6 +6,11 @@ export default {
 	namespaced: true,
 	state: () => ({
 		questions: [],
+		filter: {
+			country: '',
+			category: '',
+			search: '',
+		}
 	}),
 	actions,
 	mutations,

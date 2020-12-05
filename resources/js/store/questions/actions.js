@@ -1,9 +1,17 @@
 import questionService from "../../services/questionService";
-import { SET_QUESTIONS, ADD_QUESTION, UPDATE_QUESTION, DELETE_QUESTION } from "./types";
+import {
+	SET_QUESTIONS,
+	ADD_QUESTION,
+	UPDATE_QUESTION,
+	DELETE_QUESTION,
+	CHANGE_FILTER,
+} from "./types";
 
 export default {
-	async getQuestions({ commit }) {
-		const response = await questionService.getQuestions();
+	async getQuestions({ commit, state }) {
+		const response = await questionService.getQuestions(
+			state.filter
+		);
 
 		commit(SET_QUESTIONS, {
 			questions: response.data,
@@ -30,5 +38,11 @@ export default {
 		await questionService.deleteQuestion(questionId);
 
 		commit(DELETE_QUESTION, questionId);
+	},
+
+	async changeFilter({ commit, dispatch }, { filter, value }) {
+		commit(CHANGE_FILTER, { filter, value });
+
+		await dispatch('getQuestions');
 	}
 };

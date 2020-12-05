@@ -8,13 +8,21 @@ use App\Actions\Questions\UpdateQuestion;
 use App\Actions\Questions\CreateQuestion;
 use App\Actions\Questions\DeleteQuestion;
 use App\Actions\Questions\DTO\Question;
+use App\Actions\Questions\DTO\FilterQuestion;
 use Illuminate\Http\Request;
 
 class QuestionsController extends Controller
 {
-    public function questions(GetQuestions $getQuestions)
+    public function questions(Request $request, GetQuestions $getQuestions)
     {
-        $questions = $getQuestions->execute();
+        $filterData = $request->input('filter') ?? [];
+        $questions = $getQuestions->execute(
+            new FilterQuestion(
+                $filterData['country'] ?? null,
+                $filterData['category'] ?? null,
+                $filterData['search'] ?? '',
+            )
+        );
 
         return $this->success($questions);
     }

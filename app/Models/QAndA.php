@@ -4,8 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Query\Builder;
 
 class QAndA extends Model
 {
@@ -36,7 +36,14 @@ class QAndA extends Model
 
     public static function getAllQuestions ()
     {
-        $questions = DB::table('questions')->select(
+        $questions = self::questionsBuilder()->get();
+
+        return $questions;
+    }
+
+    public static function questionsBuilder(): Builder
+    {
+        return DB::table('questions')->select(
             'questions.id',
             'questions.country',
             'questions.category',
@@ -49,10 +56,7 @@ class QAndA extends Model
         )
         ->join('countries', 'countries.id', '=', 'questions.country')
         ->join('question_categories', 'question_categories.id', '=', 'questions.category')
-        ->orderByDesc('created_at')
-        ->get();
-
-        return $questions;
+        ->orderByDesc('created_at');
     }
 
     public static function getAllCountries ()
