@@ -1,5 +1,5 @@
 import questionService from "../../services/questionService";
-import { SET_QUESTIONS, ADD_QUESTION, UPDATE_QUESTION } from "./types";
+import { SET_QUESTIONS, ADD_QUESTION, UPDATE_QUESTION, DELETE_QUESTION } from "./types";
 
 export default {
 	async getQuestions({ commit }) {
@@ -24,5 +24,11 @@ export default {
 		commit(UPDATE_QUESTION, {
 			question: response.data,
 		});
+	},
+
+	async deleteQuestion({ commit }, questionId) {
+		await questionService.deleteQuestion(questionId);
+
+		commit(DELETE_QUESTION, questionId);
 	}
 };

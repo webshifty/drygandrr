@@ -381,30 +381,6 @@ td {
     display: block;
 }
 
-.modal {
-    display: none;
-    position: fixed;
-    left: 140px;
-    right: 140px;
-    top: 140px;
-    bottom: 140px;
-    background-color: #fff;
-    border-radius: 12px;
-    padding: 52px 78px;
-    z-index: 10;
-}
-
-.overlay {
-    display: none;
-    background: rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(4px);
-    position: fixed;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-}
-
 .fieldset {
     display: flex;
     align-items: center;

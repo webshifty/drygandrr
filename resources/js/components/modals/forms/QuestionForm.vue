@@ -1,5 +1,5 @@
 <template>
-<form action="">
+<form action="" class="form">
 	<h3>Надати відповідь</h3>
 	<div class="fieldset ">
 		<div class="field styling-label">
@@ -21,14 +21,14 @@
 	</div>
 	<div class="field styling-label">
 		<label>Відповідь</label>
-		<textarea name="answer" v-model="question.answer"></textarea>
+		<textarea class="textarea" name="answer" v-model="question.answer"></textarea>
 	</div>
 	<div class="field-checkbox">
 		<label>Додавати в базу</label>
 		<input type="checkbox" name="add" v-model="question.publish" >
 	</div>
 	<div class="actions">
-		<button class="button" v-on:click.prevent="onSave">Надіслати</button>
+		<button class="button" :disabled="disableButton" v-on:click.prevent="onSave">Надіслати</button>
 		<button class="button secondary close" v-on:click.prevent="onCancel">Відхилити</button>
 	</div>
 </form>
@@ -39,7 +39,8 @@ import { mapGetters } from 'vuex';
 
 export default {
 	props: {
-		data: Object
+		data: Object,
+		disableButton: Boolean
 	},
 	data() {
 		return {
@@ -71,3 +72,19 @@ export default {
 	}
 }
 </script>
+
+<style scoped>
+.textarea {
+	background: #FFFFFF;
+    border: 1px solid #BABABA;
+    border-radius: 4px;
+    padding: 16px;
+	font-size: 18px;
+	width: 100%;
+	resize: none;
+	height: 200px;
+}
+.form {
+	min-width: 800px;
+}
+</style>

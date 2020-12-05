@@ -36,4 +36,5 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
     Route::get('questions', [QuestionsController::class, 'questions']);
     Route::post('questions', [QuestionsController::class, 'addQuestion']);
     Route::put('questions/{id}', [QuestionsController::class, 'updateQuestion']);
+    Route::delete('questions/{id}', [QuestionsController::class, 'deleteQuestion']);
 });

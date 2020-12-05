@@ -25,6 +25,10 @@ export default {
 		};
 	},
 
+	async deleteQuestion(id) {
+		await requestService.delete('/api/questions/' + id);
+	},
+
 	mapQuestion(question) {
 		return {
 			id: question.id,

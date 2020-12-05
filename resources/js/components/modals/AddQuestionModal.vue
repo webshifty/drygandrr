@@ -1,6 +1,7 @@
 <template>
 <QuestionForm
 	:data="data"
+	:disableButton="sending"
 	v-on:save="onSave"
 	v-on:cancel="onClose"
 />
@@ -17,14 +18,26 @@ export default {
 	props: {
 		data: Object,
 	},
+	data() {
+		return {
+			sending: false,
+		};
+	},
 	methods: {
 		...mapActions('questions', [
 			'createQuestion'
 		]),
 
 		async onSave(data) {
-			await this.createQuestion(data);
-			this.$emit('close');
+			try {
+				this.sending = true;
+				await this.createQuestion(data);
+			} catch (error) {
+				throw error;
+			} finally {
+				this.sending = false;
+				this.$emit('close');
+			}
 		},
 
 		onClose() {
