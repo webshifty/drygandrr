@@ -1,5 +1,10 @@
 import questionService from "../../services/questionService";
-import { SET_QUESTIONS, ADD_QUESTION, UPDATE_QUESTION } from "./types";
+import {
+	SET_QUESTIONS,
+	ADD_QUESTION,
+	UPDATE_QUESTION,
+	DELETE_QUESTION,
+} from "./types";
 
 export default {
 	[SET_QUESTIONS]: (state, { questions }) => {
@@ -25,5 +30,9 @@ export default {
 			questionService.mapQuestion(question),
 			...state.questions.slice(questionIndex + 1),
 		];
+	},
+
+	[DELETE_QUESTION]: (state, questionId) => {
+		state.questions = state.questions.filter(({ id }) => id !== questionId);
 	}
 };

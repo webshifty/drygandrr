@@ -18,4 +18,9 @@ class Controller extends BaseController
             'data' => $response->toArray(),
         ]);
     }
+
+    public function empty()
+    {
+        return response()->json([]);
+    }
 }

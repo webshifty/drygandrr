@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Actions\Questions\GetQuestions;
 use App\Actions\Questions\UpdateQuestion;
 use App\Actions\Questions\CreateQuestion;
+use App\Actions\Questions\DeleteQuestion;
 use App\Actions\Questions\DTO\Question;
 use Illuminate\Http\Request;
 
@@ -50,5 +51,12 @@ class QuestionsController extends Controller
         );
 
         return $this->success($response);
+    }
+
+    public function deleteQuestion(int $id, DeleteQuestion $deleteQuestion)
+    {
+        $deleteQuestion->execute($id);
+
+        return $this->empty();
     }
 }
