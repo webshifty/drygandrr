@@ -4,10 +4,14 @@
 		<div class="sidebar">
 			<Sidebar />
 		</div>
-		<SearchBar />
-		<div class="content active" data-tab="1">
-			<Alert />
-			<slot></slot>
+		<div class="main">
+			<div class="top">
+				<SearchBar />
+			</div>	
+			<div class="content active" data-tab="1">
+				<Alert />
+				<slot></slot>
+			</div>
 		</div>
 	</div>
 	<Modal />
@@ -38,3 +42,36 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.wrapper {
+    height: 100vh;
+	background: #F6F8FE;
+	display: flex;
+	align-items: stretch;
+}
+
+.sidebar {
+	min-width: 256px;
+    height: 100vh;
+    background-color: #fff;
+	box-shadow: 6px 0px 18px rgba(0, 0, 0, 0.06);
+	z-index: 2;
+}
+
+.main {
+	width: 100%;
+}
+
+.search {
+    background-color: #fff;
+}
+
+.top {
+    height: 60px;
+}
+
+.content {
+    padding: 36px;
+}
+</style>

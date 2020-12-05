@@ -220,42 +220,6 @@ main {
 
 /* // dashboard */
 
-.wrapper {
-    position: relative;
-    height: 100%;
-    background: #F6F8FE;
-}
-
-.sidebar {
-    width: 256px;
-    height: 100%;
-    position: absolute;
-    background-color: #fff;
-    left: 0;
-    top: 0;
-    box-shadow: 6px 0px 18px rgba(0, 0, 0, 0.06);
-}
-
-.search {
-    background-color: #fff;
-}
-
-.top {
-    left: 256px;
-    height: 60px;
-    position: absolute;
-    right: 0;
-}
-
-.content {
-    position: absolute;
-    top: 60px;
-    left: 256px;
-    bottom: 0;
-    right: 0;
-    padding: 36px;
-}
-
 table {
     width: 100%;
     background-color: #fff;
