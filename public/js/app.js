@@ -4858,7 +4858,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".table__row[data-v-5f37152c]:hover {\n  background-color: #fafafe;\n}\n.table__header--control[data-v-5f37152c] {\n  width: 120px;\n}\n.table__header--questions[data-v-5f37152c] {\n  width: 300px;\n}\n.table__icon[data-v-5f37152c] {\n  display: inline-block;\n  width: 16px;\n  height: 16px;\n}\n.table__icon.delete[data-v-5f37152c] {\n  margin-right: 15px;\n}\n.table__icon.delete .table__icon-image[data-v-5f37152c] {\n  display: none;\n}\n.table__row:hover .table__icon.delete .table__icon-image[data-v-5f37152c] {\n  display: block;\n}\n.action-block[data-v-5f37152c] {\n  display: flex;\n  align-items: stretch;\n}\n.action-block__right[data-v-5f37152c],\n.action-block__left[data-v-5f37152c] {\n  width: 50%;\n}\n.action-block__left[data-v-5f37152c] {\n  text-align: right;\n}\n.action-block button[data-v-5f37152c] {\n  width: 160px;\n  height: 42px;\n  margin-bottom: 14px;\n}\n.dropdown[data-v-5f37152c] {\n  font-size: 14px;\n  display: inline-block;\n  margin-right: 25px;\n}\n.dropdown label[data-v-5f37152c] {\n  color: #575757;\n}\n.dropdown select[data-v-5f37152c] {\n  display: inline-block;\n  width: auto;\n  padding: 2px;\n  height: 36px;\n  font-size: 14px;\n  background-color: transparent;\n  color: #004BC1;\n  border: none;\n}\n\n", ""]);
+exports.push([module.i, ".table__row[data-v-5f37152c]:hover {\n  background-color: #fafafe;\n}\n.table__header--control[data-v-5f37152c] {\n  width: 120px;\n}\n.table__header--questions[data-v-5f37152c] {\n  width: 300px;\n}\n.table__icon[data-v-5f37152c] {\n  display: inline-block;\n  width: 16px;\n  height: 16px;\n}\n.table__icon.delete[data-v-5f37152c] {\n  margin-right: 15px;\n}\n.table__icon.delete .table__icon-image[data-v-5f37152c] {\n  display: none;\n}\n.table__row:hover .table__icon.delete .table__icon-image[data-v-5f37152c] {\n  display: block;\n}\n.action-block[data-v-5f37152c] {\n  display: flex;\n  align-items: stretch;\n}\n.action-block__right[data-v-5f37152c] {\n  width: 25%;\n  text-align: right;\n}\n.action-block__left[data-v-5f37152c] {\n  width: 75%;\n}\n.action-block button[data-v-5f37152c] {\n  width: 160px;\n  height: 42px;\n  margin-bottom: 14px;\n}\n.dropdown[data-v-5f37152c] {\n  font-size: 14px;\n  display: inline-block;\n  max-width: 50%;\n}\n.dropdown--left[data-v-5f37152c] {\n  padding-left: 25px;\n}\n.dropdown label[data-v-5f37152c] {\n  color: #575757;\n}\n.dropdown select[data-v-5f37152c] {\n  display: inline-block;\n  width: auto;\n  padding: 2px;\n  height: 36px;\n  font-size: 14px;\n  background-color: transparent;\n  color: #004BC1;\n  border: none;\n  max-width: 200px;\n}\n\n", ""]);
 
 // exports
 
@@ -35029,7 +35029,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("div", { staticClass: "action-block" }, [
-      _c("div", { staticClass: "action-block__right" }, [
+      _c("div", { staticClass: "action-block__left" }, [
         _c("div", { staticClass: "dropdown" }, [
           _c("label", { attrs: { for: "filter-country" } }, [
             _vm._v("Країна:")
@@ -35057,7 +35057,7 @@ var render = function() {
           )
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "dropdown" }, [
+        _c("div", { staticClass: "dropdown dropdown--left" }, [
           _c("label", { attrs: { for: "filter-category" } }, [
             _vm._v("Категорія:")
           ]),
@@ -35085,7 +35085,7 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "action-block__left" }, [
+      _c("div", { staticClass: "action-block__right" }, [
         _c(
           "button",
           {

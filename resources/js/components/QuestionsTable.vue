@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div class="action-block">
-			<div class="action-block__right">
+			<div class="action-block__left">
 				<div class="dropdown">
 					<label for="filter-country">Країна:</label>
 					<select id="filter-country" :value="filter.country" @change="onFilterCountry">
@@ -9,7 +9,7 @@
 						<option v-for="country in countries" :key="country.id" :value="country.id">{{country.name}}</option>
 					</select>
 				</div>
-				<div class="dropdown">
+				<div class="dropdown dropdown--left">
 					<label for="filter-category">Категорія:</label>
 					<select id="filter-category" :value="filter.category" @change="onFilterCategory">
 						<option value="">Усі</option>
@@ -17,7 +17,7 @@
 					</select>
 				</div>
 			</div>
-			<div class="action-block__left">
+			<div class="action-block__right">
 				<button class="button" v-on:click.prevent="onAdd">Додати</button>
 			</div>
 		</div>
@@ -164,13 +164,12 @@ export default {
 	align-items: stretch;
 }
 
-.action-block__right,
-.action-block__left {
-	width: 50%;
-}
-
-.action-block__left {
+.action-block__right {
+	width: 25%;
 	text-align: right;
+}
+.action-block__left {
+	width: 75%;
 }
 
 .action-block button {
@@ -182,7 +181,11 @@ export default {
 .dropdown {
 	font-size: 14px;
 	display: inline-block;
-	margin-right: 25px;
+	max-width: 50%;
+}
+
+.dropdown--left {
+	padding-left: 25px;
 }
 
 .dropdown label {
@@ -198,6 +201,7 @@ export default {
 	background-color: transparent;
 	color: #004BC1;
 	border: none;
+	max-width: 200px;
 }
 
 </style>
