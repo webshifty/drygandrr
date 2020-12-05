@@ -8,6 +8,7 @@
 
 <script>
 import QuestionForm from './forms/QuestionForm.vue'
+import { mapActions } from 'vuex';
 
 export default {
 	components: {
@@ -17,8 +18,12 @@ export default {
 		data: Object,
 	},
 	methods: {
-		onSave(data) {
-			console.log(data);
+		...mapActions('questions', [
+			'updateQuestion'
+		]),
+
+		async onSave(data) {
+			await this.updateQuestion(data);
 			this.$emit('close');
 		},
 

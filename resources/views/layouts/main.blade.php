@@ -15,7 +15,10 @@
 			routes: {
 				questions: "{{ route('questions') }}",
 				requests: "{{ route('requests') }}",
-			}
+			},
+			userInfo: @json($data['userInfo']),
+			countries: @json($data['countries']),
+			categories: @json($data['categories']),
 		};
 	</script>
 	<div id="app">

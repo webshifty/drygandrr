@@ -61,7 +61,7 @@ export default {
 
 			this.showModal({
 				type: 'editQuestions',
-				payload: question,
+				payload: {...question},
 			});
 		},
 		onAdd() {
@@ -72,7 +72,8 @@ export default {
 					category: '',
 					status: "",
 					question: "",
-					answer: ""
+					answer: "",
+					publish: false,
 				}
 			});
 		}

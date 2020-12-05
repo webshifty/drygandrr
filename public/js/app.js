@@ -3901,7 +3901,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
       this.showModal({
         type: 'editQuestions',
-        payload: question
+        payload: _objectSpread({}, question)
       });
     },
     onAdd: function onAdd() {
@@ -3912,7 +3912,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           category: '',
           status: "",
           question: "",
-          answer: ""
+          answer: "",
+          publish: false
         }
       });
     }
@@ -4192,7 +4193,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _forms_QuestionForm_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./forms/QuestionForm.vue */ "./resources/js/components/modals/forms/QuestionForm.vue");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _forms_QuestionForm_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./forms/QuestionForm.vue */ "./resources/js/components/modals/forms/QuestionForm.vue");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -4202,22 +4218,41 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    QuestionForm: _forms_QuestionForm_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+    QuestionForm: _forms_QuestionForm_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   props: {
     data: Object
   },
-  methods: {
+  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])('questions', ['createQuestion'])), {}, {
     onSave: function onSave(data) {
-      console.log(data);
-      this.$emit('close');
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return _this.createQuestion(data);
+
+              case 2:
+                _this.$emit('close');
+
+              case 3:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
     },
     onClose: function onClose() {
       this.$emit('close');
     }
-  }
+  })
 });
 
 /***/ }),
@@ -4231,7 +4266,22 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _forms_QuestionForm_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./forms/QuestionForm.vue */ "./resources/js/components/modals/forms/QuestionForm.vue");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _forms_QuestionForm_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./forms/QuestionForm.vue */ "./resources/js/components/modals/forms/QuestionForm.vue");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -4241,22 +4291,41 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    QuestionForm: _forms_QuestionForm_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+    QuestionForm: _forms_QuestionForm_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   props: {
     data: Object
   },
-  methods: {
+  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapActions"])('questions', ['updateQuestion'])), {}, {
     onSave: function onSave(data) {
-      console.log(data);
-      this.$emit('close');
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return _this.updateQuestion(data);
+
+              case 2:
+                _this.$emit('close');
+
+              case 3:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
     },
     onClose: function onClose() {
       this.$emit('close');
     }
-  }
+  })
 });
 
 /***/ }),
@@ -4312,6 +4381,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -4354,10 +4424,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     data: Object
@@ -4365,22 +4432,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   data: function data() {
     return {
       question: {
+        id: this.data.id,
         country: this.data.country,
         category: this.data.category,
-        status: this.data.status,
         question: this.data.question,
-        answer: this.data.answer
-      },
-      categories: ["Австрія", "Китай"],
-      statuses: ["Виконується", "Новий"],
-      toDb: false
+        answer: this.data.answer,
+        publish: this.data.publish
+      }
     };
   },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])('page', ['countries', 'categories'])),
   methods: {
     onSave: function onSave() {
-      this.$emit('save', _objectSpread(_objectSpread({}, this.question), {}, {
-        toDb: this.toDb
-      }));
+      this.$emit('save', _objectSpread({}, this.question));
     },
     onCancel: function onCancel() {
       this.$emit('cancel');
@@ -35027,26 +35091,42 @@ var render = function() {
       _c("div", { staticClass: "field styling-label" }, [
         _c("label", [_vm._v("Країна")]),
         _vm._v(" "),
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.question.country,
-              expression: "question.country"
-            }
-          ],
-          attrs: { name: "country", type: "text" },
-          domProps: { value: _vm.question.country },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
+        _c(
+          "select",
+          {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.question.country,
+                expression: "question.country"
               }
-              _vm.$set(_vm.question, "country", $event.target.value)
+            ],
+            on: {
+              change: function($event) {
+                var $$selectedVal = Array.prototype.filter
+                  .call($event.target.options, function(o) {
+                    return o.selected
+                  })
+                  .map(function(o) {
+                    var val = "_value" in o ? o._value : o.value
+                    return val
+                  })
+                _vm.$set(
+                  _vm.question,
+                  "country",
+                  $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                )
+              }
             }
-          }
-        })
+          },
+          _vm._l(_vm.countries, function(country, key) {
+            return _c("option", { key: key, domProps: { value: country.id } }, [
+              _vm._v(_vm._s(country.name))
+            ])
+          }),
+          0
+        )
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "field styling-label" }, [
@@ -35082,46 +35162,11 @@ var render = function() {
             }
           },
           _vm._l(_vm.categories, function(category, key) {
-            return _c("option", { key: key }, [_vm._v(_vm._s(category))])
-          }),
-          0
-        )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "field styling-label" }, [
-        _c("label", [_vm._v("Статус")]),
-        _vm._v(" "),
-        _c(
-          "select",
-          {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.question.status,
-                expression: "question.status"
-              }
-            ],
-            on: {
-              change: function($event) {
-                var $$selectedVal = Array.prototype.filter
-                  .call($event.target.options, function(o) {
-                    return o.selected
-                  })
-                  .map(function(o) {
-                    var val = "_value" in o ? o._value : o.value
-                    return val
-                  })
-                _vm.$set(
-                  _vm.question,
-                  "status",
-                  $event.target.multiple ? $$selectedVal : $$selectedVal[0]
-                )
-              }
-            }
-          },
-          _vm._l(_vm.statuses, function(status, key) {
-            return _c("option", { key: key }, [_vm._v(_vm._s(status))])
+            return _c(
+              "option",
+              { key: key, domProps: { value: category.id } },
+              [_vm._v(_vm._s(category.name))]
+            )
           }),
           0
         )
@@ -35186,32 +35231,36 @@ var render = function() {
           {
             name: "model",
             rawName: "v-model",
-            value: _vm.toDb,
-            expression: "toDb"
+            value: _vm.question.publish,
+            expression: "question.publish"
           }
         ],
         attrs: { type: "checkbox", name: "add" },
         domProps: {
-          checked: Array.isArray(_vm.toDb)
-            ? _vm._i(_vm.toDb, null) > -1
-            : _vm.toDb
+          checked: Array.isArray(_vm.question.publish)
+            ? _vm._i(_vm.question.publish, null) > -1
+            : _vm.question.publish
         },
         on: {
           change: function($event) {
-            var $$a = _vm.toDb,
+            var $$a = _vm.question.publish,
               $$el = $event.target,
               $$c = $$el.checked ? true : false
             if (Array.isArray($$a)) {
               var $$v = null,
                 $$i = _vm._i($$a, $$v)
               if ($$el.checked) {
-                $$i < 0 && (_vm.toDb = $$a.concat([$$v]))
+                $$i < 0 && _vm.$set(_vm.question, "publish", $$a.concat([$$v]))
               } else {
                 $$i > -1 &&
-                  (_vm.toDb = $$a.slice(0, $$i).concat($$a.slice($$i + 1)))
+                  _vm.$set(
+                    _vm.question,
+                    "publish",
+                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                  )
               }
             } else {
-              _vm.toDb = $$c
+              _vm.$set(_vm.question, "publish", $$c)
             }
           }
         }
@@ -49640,14 +49689,63 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }, _callee);
     }))();
   },
+  createQuestion: function createQuestion(question) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+      var response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.next = 2;
+              return _requestService__WEBPACK_IMPORTED_MODULE_1__["default"].post('/api/questions', question);
+
+            case 2:
+              response = _context2.sent;
+              return _context2.abrupt("return", (response === null || response === void 0 ? void 0 : response.data) || {
+                data: []
+              });
+
+            case 4:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }))();
+  },
+  updateQuestion: function updateQuestion(id, question) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+      var response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              _context3.next = 2;
+              return _requestService__WEBPACK_IMPORTED_MODULE_1__["default"].put('/api/questions/' + id, question);
+
+            case 2:
+              response = _context3.sent;
+              return _context3.abrupt("return", (response === null || response === void 0 ? void 0 : response.data) || {
+                data: []
+              });
+
+            case 4:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3);
+    }))();
+  },
   mapQuestion: function mapQuestion(question) {
     return {
       id: question.id,
       country: question.country,
       category: question.category,
       status: question.status,
-      question: question.text,
-      answer: question.answer
+      question: question.question,
+      answer: question.answer,
+      publish: question.publish
     };
   }
 });
@@ -49684,6 +49782,12 @@ axios__WEBPACK_IMPORTED_MODULE_0___default.a.interceptors.response.use(function 
     return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(url, {
       params: params
     });
+  },
+  post: function post(url, data) {
+    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(url, data);
+  },
+  put: function put(url, data) {
+    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.put(url, data);
   }
 });
 
@@ -49861,7 +49965,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   namespaced: true,
   state: function state() {
-    return window.__PAGE_STATE__;
+    var _window$__PAGE_STATE_, _window$__PAGE_STATE_2, _window$__PAGE_STATE_3, _window$__PAGE_STATE_4;
+
+    return {
+      routes: ((_window$__PAGE_STATE_ = window.__PAGE_STATE__) === null || _window$__PAGE_STATE_ === void 0 ? void 0 : _window$__PAGE_STATE_.routes) || {},
+      routeName: ((_window$__PAGE_STATE_2 = window.__PAGE_STATE__) === null || _window$__PAGE_STATE_2 === void 0 ? void 0 : _window$__PAGE_STATE_2.routeName) || '',
+      countries: ((_window$__PAGE_STATE_3 = window.__PAGE_STATE__) === null || _window$__PAGE_STATE_3 === void 0 ? void 0 : _window$__PAGE_STATE_3.countries) || [],
+      categories: ((_window$__PAGE_STATE_4 = window.__PAGE_STATE__) === null || _window$__PAGE_STATE_4 === void 0 ? void 0 : _window$__PAGE_STATE_4.categories) || []
+    };
   },
   getters: {
     routeName: function routeName(state) {
@@ -49869,6 +49980,12 @@ __webpack_require__.r(__webpack_exports__);
     },
     routes: function routes(state) {
       return state.routes;
+    },
+    countries: function countries(state) {
+      return state.countries;
+    },
+    categories: function categories(state) {
+      return state.categories;
     }
   }
 });
@@ -49920,6 +50037,56 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }
       }, _callee);
+    }))();
+  },
+  createQuestion: function createQuestion(_ref2, question) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+      var commit, response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              commit = _ref2.commit;
+              _context2.next = 3;
+              return _services_questionService__WEBPACK_IMPORTED_MODULE_1__["default"].createQuestion(question);
+
+            case 3:
+              response = _context2.sent;
+              commit(_types__WEBPACK_IMPORTED_MODULE_2__["ADD_QUESTION"], {
+                question: response.data
+              });
+
+            case 5:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }))();
+  },
+  updateQuestion: function updateQuestion(_ref3, question) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+      var commit, response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              commit = _ref3.commit;
+              _context3.next = 3;
+              return _services_questionService__WEBPACK_IMPORTED_MODULE_1__["default"].updateQuestion(question.id, question);
+
+            case 3:
+              response = _context3.sent;
+              commit(_types__WEBPACK_IMPORTED_MODULE_2__["UPDATE_QUESTION"], {
+                question: response.data
+              });
+
+            case 5:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3);
     }))();
   }
 });
@@ -49983,14 +50150,43 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_questionService__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../services/questionService */ "./resources/js/services/questionService.js");
 /* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./types */ "./resources/js/store/questions/types.js");
+var _SET_QUESTIONS$ADD_QU;
+
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
 
-/* harmony default export */ __webpack_exports__["default"] = (_defineProperty({}, _types__WEBPACK_IMPORTED_MODULE_1__["SET_QUESTIONS"], function (state, _ref) {
+
+/* harmony default export */ __webpack_exports__["default"] = (_SET_QUESTIONS$ADD_QU = {}, _defineProperty(_SET_QUESTIONS$ADD_QU, _types__WEBPACK_IMPORTED_MODULE_1__["SET_QUESTIONS"], function (state, _ref) {
   var questions = _ref.questions;
   state.questions = questions.map(_services_questionService__WEBPACK_IMPORTED_MODULE_0__["default"].mapQuestion);
-}));
+}), _defineProperty(_SET_QUESTIONS$ADD_QU, _types__WEBPACK_IMPORTED_MODULE_1__["ADD_QUESTION"], function (state, _ref2) {
+  var question = _ref2.question;
+  state.questions = [_services_questionService__WEBPACK_IMPORTED_MODULE_0__["default"].mapQuestion(question)].concat(_toConsumableArray(state.questions));
+}), _defineProperty(_SET_QUESTIONS$ADD_QU, _types__WEBPACK_IMPORTED_MODULE_1__["UPDATE_QUESTION"], function (state, _ref3) {
+  var question = _ref3.question;
+  var questionIndex = state.questions.findIndex(function (_ref4) {
+    var id = _ref4.id;
+    return id === question.id;
+  });
+
+  if (questionIndex === -1) {
+    return;
+  }
+
+  state.questions = [].concat(_toConsumableArray(state.questions.slice(0, questionIndex)), [_services_questionService__WEBPACK_IMPORTED_MODULE_0__["default"].mapQuestion(question)], _toConsumableArray(state.questions.slice(questionIndex + 1)));
+}), _SET_QUESTIONS$ADD_QU);
 
 /***/ }),
 
@@ -49998,13 +50194,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /*!***********************************************!*\
   !*** ./resources/js/store/questions/types.js ***!
   \***********************************************/
-/*! exports provided: SET_QUESTIONS */
+/*! exports provided: SET_QUESTIONS, ADD_QUESTION, UPDATE_QUESTION */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_QUESTIONS", function() { return SET_QUESTIONS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ADD_QUESTION", function() { return ADD_QUESTION; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UPDATE_QUESTION", function() { return UPDATE_QUESTION; });
 var SET_QUESTIONS = 'SET_QUESTIONS';
+var ADD_QUESTION = 'ADD_QUESTION';
+var UPDATE_QUESTION = 'UPDATE_QUESTION';
 
 /***/ }),
 
@@ -50020,12 +50220,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   namespaced: true,
   state: function state() {
+    var _window$__PAGE_STATE_;
+
+    var userInfo = ((_window$__PAGE_STATE_ = window.__PAGE_STATE__) === null || _window$__PAGE_STATE_ === void 0 ? void 0 : _window$__PAGE_STATE_.userInfo) || {};
     return {
-      id: 1,
-      country: 'Австрія',
-      photo: '/img/profile_photo.png',
-      name: 'Іван Іванов',
-      email: 'ivan@mail.com'
+      id: userInfo.id,
+      country: userInfo.country || 'Австрія',
+      photo: userInfo.profile_photo_path || '/img/profile_photo.png',
+      name: userInfo.name,
+      email: userInfo.email
     };
   },
   mutations: {},

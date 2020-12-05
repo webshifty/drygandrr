@@ -1,42 +1,47 @@
 <?php
 
 namespace App\Actions\Questions\DTO;
+use App\Contracts\Response;
 
-class Question
+class Question implements Response
 {
 	public int $id;
-	public string $country;
-	public string $category;
+	public int $country;
+	public int $category;
 	public string $status;
-	public string $text;
+	public string $question;
 	public string $answer;
+	public bool $publish;
 
 	public function __construct(
 		int $id,
-		string $country,
-		string $category,
+		int $country,
+		int $category,
 		string $status,
-		string $text,
-		string $answer
+		string $question,
+		string $answer,
+		bool $publish
 	)
 	{
 		$this->id = $id;
 		$this->country = $country;
 		$this->category = $category;
 		$this->status = $status;
-		$this->text = $text;
+		$this->question = $question;
 		$this->answer = $answer;
+		$this->publish = $publish;
 	}
 
-	public function toArray()
+	public function toArray(): array
 	{
 		return [
 			'id' => $this->id,
 			'country' => $this->country,
 			'category' => $this->category,
 			'status' => $this->status,
-			'text' => $this->text,
+			'question' => $this->question,
 			'answer' => $this->answer,
+			'publish' => $this->publish,
 		];
 	}
 }

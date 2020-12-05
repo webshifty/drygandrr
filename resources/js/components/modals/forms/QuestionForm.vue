@@ -4,19 +4,15 @@
 	<div class="fieldset ">
 		<div class="field styling-label">
 			<label>Країна</label>
-			<input name="country" type="text" v-model="question.country" >
+			<select v-model="question.country">
+				<option v-for="(country, key) in countries" :key="key" :value="country.id">{{ country.name }}</option>
+			</select>  
 		</div>
 		<div class="field styling-label">
 			<label>Категорія</label>
 			<select v-model="question.category">
-				<option v-for="(category, key) in categories" :key="key">{{ category }}</option>
+				<option v-for="(category, key) in categories" :key="key" :value="category.id">{{ category.name }}</option>
 			</select>
-		</div>
-		<div class="field styling-label">
-			<label>Статус</label>
-			<select v-model="question.status">
-				<option v-for="(status, key) in statuses" :key="key">{{ status }}</option>
-			</select>            
 		</div>
 	</div>
 	<div class="field styling-label">
@@ -29,7 +25,7 @@
 	</div>
 	<div class="field-checkbox">
 		<label>Додавати в базу</label>
-		<input type="checkbox" name="add" v-model="toDb" >
+		<input type="checkbox" name="add" v-model="question.publish" >
 	</div>
 	<div class="actions">
 		<button class="button" v-on:click.prevent="onSave">Надіслати</button>
@@ -39,6 +35,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
 	props: {
 		data: Object
@@ -46,28 +44,25 @@ export default {
 	data() {
 		return {
 			question: {
+				id: this.data.id,
 				country: this.data.country,
 				category: this.data.category,
-				status: this.data.status,
 				question: this.data.question,
 				answer: this.data.answer,
+				publish: this.data.publish,
 			},
-			categories: [
-				"Австрія",
-				"Китай",
-			],
-			statuses: [
-				"Виконується",
-				"Новий"
-			],
-			toDb: false,
 		};
+	},
+	computed: {
+		...mapGetters('page', [
+			'countries',
+			'categories',
+		]),
 	},
 	methods: {
 		onSave() {
 			this.$emit('save', {
-				...this.question,
-				toDb: this.toDb,
+				...this.question
 			});
 		},
 		onCancel() {

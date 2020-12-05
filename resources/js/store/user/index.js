@@ -1,12 +1,16 @@
 export default {
 	namespaced: true,
-	state: () => ({
-		id: 1,
-		country: 'Австрія',
-		photo: '/img/profile_photo.png',
-		name: 'Іван Іванов',
-		email: 'ivan@mail.com'
-	}),
+	state: () => {
+		const userInfo = window.__PAGE_STATE__?.userInfo || {};
+
+		return {
+			id: userInfo.id,
+			country: userInfo.country || 'Австрія',
+			photo: userInfo.profile_photo_path || '/img/profile_photo.png',
+			name: userInfo.name,
+			email: userInfo.email
+		}
+	},
 	mutations: {},
 	actions: {},
 	getters: {

@@ -36,7 +36,21 @@ class QAndA extends Model
 
     public static function getAllQuestions ()
     {
-        $questions = DB::table('questions')->select('questions.id', 'questions.country', 'questions.category', 'questions.question', 'questions.answer', 'questions.created_at', 'countries.name', 'question_categories.name as category_name')->where('publish', '=', '1')->join('countries', 'countries.id', '=', 'questions.country')->join('question_categories', 'question_categories.id', '=', 'questions.category')->get();
+        $questions = DB::table('questions')->select(
+            'questions.id',
+            'questions.country',
+            'questions.category',
+            'questions.question',
+            'questions.answer',
+            'questions.created_at',
+            'countries.name',
+            'question_categories.name as category_name',
+            'publish'
+        )
+        ->join('countries', 'countries.id', '=', 'questions.country')
+        ->join('question_categories', 'question_categories.id', '=', 'questions.category')
+        ->orderByDesc('created_at')
+        ->get();
 
         return $questions;
     }

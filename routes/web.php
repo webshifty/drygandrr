@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BotController;
 use App\Http\Controllers\BaseController;
+use App\Http\Controllers\Api\QuestionsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,5 +33,7 @@ Route::middleware('auth')->post('/a/add_new_qa', [BaseController::class, 'saveNe
 Route::middleware('auth')->post('/a/update_qa', [BaseController::class, 'updateQABase']);
 
 Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
-    Route::get('questions', [BaseController::class, 'questions']);
+    Route::get('questions', [QuestionsController::class, 'questions']);
+    Route::post('questions', [QuestionsController::class, 'addQuestion']);
+    Route::put('questions/{id}', [QuestionsController::class, 'updateQuestion']);
 });

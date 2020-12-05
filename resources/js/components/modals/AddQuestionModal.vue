@@ -7,6 +7,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import QuestionForm from './forms/QuestionForm.vue'
 
 export default {
@@ -17,8 +18,12 @@ export default {
 		data: Object,
 	},
 	methods: {
-		onSave(data) {
-			console.log(data);
+		...mapActions('questions', [
+			'createQuestion'
+		]),
+
+		async onSave(data) {
+			await this.createQuestion(data);
 			this.$emit('close');
 		},
 

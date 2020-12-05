@@ -16,11 +16,12 @@ class GetQuestions
 		$questions->each(function ($data) use ($response) {
 			$response->add(new Question(
 				(int)$data->id,
-				(string)$data->country,
-				(string)$data->category,
+				(int)$data->country,
+				(int)$data->category,
 				'',
 				(string)$data->question,
 				(string)$data->answer,
+				(bool)$data->publish,
 			));
 		});
 
