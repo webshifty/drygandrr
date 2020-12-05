@@ -10,16 +10,25 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
+use App\Actions\Questions\GetQuestions;
 
 class BaseController extends Controller
 {
+    public function questions(GetQuestions $getQuestions) {
+        $questions = $getQuestions->execute();
+
+        return $this->success($questions);
+    }
+
     public static function dashboard()
     {
         $userInfo = User::getUserInfoById(auth()->id());
-        $telegramRequests = QAndA::getAllRequestsFromTG();
+        $countries = QAndA::getAllCountries();
+        $categories = QAndA::getAllQuestionCategories();
         $data = [
-            'allRequests' => $telegramRequests,
             'userInfo' => $userInfo,
+            'countries' => $countries,
+            'categories' => $categories,
         ];
 
         return view('admin.dashboard.questions', ['data' => $data]);
@@ -40,12 +49,12 @@ class BaseController extends Controller
         $userInfo = User::getUserInfoById(auth()->id());
         $questions = QAndA::getAllQuestions();
         $countries = QAndA::getAllCountries();
-        $questionCategories = QAndA::getAllQuestionCategories();
+        $categories = QAndA::getAllQuestionCategories();
         $data = [
             'questions' => $questions,
             'userInfo' => $userInfo,
             'countries' => $countries,
-            'questionCategories' => $questionCategories,
+            'categories' => $categories,
         ];
 
         return view('admin.dashboard.requests', ['data' => $data]);
