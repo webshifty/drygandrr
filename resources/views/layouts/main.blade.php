@@ -22,6 +22,7 @@
 			categories: @json($data['categories']),
 		};
 	</script>
+	@stack('states')
 	<div id="app">
 		@yield('content')
 	</div>

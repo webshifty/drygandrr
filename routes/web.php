@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BotController;
 use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Api\QuestionsController;
+use App\Http\Controllers\Api\RequestsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,4 +38,7 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
     Route::post('questions', [QuestionsController::class, 'addQuestion']);
     Route::put('questions/{id}', [QuestionsController::class, 'updateQuestion']);
     Route::delete('questions/{id}', [QuestionsController::class, 'deleteQuestion']);
+
+    Route::get('requests', [RequestsController::class, 'requests']);
+    Route::put('requests/{id}', [RequestsController::class, 'updateRequest']);
 });

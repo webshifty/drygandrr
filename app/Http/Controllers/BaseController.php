@@ -4,22 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\QAndA;
 use App\Models\Questions;
-use App\Models\TelegramBotData;
 
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Config;
-use App\Actions\Questions\GetQuestions;
 
 class BaseController extends Controller
 {
-    public function questions(GetQuestions $getQuestions) {
-        $questions = $getQuestions->execute();
-
-        return $this->success($questions);
-    }
-
     public static function dashboard()
     {
         $userInfo = User::getUserInfoById(auth()->id());
@@ -47,14 +38,14 @@ class BaseController extends Controller
     public static function questionBase()
     {
         $userInfo = User::getUserInfoById(auth()->id());
-        $questions = QAndA::getAllQuestions();
         $countries = QAndA::getAllCountries();
         $categories = QAndA::getAllQuestionCategories();
+        $statuses = QAndA::getStatuses();
         $data = [
-            'questions' => $questions,
             'userInfo' => $userInfo,
             'countries' => $countries,
             'categories' => $categories,
+            'statuses' => $statuses,
         ];
 
         return view('admin.dashboard.requests', ['data' => $data]);
