@@ -1,18 +1,18 @@
 <template>
-	<Dashboard @search="onSearch">
-		<SettingsFrom />
+	<Dashboard>
+		<SettingsForm />
 	</Dashboard>
 </template>
 
 <script>
 import { mapActions } from 'vuex';
 import Dashboard from '../components/layouts/Dashboard';
-import SettingsFrom from '../components/SettingsFrom';
+import SettingsForm from '../components/SettingsForm';
 
 export default {
 	components: {
 		Dashboard,
-		SettingsFrom,
+		SettingsForm,
 	}
 }
 </script>

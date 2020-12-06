@@ -6,7 +6,7 @@ export default {
 		return {
 			id: userInfo.id,
 			country: userInfo.country || 'Австрія',
-			photo: userInfo.profile_photo_path || '/img/profile_photo.png',
+			photo: userInfo.profile_photo_path || userInfo.profile_photo_url || '/img/profile_photo.png',
 			name: userInfo.name,
 			email: userInfo.email
 		}

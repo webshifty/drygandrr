@@ -62,7 +62,7 @@ class User extends Authenticatable
 
     public static function getUserInfoById($id)
     {
-        $user = DB::table('users')->select()->where('id', $id)->first();
+        $user = User::find($id);
 
         return $user;
     }

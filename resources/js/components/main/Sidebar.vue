@@ -2,7 +2,7 @@
 <div class="sidebar-content">
 	<span>Друг: {{ user.country }}</span>
 	<div class="user">
-		<img :src="user.photo" alt="">
+		<img class="user__photo" :src="user.photo" alt="">
 		<div class="user-content">
 			<div class="user-name">{{ user.name }}</div>
 			<div class="user-email">{{ user.email }}</div>
@@ -83,6 +83,10 @@ export default {
 
 .settings .active svg {
 	fill: #004BC1;
+}
+
+.user__photo {
+	border-radius: 50%;
 }
 
 </style>
