@@ -1,7 +1,10 @@
 <template>
 <div class="container-fluid user">
 		<div class="user__image">
-			<img class="user__photo" :src="user.photo" alt="">
+			<label>
+				<img class="user__photo" :src="user.photo" alt="">
+				<input type="file" name="image" class="user__photo-input" />
+			</label>
 		</div>
 		<div class="user__photo-links">
 			<a
@@ -74,5 +77,8 @@ export default {
 }
 .user__delete-photo {
 	color: #EB5757;
+}
+.user__photo-input {
+	display: none;
 }
 </style>
