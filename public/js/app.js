@@ -4060,6 +4060,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -5216,7 +5224,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".table-header[data-v-f9c805e2] {\n  width: 150px;\n}\n.table-header--date[data-v-f9c805e2] {\n  width: 200px;\n}\n.status[data-v-f9c805e2] {\n  display: inline-block;\n  width: 8px;\n  height: 8px;\n  border-radius: 50%;\n  margin: 1px 8px;\n}\n.status--new[data-v-f9c805e2] {\n  background-color: #EB5757;\n}\n.status--executing[data-v-f9c805e2] {\n  background-color: #219653;\n}\n.status--completed[data-v-f9c805e2] {\n  background-color: #004BC1;\n}\n.table-status[data-v-f9c805e2] {\n  white-space: nowrap;\n}\n", ""]);
+exports.push([module.i, ".table-header[data-v-f9c805e2] {\n  width: 150px;\n}\n.table-header--date[data-v-f9c805e2] {\n  width: 200px;\n}\n.status[data-v-f9c805e2] {\n  display: inline-block;\n  width: 8px;\n  height: 8px;\n  border-radius: 50%;\n  margin: 1px 8px;\n}\n.status--new[data-v-f9c805e2] {\n  background-color: #EB5757;\n}\n.status--executing[data-v-f9c805e2] {\n  background-color: #219653;\n}\n.status--completed[data-v-f9c805e2] {\n  background-color: #004BC1;\n}\n.table-status[data-v-f9c805e2] {\n  white-space: nowrap;\n}\n.table--control[data-v-f9c805e2] {\n  width: 30px;\n  padding: 5px;\n}\n", ""]);
 
 // exports
 
@@ -35693,7 +35701,47 @@ var render = function() {
                 _vm._v(_vm._s(_vm.getStatus(request.status)))
               ]),
               _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(_vm.renderDate(request.created_at)))])
+              _c("td", [_vm._v(_vm._s(_vm.renderDate(request.created_at)))]),
+              _vm._v(" "),
+              _c("td", { staticClass: "table--control" }, [
+                _c(
+                  "a",
+                  {
+                    staticClass: "table__icon edit",
+                    attrs: { href: "#" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.onEdit(request)
+                      }
+                    }
+                  },
+                  [
+                    _c(
+                      "svg",
+                      {
+                        staticClass: "table__icon-image",
+                        attrs: {
+                          width: "15",
+                          height: "15",
+                          viewBox: "0 0 15 15",
+                          fill: "none",
+                          xmlns: "http://www.w3.org/2000/svg"
+                        }
+                      },
+                      [
+                        _c("path", {
+                          attrs: {
+                            d:
+                              "M1.66667 13.0933H2.845L10.6067 5.47451L9.42833 4.31787L1.66667 11.9367V13.0933ZM15 14.7293H0V11.2585L11.1958 0.268795C11.3521 0.115444 11.564 0.0292969 11.785 0.0292969C12.006 0.0292969 12.2179 0.115444 12.3742 0.268795L14.7317 2.5829C14.8879 2.7363 14.9757 2.94432 14.9757 3.16122C14.9757 3.37812 14.8879 3.58615 14.7317 3.73954L5.2025 13.0933H15V14.7293ZM10.6067 3.16122L11.785 4.31787L12.9633 3.16122L11.785 2.00458L10.6067 3.16122Z",
+                            fill: "#949494"
+                          }
+                        })
+                      ]
+                    )
+                  ]
+                )
+              ])
             ]
           )
         })
@@ -35714,7 +35762,11 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("th", { staticClass: "table-header" }, [_vm._v("Статус")]),
       _vm._v(" "),
-      _c("th", { staticClass: "table-header--date" }, [_vm._v("Дата")])
+      _c("th", { staticClass: "table-header--date" }, [_vm._v("Дата")]),
+      _vm._v(" "),
+      _c("th", {
+        staticClass: "table__header table__header--control table--control"
+      })
     ])
   }
 ]
