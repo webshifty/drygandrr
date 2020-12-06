@@ -11,6 +11,7 @@
 		<div class="field styling-label">
 			<label>Категорія</label>
 			<select v-model="request.category">
+				<option value=""></option>
 				<option v-for="(category, key) in categories" :key="key" :value="category.id">{{ category.name }}</option>
 			</select>
 		</div>

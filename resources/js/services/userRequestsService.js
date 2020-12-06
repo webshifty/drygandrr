@@ -4,6 +4,8 @@ export default {
 	async getRequests(filter) {
 		const response = await requestService.get('/api/requests', {
 			'filter[search]': filter.search,
+			'filter[category]': filter.category,
+			'filter[requests]': filter.requests,
 		});
 
 		return response?.data || { data: [] };

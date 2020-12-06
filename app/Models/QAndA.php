@@ -36,6 +36,7 @@ class QAndA extends Model
     {
         return self::select('*')
             ->with(['responsible'])
+            ->orderByRaw('users_questions.responsible_user_id IS NULL DESC')
             ->orderByDesc('users_questions.created_at');
     }
 

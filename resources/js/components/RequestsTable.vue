@@ -1,5 +1,24 @@
 <template>
 	<div>
+		<div class="action-block">
+			<div class="action-block__left">
+				<div class="dropdown">
+					<label for="filter-requests">Запити:</label>
+					<select id="filter-requests" :value="filter.requests" @change="onFilterRequests">
+						<option value="my">Мої</option>
+						<option value="">Усі</option>
+					</select>
+				</div>
+				<div class="dropdown dropdown--left">
+					<label for="filter-category">Категорія:</label>
+					<select id="filter-category" :value="filter.category" @change="onFilterCategory">
+						<option value="0">Усі</option>
+						<option :value="-1">Без категорії</option>
+						<option v-for="category in categories" :key="category.id" :value="category.id">{{category.name}}</option>
+					</select>
+				</div>
+			</div>
+		</div>
 		<table class="table">
 			<tr>
 				<th>Запитання</th>
@@ -45,9 +64,11 @@ export default {
 		]),
 		...mapGetters('requests', [
 			'requests',
+			'filter',
 		]),
 		...mapGetters('page', [
 			'statuses',
+			'categories',
 		]),
 	},
 	methods: {
@@ -56,7 +77,8 @@ export default {
 		]),
 		...mapActions('requests', [
 			'getRequests',
-			'assignRequest'
+			'assignRequest',
+			'changeFilter',
 		]),
 		renderDate(strDate) {
 			return dateService.getFormatDate(strDate);
@@ -92,7 +114,21 @@ export default {
 				requestId,
 				userId: this.user.id,
 			});
-		}
+		},
+
+		async onFilterRequests(e) {
+			await this.changeFilter({
+				filter: 'requests',
+				value: e.target.value,
+			});
+		},
+
+		async onFilterCategory(e) {
+			await this.changeFilter({
+				filter: 'category',
+				value: Number(e.target.value || 0),
+			});
+		},
 	},
 	async mounted() {
 		await this.getRequests();

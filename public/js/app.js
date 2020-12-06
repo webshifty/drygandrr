@@ -4073,11 +4073,30 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  computed: _objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])('user', ['user'])), Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])('requests', ['requests'])), Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])('page', ['statuses'])),
-  methods: _objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])('modal', ['showModal'])), Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])('requests', ['getRequests', 'assignRequest'])), {}, {
+  computed: _objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])('user', ['user'])), Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])('requests', ['requests', 'filter'])), Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])('page', ['statuses', 'categories'])),
+  methods: _objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])('modal', ['showModal'])), Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])('requests', ['getRequests', 'assignRequest', 'changeFilter'])), {}, {
     renderDate: function renderDate(strDate) {
       return _services_dateService__WEBPACK_IMPORTED_MODULE_2__["default"].getFormatDate(strDate);
     },
@@ -4127,25 +4146,69 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           }
         }, _callee);
       }))();
+    },
+    onFilterRequests: function onFilterRequests(e) {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return _this2.changeFilter({
+                  filter: 'requests',
+                  value: e.target.value
+                });
+
+              case 2:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
+    onFilterCategory: function onFilterCategory(e) {
+      var _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.next = 2;
+                return _this3.changeFilter({
+                  filter: 'category',
+                  value: Number(e.target.value || 0)
+                });
+
+              case 2:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
     }
   }),
   mounted: function mounted() {
-    var _this2 = this;
+    var _this4 = this;
 
-    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
         while (1) {
-          switch (_context2.prev = _context2.next) {
+          switch (_context4.prev = _context4.next) {
             case 0:
-              _context2.next = 2;
-              return _this2.getRequests();
+              _context4.next = 2;
+              return _this4.getRequests();
 
             case 2:
             case "end":
-              return _context2.stop();
+              return _context4.stop();
           }
         }
-      }, _callee2);
+      }, _callee4);
     }))();
   }
 });
@@ -4883,6 +4946,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
 //
 //
 //
@@ -35780,6 +35844,61 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
+    _c("div", { staticClass: "action-block" }, [
+      _c("div", { staticClass: "action-block__left" }, [
+        _c("div", { staticClass: "dropdown" }, [
+          _c("label", { attrs: { for: "filter-requests" } }, [
+            _vm._v("Запити:")
+          ]),
+          _vm._v(" "),
+          _c(
+            "select",
+            {
+              attrs: { id: "filter-requests" },
+              domProps: { value: _vm.filter.requests },
+              on: { change: _vm.onFilterRequests }
+            },
+            [
+              _c("option", { attrs: { value: "my" } }, [_vm._v("Мої")]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "" } }, [_vm._v("Усі")])
+            ]
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "dropdown dropdown--left" }, [
+          _c("label", { attrs: { for: "filter-category" } }, [
+            _vm._v("Категорія:")
+          ]),
+          _vm._v(" "),
+          _c(
+            "select",
+            {
+              attrs: { id: "filter-category" },
+              domProps: { value: _vm.filter.category },
+              on: { change: _vm.onFilterCategory }
+            },
+            [
+              _c("option", { attrs: { value: "0" } }, [_vm._v("Усі")]),
+              _vm._v(" "),
+              _c("option", { domProps: { value: -1 } }, [
+                _vm._v("Без категорії")
+              ]),
+              _vm._v(" "),
+              _vm._l(_vm.categories, function(category) {
+                return _c(
+                  "option",
+                  { key: category.id, domProps: { value: category.id } },
+                  [_vm._v(_vm._s(category.name))]
+                )
+              })
+            ],
+            2
+          )
+        ])
+      ])
+    ]),
+    _vm._v(" "),
     _c(
       "table",
       { staticClass: "table" },
@@ -36568,14 +36687,18 @@ var render = function() {
               }
             }
           },
-          _vm._l(_vm.categories, function(category, key) {
-            return _c(
-              "option",
-              { key: key, domProps: { value: category.id } },
-              [_vm._v(_vm._s(category.name))]
-            )
-          }),
-          0
+          [
+            _c("option", { attrs: { value: "" } }),
+            _vm._v(" "),
+            _vm._l(_vm.categories, function(category, key) {
+              return _c(
+                "option",
+                { key: key, domProps: { value: category.id } },
+                [_vm._v(_vm._s(category.name))]
+              )
+            })
+          ],
+          2
         )
       ]),
       _vm._v(" "),
@@ -52092,7 +52215,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             case 0:
               _context.next = 2;
               return _requestService__WEBPACK_IMPORTED_MODULE_1__["default"].get('/api/requests', {
-                'filter[search]': filter.search
+                'filter[search]': filter.search,
+                'filter[category]': filter.category,
+                'filter[requests]': filter.requests
               });
 
             case 2:
@@ -52842,7 +52967,9 @@ __webpack_require__.r(__webpack_exports__);
     return {
       requests: [],
       filter: {
-        search: ''
+        search: '',
+        requests: 'my',
+        category: '0'
       }
     };
   },

@@ -20,7 +20,7 @@ class UpdateRequest
 		$qa = QAndA::with(['responsible'])->findOrFail($data->id);
         $qa->country = $data->country;
         $qa->question_status = $data->status;
-        $qa->question_category = $data->category;
+        $qa->question_category = $data->category > 0 ? $data->category : null;
         $qa->consul_answer = $data->answer;
 		
 		if ($data->answer) {

@@ -19,6 +19,8 @@ class RequestsController extends Controller
         $requests = $getRequests->execute(
             new FilterRequest(
                 $filterData['search'] ?? '',
+                (int)$filterData['category'] ?? 0,
+                $filterData['requests'] ?? '',
             )
         );
 

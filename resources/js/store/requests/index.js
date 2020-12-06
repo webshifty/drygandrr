@@ -8,6 +8,8 @@ export default {
 		requests: [],
 		filter: {
 			search: '',
+			requests: 'my',
+			category: '0',
 		}
 	}),
 	actions,
