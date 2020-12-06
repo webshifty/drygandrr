@@ -1,6 +1,6 @@
 <template>
 <form action="" class="form">
-	<h3>Надати відповідь</h3>
+	<h3>{{ title }}</h3>
 	<div class="fieldset ">
 		<div class="field styling-label">
 			<label>Країна</label>
@@ -23,10 +23,6 @@
 		<label>Відповідь</label>
 		<textarea class="textarea" name="answer" v-model="question.answer"></textarea>
 	</div>
-	<div class="field-checkbox">
-		<label>Додавати в базу</label>
-		<input type="checkbox" name="add" v-model="question.publish" >
-	</div>
 	<div class="actions">
 		<button class="button" :disabled="disableButton" v-on:click.prevent="onSave">Надіслати</button>
 		<button class="button secondary close" v-on:click.prevent="onCancel">Відхилити</button>
@@ -39,6 +35,7 @@ import { mapGetters } from 'vuex';
 
 export default {
 	props: {
+		title: String,
 		data: Object,
 		disableButton: Boolean
 	},
@@ -50,7 +47,7 @@ export default {
 				category: this.data.category,
 				question: this.data.question,
 				answer: this.data.answer,
-				publish: this.data.publish,
+				publish: true,
 			},
 		};
 	},

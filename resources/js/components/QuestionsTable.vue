@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div class="action-block">
-			<div class="action-block__right">
+			<div class="action-block__left">
 				<div class="dropdown">
 					<label for="filter-country">Країна:</label>
 					<select id="filter-country" :value="filter.country" @change="onFilterCountry">
@@ -9,7 +9,7 @@
 						<option v-for="country in countries" :key="country.id" :value="country.id">{{country.name}}</option>
 					</select>
 				</div>
-				<div class="dropdown">
+				<div class="dropdown dropdown--left">
 					<label for="filter-category">Категорія:</label>
 					<select id="filter-category" :value="filter.category" @change="onFilterCategory">
 						<option value="">Усі</option>
@@ -17,7 +17,7 @@
 					</select>
 				</div>
 			</div>
-			<div class="action-block__left">
+			<div class="action-block__right">
 				<button class="button" v-on:click.prevent="onAdd">Додати</button>
 			</div>
 		</div>
@@ -130,74 +130,5 @@ export default {
 </script>
 
 <style scoped>
-.table__row:hover {
-	background-color: #fafafe;
-}
-.table__header--control {
-	width: 120px;
-}
-
-.table__header--questions {
-	width: 300px;
-}
-
-.table__icon {
-	display: inline-block;
-	width: 16px;
-	height: 16px;
-}
-
-.table__icon.delete {
-	margin-right: 15px;
-}
-
-.table__icon.delete .table__icon-image {
-	display: none;
-}
-
-.table__row:hover .table__icon.delete .table__icon-image {
-	display: block;
-}
-
-.action-block {
-	display: flex;
-	align-items: stretch;
-}
-
-.action-block__right,
-.action-block__left {
-	width: 50%;
-}
-
-.action-block__left {
-	text-align: right;
-}
-
-.action-block button {
-    width: 160px;
-    height: 42px;
-    margin-bottom: 14px;
-}
-
-.dropdown {
-	font-size: 14px;
-	display: inline-block;
-	margin-right: 25px;
-}
-
-.dropdown label {
-	color: #575757;
-}
-
-.dropdown select {
-	display: inline-block;
-    width: auto;
-    padding: 2px;
-	height: 36px;
-	font-size: 14px;
-	background-color: transparent;
-	color: #004BC1;
-	border: none;
-}
 
 </style>

@@ -4,7 +4,6 @@ namespace App\Actions\Questions;
 
 use App\Actions\Questions\DTO\Question;
 use App\Models\Questions;
-use Carbon\Carbon;
 
 class UpdateQuestion
 {

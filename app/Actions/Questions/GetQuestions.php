@@ -42,13 +42,14 @@ class GetQuestions
 		}
 
 		if ($filter->search) {
-			$questionsBuilder
-				->whereRaw('LOWER(`question`) LIKE ? ', [
+			$questionsBuilder->where(function ($query) use($filter) {
+				$query->whereRaw('LOWER(`question`) LIKE ? ', [
 					'%' . trim(strtolower($filter->search)) . '%'
 				])
 				->orWhereRaw('LOWER(`answer`) LIKE ? ', [
 					'%' . trim(strtolower($filter->search)) . '%'
 				]);
+			});
 		}
 
 		$result = $questionsBuilder->toSql();

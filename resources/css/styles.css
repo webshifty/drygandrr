@@ -408,3 +408,77 @@ h3 {
 .sidebar-bottom__button:hover {
     opacity: 0.7;
 }
+
+.table__row:hover {
+	background-color: #fafafe;
+}
+.table__header--control {
+	width: 120px;
+}
+
+.table__header--questions {
+	width: 300px;
+}
+
+.table__icon {
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+}
+
+.table__icon.delete {
+	margin-right: 15px;
+}
+
+.table__icon.delete .table__icon-image {
+	display: none;
+}
+
+.table__row:hover .table__icon.delete .table__icon-image {
+	display: block;
+}
+
+.action-block {
+	display: flex;
+	align-items: stretch;
+}
+
+.action-block__right {
+	width: 25%;
+	text-align: right;
+}
+.action-block__left {
+	width: 75%;
+}
+
+.action-block button {
+    width: 160px;
+    height: 42px;
+    margin-bottom: 14px;
+}
+
+.dropdown {
+	font-size: 14px;
+	display: inline-block;
+	max-width: 50%;
+}
+
+.dropdown--left {
+	padding-left: 25px;
+}
+
+.dropdown label {
+	color: #575757;
+}
+
+.dropdown select {
+	display: inline-block;
+    width: auto;
+    padding: 2px;
+	height: 36px;
+	font-size: 14px;
+	background-color: transparent;
+	color: #004BC1;
+	border: none;
+	max-width: 200px;
+}

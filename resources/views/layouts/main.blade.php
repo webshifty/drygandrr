@@ -15,6 +15,7 @@
 			routes: {
 				questions: "{{ route('questions') }}",
 				requests: "{{ route('requests') }}",
+				settings: "{{ route('settings') }}",
 				logout: "{{ route('logout') }}",
 			},
 			userInfo: @json($data['userInfo']),
@@ -22,6 +23,7 @@
 			categories: @json($data['categories']),
 		};
 	</script>
+	@stack('states')
 	<div id="app">
 		@yield('content')
 	</div>

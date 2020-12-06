@@ -2,8 +2,11 @@
 
 namespace App\Providers;
 
+use App\Services\TelegramService;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
+use TuriBot\Client;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -14,7 +17,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind(TelegramService::class, function () {
+            $client = new Client(Config::get('telegram.bots.mybot.token'), false);
+
+            return new TelegramService($client);
+        });
     }
 
     /**

@@ -6,11 +6,39 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Query\Builder;
+use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 
 class QAndA extends Model
 {
     use HasFactory;
+
+    const STATUS_NEW = 0;
+    const STATUS_EXECUTING = 1;
+    const STATUS_COMPLETED = 2;
+
     protected $table = 'users_questions';
+
+    public function responsible()
+    {
+        return $this->belongsTo('App\Models\User', 'responsible_user_id');
+    }
+
+    public static function getStatuses()
+    {
+        return [
+            [ 'id' => self::STATUS_NEW, 'name' => 'Нове' ],
+            [ 'id' => self::STATUS_EXECUTING, 'name' => 'Виконується' ],
+            [ 'id' => self::STATUS_COMPLETED, 'name' => 'Завершено' ],
+        ];
+    }
+
+    public static function getTelegramRequests(): EloquentBuilder
+    {
+        return self::select('*')
+            ->with(['responsible'])
+            ->orderByRaw('users_questions.responsible_user_id IS NULL DESC')
+            ->orderByDesc('users_questions.created_at');
+    }
 
     public static function getAllRequestsFromTG()
     {
@@ -54,6 +82,7 @@ class QAndA extends Model
             'question_categories.name as category_name',
             'publish'
         )
+        ->where('publish', 1)
         ->join('countries', 'countries.id', '=', 'questions.country')
         ->join('question_categories', 'question_categories.id', '=', 'questions.category')
         ->orderByDesc('created_at');
