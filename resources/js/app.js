@@ -1,6 +1,6 @@
 require('./bootstrap');
 require('alpinejs');
-// require('./script.js');
+
 const Vuex = require('vuex');
 const initialState = require('./store/').default;
 

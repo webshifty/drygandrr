@@ -38,7 +38,7 @@
 				}"></span>{{ getStatus(request.status) }}</td>
 				<td>{{ renderDate(request.created_at) }}</td>
 				<td>
-					<span v-if="request.responsible">{{ request.responsible.name }}</span>
+					<div v-if="request.responsible" class="responsible">{{ request.responsible.name }}</div>
 					<button v-else class="button secondary" @click.stop.prevent="onAssign(request.id)" @dblclik.stop.prevent>Виконувати</button>
 				</td>
 				<td class="table--control">
@@ -168,13 +168,16 @@ export default {
 }
 
 .table--control {
-	width: 30px;
-	padding: 5px;
+	width: 70px;
+	padding: 5px 15px;
+	text-align: right;
 }
 
+.responsible,
 .button {
-	padding: 11px;
+	padding: 10px 22px;
     height: auto;
-    box-shadow: none;
+	box-shadow: none;
+	font-size: 14px;
 }
 </style>

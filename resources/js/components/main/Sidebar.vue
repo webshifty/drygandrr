@@ -32,7 +32,7 @@
 		</a>
 	</div>
 	<div class="sidebar-bottom">
-		<button class="sidebar-bottom__button" href="#" @click="logout">Вийти з системи</button>
+		<a class="sidebar-bottom__button" href="#" @click.prevent="logout">Вийти з системи</a>
 	</div>
 </div>
 </template>
@@ -65,6 +65,14 @@ export default {
 </script>
 
 <style scoped>
+.nav a {
+	border-left: 3px solid transparent;
+}
+.nav a:hover {
+    background-color: #F6F8FE;
+	color: #252525;
+	border-left: 3px solid #555;
+}
 .settings .active {
 	color: #004BC1;
 }
