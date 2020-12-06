@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Query\Builder;
+use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 
 class QAndA extends Model
 {
@@ -26,9 +27,9 @@ class QAndA extends Model
         ];
     }
 
-    public static function getTelegramRequests(): Builder
+    public static function getTelegramRequests(): EloquentBuilder
     {
-        return DB::table('users_questions')->select()->orderByDesc('created_at');
+        return self::select('*')->orderByDesc('created_at');
     }
 
     public static function getAllRequestsFromTG()

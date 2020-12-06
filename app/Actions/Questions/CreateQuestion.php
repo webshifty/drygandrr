@@ -3,13 +3,23 @@
 namespace App\Actions\Questions;
 
 use App\Actions\Questions\DTO\Question;
+use App\Models\Country;
 use App\Models\Questions;
 use Carbon\Carbon;
 
 class CreateQuestion
 {
-	public function execute(Question $data): Question
+	public function execute(Question $data, ?string $countryName = null): Question
 	{
+		if ($data->country === -1 && $countryName) {
+			$country = new Country();
+			$country->name = $countryName;
+			$country->iso2 = '';
+			$country->save();
+
+			$data->country = $country->id;
+		}
+
 		$qa = new Questions();
         $qa->country = $data->country;
         $qa->category = $data->category;

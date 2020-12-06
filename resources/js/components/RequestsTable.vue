@@ -3,14 +3,14 @@
 		<table class="table">
 			<tr>
 				<th>Запитання</th>
-				<th>Користувач</th>
-				<th>Статус</th>
-				<th>Дата</th>
+				<th class="table-header">Користувач</th>
+				<th class="table-header">Статус</th>
+				<th class="table-header--date">Дата</th>
 			</tr>
-			<tr v-for="request in requests" :key="request.id" class="table__row">
+			<tr v-for="request in requests" :key="request.id" class="table__row" @dblclick="onEdit(request)">
 				<td>{{ request.question }}</td>
 				<td>{{ request.user }}</td>
-				<td><span class="status" :class="{
+				<td class="table-status"><span class="status" :class="{
 					'status--new': request.status === 0,
 					'status--executing': request.status === 1,
 					'status--completed': request.status === 2,
@@ -52,6 +52,14 @@ export default {
 			}
 
 			return status.name;
+		},
+		onEdit(request) {
+			this.showModal({
+				type: 'answerUser',
+				payload: {
+					...request,
+				}
+			});
 		}
 	},
 	async mounted() {
@@ -60,6 +68,13 @@ export default {
 };
 </script>
 <style scoped>
+.table-header {
+	width: 150px;
+}
+.table-header--date {
+	width: 200px;
+}
+
 .status {
 	display: inline-block;
 	width: 8px;
@@ -78,5 +93,9 @@ export default {
 
 .status--completed {
 	background-color: #004BC1;
+}
+
+.table-status {
+	white-space: nowrap;
 }
 </style>

@@ -38,7 +38,8 @@ class QuestionsController extends Controller
                 trim((string)$request->input('question')),
                 trim((string)$request->input('answer')),
                 (int)$request->input('publish'),
-            )
+            ),
+            $request->input('countryName')
         );
 
         return $this->success($response);

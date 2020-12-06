@@ -15,7 +15,7 @@ export default {
 
 		state.requests = [
 			...state.requests.slice(0, requestIndex),
-			requestService.mapRequest(request),
+			userRequestsService.mapRequest(request),
 			...state.requests.slice(requestIndex + 1),
 		];
 	},

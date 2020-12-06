@@ -2,6 +2,7 @@
 
 namespace App\Actions\Requests\DTO;
 use App\Contracts\Response;
+use App\Models\QAndA;
 use Carbon\Carbon;
 
 class Request implements Response
@@ -49,5 +50,19 @@ class Request implements Response
 			'answer' => $this->answer,
 			'country' => $this->country,
 		];
+	}
+
+	public static function fromEntity(QAndA $entity): Request
+	{
+		return new self(
+			(int)$entity->id,
+			(string)$entity->user_question,
+			(string)$entity->tg_username,
+			(int)$entity->question_status,
+			new Carbon($entity->created_at),
+			$entity->question_category,
+			$entity->consul_answer,
+			$entity->country
+		);
 	}
 }

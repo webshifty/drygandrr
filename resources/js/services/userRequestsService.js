@@ -8,7 +8,7 @@ export default {
 
 		return response?.data || { data: [] };
 	},
-	async updateRequests(id, request) {
+	async updateRequest(id, request) {
 		const response = await requestService.put('/api/requests/' + id, request);
 
 		return response?.data || {
@@ -22,6 +22,9 @@ export default {
 			user: request.user,
 			status: request.status,
 			created_at: request.created_at,
+			category: request.category,
+			answer: request.answer,
+			country: request.country,
 		};
 	},
 };

@@ -1,6 +1,5 @@
 <template>
-<QuestionForm
-	:title="'Редагувати запитання'"
+<AnswerForm
 	:data="data"
 	:disableButton="sending"
 	v-on:save="onSave"
@@ -9,12 +8,12 @@
 </template>
 
 <script>
-import QuestionForm from './forms/QuestionForm.vue'
 import { mapActions } from 'vuex';
+import AnswerForm from './forms/AnswerForm.vue'
 
 export default {
 	components: {
-		QuestionForm,
+		AnswerForm,
 	},
 	props: {
 		data: Object,
@@ -25,14 +24,14 @@ export default {
 		};
 	},
 	methods: {
-		...mapActions('questions', [
-			'updateQuestion'
+		...mapActions('requests', [
+			'updateRequest'
 		]),
 
 		async onSave(data) {
 			try {
 				this.sending = true;
-				await this.updateQuestion(data);
+				await this.updateRequest(data);
 			} catch (error) {
 				throw error;
 			} finally {

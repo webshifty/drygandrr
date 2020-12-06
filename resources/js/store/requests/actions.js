@@ -16,12 +16,16 @@ export default {
 		});
 	},
 
-	async updateRequests({ commit }, request) {
-		const response = await userRequestsService.updateRequests(request.id, request);
+	async updateRequest({ commit, dispatch }, request) {
+		const response = await userRequestsService.updateRequest(request.id, request);
 
 		commit(UPDATE_REQUEST, {
 			request: response.data,
 		});
+
+		if (request.publish) {
+			dispatch('questions/createQuestion', request, { root: true });
+		}
 	},
 
 	async changeFilter({ commit, dispatch }, { filter, value }) {

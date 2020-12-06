@@ -1,6 +1,6 @@
 <template>
 <form action="" class="form">
-	<h3>Надати відповідь</h3>
+	<h3>{{ title }}</h3>
 	<div class="fieldset ">
 		<div class="field styling-label">
 			<label>Країна</label>
@@ -35,6 +35,7 @@ import { mapGetters } from 'vuex';
 
 export default {
 	props: {
+		title: String,
 		data: Object,
 		disableButton: Boolean
 	},

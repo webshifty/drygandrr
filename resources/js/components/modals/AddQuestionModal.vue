@@ -1,5 +1,6 @@
 <template>
 <QuestionForm
+	:title="'Додати запитання'"
 	:data="data"
 	:disableButton="sending"
 	v-on:save="onSave"
