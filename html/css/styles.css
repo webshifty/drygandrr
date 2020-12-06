@@ -509,8 +509,8 @@ h3 {
 }
 
 .questions-block table td:last-child {
-    min-width: 80px;
-    max-width: 80px;
+    min-width: 120px;
+    max-width: 120px;
 }
 
 .hover-block {

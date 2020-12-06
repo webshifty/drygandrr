@@ -39,7 +39,7 @@
 
     });
 
-    $(".questions-block table tr").on("hover click", function() {
+    $(".questions-block table tr").on("mouseover", function() {
         $('.hover-block').remove();
         $(this).append($(`<table class="hover-block">${$(this).html()}</table>`));
         
