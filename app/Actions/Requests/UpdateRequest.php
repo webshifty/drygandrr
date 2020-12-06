@@ -4,9 +4,17 @@ namespace App\Actions\Requests;
 
 use App\Actions\Requests\DTO\Request;
 use App\Models\QAndA;
+use App\Services\TelegramService;
 
 class UpdateRequest
 {
+	private TelegramService $telegramService;
+
+	public function __construct(TelegramService $telegramService)
+	{
+		$this->telegramService = $telegramService;
+	}
+
 	public function execute(Request $data): Request
 	{
 		$qa = QAndA::findOrFail($data->id);
@@ -14,8 +22,19 @@ class UpdateRequest
         $qa->question_status = $data->status;
         $qa->question_category = $data->category;
         $qa->consul_answer = $data->answer;
-        $qa->save();
+		
+		if ($data->answer) {
+			$this->sendMessage($qa);
+		}
+
+		$qa->question_status = QAndA::STATUS_COMPLETED;
+		$qa->save();
 
 		return Request::fromEntity($qa);
+	}
+
+	private function sendMessage(QAndA $session): void
+	{
+		$this->telegramService->sendMessage($session->chat_id, $session->consul_answer);
 	}
 }
