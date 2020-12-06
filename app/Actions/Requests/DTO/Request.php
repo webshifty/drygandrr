@@ -15,6 +15,7 @@ class Request implements Response
 	public ?int $category;
 	public ?string $answer;
 	public ?string $country;
+	public ?Responsible $responsible;
 
 	public function __construct(
 		int $id,
@@ -24,7 +25,8 @@ class Request implements Response
 		Carbon $created_at,
 		?int $category,
 		?string $answer,
-		?string $country
+		?string $country,
+		?Responsible $responsible
 	)
 	{
 		$this->id = $id;
@@ -36,6 +38,7 @@ class Request implements Response
 		$this->category = $category;
 		$this->answer = $answer;
 		$this->country = $country;
+		$this->responsible = $responsible;
 	}
 
 	public function toArray(): array
@@ -49,6 +52,9 @@ class Request implements Response
 			'category' => $this->category,
 			'answer' => $this->answer,
 			'country' => $this->country,
+			'responsible' => $this->responsible
+				? $this->responsible->toArray()
+				: null,
 		];
 	}
 
@@ -62,7 +68,11 @@ class Request implements Response
 			new Carbon($entity->created_at),
 			$entity->question_category,
 			$entity->consul_answer,
-			$entity->country
+			$entity->country,
+			($entity->responsible_user_id !== null) ? new Responsible(
+				$entity->responsible->id,
+				$entity->responsible->name,
+			) : null,
 		);
 	}
 }

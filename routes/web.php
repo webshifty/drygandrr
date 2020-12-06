@@ -43,4 +43,5 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
 
     Route::get('requests', [RequestsController::class, 'requests']);
     Route::put('requests/{id}', [RequestsController::class, 'updateRequest']);
+    Route::put('requests/{id}/responsible', [RequestsController::class, 'assignResponsible']);
 });

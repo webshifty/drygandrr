@@ -15,6 +15,15 @@ export default {
 			data: []
 		};
 	},
+	async assignResponsible(id, responsible) {
+		const response = await requestService.put('/api/requests/' + id + '/responsible', {
+			responsible,
+		});
+
+		return response?.data || {
+			data: []
+		};
+	},
 	mapRequest(request) {
 		return {
 			id: request.id,
@@ -25,6 +34,7 @@ export default {
 			category: request.category,
 			answer: request.answer,
 			country: request.country,
+			responsible: request.responsible,
 		};
 	},
 };

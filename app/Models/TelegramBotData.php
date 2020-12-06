@@ -87,6 +87,7 @@ class TelegramBotData extends Model
 
     public static function saveUserQuestion($chatId, $userId, $question)
     {
+        $previousSession = QAndA::where('responsible_user_id', '<>', 'null')->first();
         $userData = DB::table('tg_users')->where('tg_id', $userId)->first();
         $data = [
             'chat_id' => $chatId,
@@ -95,8 +96,15 @@ class TelegramBotData extends Model
             'user_question' => $question,
             'country' => $userData->country,
             'question_category' => $userData->category_id,
+            'question_status' => QAndA::STATUS_NEW,
             'created_at' => Carbon::now(),
+            'responsible_user_id' => null,
         ];
+
+        if ($previousSession) {
+            $data['responsible_user_id'] = $previousSession->responsible_user_id;
+        }
+
         DB::table('users_questions')->insert($data);
     }
 }

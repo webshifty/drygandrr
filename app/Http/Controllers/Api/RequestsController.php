@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Actions\Requests\UpdateRequest;
+use App\Actions\Requests\AssignResponsible;
 use App\Actions\Requests\DTO\Request as UserRequest;
 use App\Actions\Requests\GetRequests;
 use App\Actions\Requests\DTO\FilterRequest;
@@ -35,9 +36,17 @@ class RequestsController extends Controller
                 Carbon::now(),
                 (int)$request->input('category'),
                 trim((string)$request->input('answer')),
-                trim((string)$request->input('countryName'))
+                trim((string)$request->input('countryName')),
+                null,
             )
         );
+
+        return $this->success($response);
+    }
+
+    public function assignResponsible(Request $request, int $id, AssignResponsible $assignResponsible)
+    {
+        $response = $assignResponsible->execute($id, $request->input('responsible'));
 
         return $this->success($response);
     }

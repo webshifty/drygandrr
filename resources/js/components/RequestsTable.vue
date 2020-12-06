@@ -6,6 +6,7 @@
 				<th class="table-header">Користувач</th>
 				<th class="table-header">Статус</th>
 				<th class="table-header--date">Дата</th>
+				<th class="table-header">Виконує</th>
 				<th class="table__header table__header--control table--control"></th>
 			</tr>
 			<tr v-for="request in requests" :key="request.id" class="table__row" @dblclick="onEdit(request)">
@@ -17,6 +18,10 @@
 					'status--completed': request.status === 2,
 				}"></span>{{ getStatus(request.status) }}</td>
 				<td>{{ renderDate(request.created_at) }}</td>
+				<td>
+					<span v-if="request.responsible">{{ request.responsible.name }}</span>
+					<button v-else class="button secondary" @click.stop.prevent="onAssign(request.id)" @dblclik.stop.prevent>Виконувати</button>
+				</td>
 				<td class="table--control">
 					<a href="#" class="table__icon edit" @click.prevent="onEdit(request)">
 						<svg class="table__icon-image" width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -35,6 +40,9 @@ import dateService from '../services/dateService';
 
 export default {
 	computed: {
+		...mapGetters('user', [
+			'user',
+		]),
 		...mapGetters('requests', [
 			'requests',
 		]),
@@ -48,6 +56,7 @@ export default {
 		]),
 		...mapActions('requests', [
 			'getRequests',
+			'assignRequest'
 		]),
 		renderDate(strDate) {
 			return dateService.getFormatDate(strDate);
@@ -62,11 +71,26 @@ export default {
 			return status.name;
 		},
 		onEdit(request) {
+			if (!request.responsible) {
+				return;
+			}
+
+			if (request.responsible.id !== this.user.id) {
+				return;
+			}
+
 			this.showModal({
 				type: 'answerUser',
 				payload: {
 					...request,
 				}
+			});
+		},
+
+		async onAssign(requestId) {
+			await this.assignRequest({
+				requestId,
+				userId: this.user.id,
 			});
 		}
 	},
@@ -110,5 +134,11 @@ export default {
 .table--control {
 	width: 30px;
 	padding: 5px;
+}
+
+.button {
+	padding: 11px;
+    height: auto;
+    box-shadow: none;
 }
 </style>

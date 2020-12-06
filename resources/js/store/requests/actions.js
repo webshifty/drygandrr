@@ -32,5 +32,16 @@ export default {
 		commit(CHANGE_FILTER, { filter, value });
 
 		await dispatch('getRequests');
+	},
+
+	async assignRequest({ commit }, { requestId, userId }) {
+		const response = await userRequestsService.assignResponsible(
+			requestId,
+			userId
+		);
+
+		commit(UPDATE_REQUEST, {
+			request: response.data,
+		});
 	}
 };

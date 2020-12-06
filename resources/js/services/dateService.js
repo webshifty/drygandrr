@@ -43,6 +43,8 @@ export default {
 		const date = new Date(strDate);
 		const diff = (Date.now() - date);
 		const hours = parseInt(diff / AN_HOUR);
+		const minutes = parseInt(diff / A_MINUTE);
+
 		if (hours > 24) {
 			return `${this.formatDate(date)} о ${this.formatTime(date)}`;
 		}
@@ -51,6 +53,10 @@ export default {
 			return this.formatHours(hours);
 		}
 
-		return this.formatMinutes(parseInt(diff / A_MINUTE));
+		if (minutes === 0) {
+			return 'щойно';
+		}
+
+		return this.formatMinutes(minutes);
 	}
 }

@@ -18,6 +18,11 @@ class QAndA extends Model
 
     protected $table = 'users_questions';
 
+    public function responsible()
+    {
+        return $this->belongsTo('App\Models\User', 'responsible_user_id');
+    }
+
     public static function getStatuses()
     {
         return [
@@ -29,7 +34,9 @@ class QAndA extends Model
 
     public static function getTelegramRequests(): EloquentBuilder
     {
-        return self::select('*')->orderByDesc('created_at');
+        return self::select('*')
+            ->with(['responsible'])
+            ->orderByDesc('users_questions.created_at');
     }
 
     public static function getAllRequestsFromTG()

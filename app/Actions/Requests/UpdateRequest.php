@@ -17,7 +17,7 @@ class UpdateRequest
 
 	public function execute(Request $data): Request
 	{
-		$qa = QAndA::findOrFail($data->id);
+		$qa = QAndA::with(['responsible'])->findOrFail($data->id);
         $qa->country = $data->country;
         $qa->question_status = $data->status;
         $qa->question_category = $data->category;

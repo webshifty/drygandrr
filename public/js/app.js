@@ -4068,11 +4068,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])('requests', ['requests'])), Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])('page', ['statuses'])),
-  methods: _objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])('modal', ['showModal'])), Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])('requests', ['getRequests'])), {}, {
+  computed: _objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])('user', ['user'])), Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])('requests', ['requests'])), Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])('page', ['statuses'])),
+  methods: _objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])('modal', ['showModal'])), Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])('requests', ['getRequests', 'assignRequest'])), {}, {
     renderDate: function renderDate(strDate) {
       return _services_dateService__WEBPACK_IMPORTED_MODULE_2__["default"].getFormatDate(strDate);
     },
@@ -4088,29 +4093,59 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return status.name;
     },
     onEdit: function onEdit(request) {
+      if (!request.responsible) {
+        return;
+      }
+
+      if (request.responsible.id !== this.user.id) {
+        return;
+      }
+
       this.showModal({
         type: 'answerUser',
         payload: _objectSpread({}, request)
       });
+    },
+    onAssign: function onAssign(requestId) {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return _this.assignRequest({
+                  requestId: requestId,
+                  userId: _this.user.id
+                });
+
+              case 2:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
     }
   }),
   mounted: function mounted() {
-    var _this = this;
+    var _this2 = this;
 
-    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
         while (1) {
-          switch (_context.prev = _context.next) {
+          switch (_context2.prev = _context2.next) {
             case 0:
-              _context.next = 2;
-              return _this.getRequests();
+              _context2.next = 2;
+              return _this2.getRequests();
 
             case 2:
             case "end":
-              return _context.stop();
+              return _context2.stop();
           }
         }
-      }, _callee);
+      }, _callee2);
     }))();
   }
 });
@@ -5254,7 +5289,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".table-header[data-v-f9c805e2] {\n  width: 150px;\n}\n.table-header--date[data-v-f9c805e2] {\n  width: 200px;\n}\n.status[data-v-f9c805e2] {\n  display: inline-block;\n  width: 8px;\n  height: 8px;\n  border-radius: 50%;\n  margin: 1px 8px;\n}\n.status--new[data-v-f9c805e2] {\n  background-color: #EB5757;\n}\n.status--executing[data-v-f9c805e2] {\n  background-color: #219653;\n}\n.status--completed[data-v-f9c805e2] {\n  background-color: #004BC1;\n}\n.table-status[data-v-f9c805e2] {\n  white-space: nowrap;\n}\n.table--control[data-v-f9c805e2] {\n  width: 30px;\n  padding: 5px;\n}\n", ""]);
+exports.push([module.i, ".table-header[data-v-f9c805e2] {\n  width: 150px;\n}\n.table-header--date[data-v-f9c805e2] {\n  width: 200px;\n}\n.status[data-v-f9c805e2] {\n  display: inline-block;\n  width: 8px;\n  height: 8px;\n  border-radius: 50%;\n  margin: 1px 8px;\n}\n.status--new[data-v-f9c805e2] {\n  background-color: #EB5757;\n}\n.status--executing[data-v-f9c805e2] {\n  background-color: #219653;\n}\n.status--completed[data-v-f9c805e2] {\n  background-color: #004BC1;\n}\n.table-status[data-v-f9c805e2] {\n  white-space: nowrap;\n}\n.table--control[data-v-f9c805e2] {\n  width: 30px;\n  padding: 5px;\n}\n.button[data-v-f9c805e2] {\n  padding: 11px;\n  height: auto;\n  box-shadow: none;\n}\n", ""]);
 
 // exports
 
@@ -35782,6 +35817,29 @@ var render = function() {
               _vm._v(" "),
               _c("td", [_vm._v(_vm._s(_vm.renderDate(request.created_at)))]),
               _vm._v(" "),
+              _c("td", [
+                request.responsible
+                  ? _c("span", [_vm._v(_vm._s(request.responsible.name))])
+                  : _c(
+                      "button",
+                      {
+                        staticClass: "button secondary",
+                        on: {
+                          click: function($event) {
+                            $event.stopPropagation()
+                            $event.preventDefault()
+                            return _vm.onAssign(request.id)
+                          },
+                          dblclik: function($event) {
+                            $event.stopPropagation()
+                            $event.preventDefault()
+                          }
+                        }
+                      },
+                      [_vm._v("Виконувати")]
+                    )
+              ]),
+              _vm._v(" "),
               _c("td", { staticClass: "table--control" }, [
                 _c(
                   "a",
@@ -35842,6 +35900,8 @@ var staticRenderFns = [
       _c("th", { staticClass: "table-header" }, [_vm._v("Статус")]),
       _vm._v(" "),
       _c("th", { staticClass: "table-header--date" }, [_vm._v("Дата")]),
+      _vm._v(" "),
+      _c("th", { staticClass: "table-header" }, [_vm._v("Виконує")]),
       _vm._v(" "),
       _c("th", {
         staticClass: "table__header table__header--control table--control"
@@ -51811,6 +51871,7 @@ __webpack_require__.r(__webpack_exports__);
     var date = new Date(strDate);
     var diff = Date.now() - date;
     var hours = parseInt(diff / AN_HOUR);
+    var minutes = parseInt(diff / A_MINUTE);
 
     if (hours > 24) {
       return "".concat(this.formatDate(date), " \u043E ").concat(this.formatTime(date));
@@ -51820,7 +51881,11 @@ __webpack_require__.r(__webpack_exports__);
       return this.formatHours(hours);
     }
 
-    return this.formatMinutes(parseInt(diff / A_MINUTE));
+    if (minutes === 0) {
+      return 'щойно';
+    }
+
+    return this.formatMinutes(minutes);
   }
 });
 
@@ -52068,6 +52133,32 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }, _callee2);
     }))();
   },
+  assignResponsible: function assignResponsible(id, responsible) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+      var response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              _context3.next = 2;
+              return _requestService__WEBPACK_IMPORTED_MODULE_1__["default"].put('/api/requests/' + id + '/responsible', {
+                responsible: responsible
+              });
+
+            case 2:
+              response = _context3.sent;
+              return _context3.abrupt("return", (response === null || response === void 0 ? void 0 : response.data) || {
+                data: []
+              });
+
+            case 4:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3);
+    }))();
+  },
   mapRequest: function mapRequest(request) {
     return {
       id: request.id,
@@ -52077,7 +52168,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       created_at: request.created_at,
       category: request.category,
       answer: request.answer,
-      country: request.country
+      country: request.country,
+      responsible: request.responsible
     };
   }
 });
@@ -52677,6 +52769,32 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }
       }, _callee3);
+    }))();
+  },
+  assignRequest: function assignRequest(_ref5, _ref6) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+      var commit, requestId, userId, response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              commit = _ref5.commit;
+              requestId = _ref6.requestId, userId = _ref6.userId;
+              _context4.next = 4;
+              return _services_userRequestsService__WEBPACK_IMPORTED_MODULE_1__["default"].assignResponsible(requestId, userId);
+
+            case 4:
+              response = _context4.sent;
+              commit(_types__WEBPACK_IMPORTED_MODULE_2__["UPDATE_REQUEST"], {
+                request: response.data
+              });
+
+            case 6:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4);
     }))();
   }
 });
