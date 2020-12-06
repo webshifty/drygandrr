@@ -4258,7 +4258,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
 
 
 
@@ -4368,8 +4367,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     fill: String,
-    width: Number,
-    height: Number
+    width: String,
+    height: String
   }
 });
 
@@ -4396,8 +4395,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     fill: String,
-    width: Number,
-    height: Number
+    width: String,
+    height: String
   }
 });
 
@@ -5485,7 +5484,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".user[data-v-7578681c] {\n  padding: 0;\n  display: block;\n}\n.user__photo[data-v-7578681c] {\n  width: 104px;\n  height: 104px;\n  border-radius: 50%;\n}\n.user__link[data-v-7578681c] {\n  padding: 5px 0;\n  white-space: nowrap;\n  display: block;\n}\n.user__link span[data-v-7578681c] {\n  padding: 0 10px;\n}\n.user__change-photo[data-v-7578681c] {\n  color: #004BC1;\n}\n.user__photo-links[data-v-7578681c] {\n  padding-top: 10px;\n  padding-bottom: 10px;\n}\n.user__delete-photo[data-v-7578681c] {\n  color: #EB5757;\n}\n", ""]);
+exports.push([module.i, ".user[data-v-7578681c] {\n  padding: 0;\n  display: block;\n}\n.user__image[data-v-7578681c] {\n  float: left;\n}\n.user__photo[data-v-7578681c] {\n  width: 104px;\n  height: 104px;\n  border-radius: 50%;\n}\n.user__link[data-v-7578681c] {\n  padding: 5px 0;\n  white-space: nowrap;\n  display: block;\n}\n.user__link span[data-v-7578681c] {\n  padding: 0 10px;\n}\n.user__change-photo[data-v-7578681c] {\n  color: #004BC1;\n}\n.user__photo-links[data-v-7578681c] {\n  padding-top: 10px;\n  padding-bottom: 10px;\n}\n.user__delete-photo[data-v-7578681c] {\n  color: #EB5757;\n}\n", ""]);
 
 // exports
 
@@ -36214,55 +36213,51 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container-fluid user" }, [
-    _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-2" }, [
-        _c("img", {
-          staticClass: "user__photo",
-          attrs: { src: _vm.user.photo, alt: "" }
-        })
-      ]),
+    _c("div", { staticClass: "user__image" }, [
+      _c("img", {
+        staticClass: "user__photo",
+        attrs: { src: _vm.user.photo, alt: "" }
+      })
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "user__photo-links" }, [
+      _c(
+        "a",
+        {
+          staticClass: "user__link user__change-photo",
+          attrs: { href: "#" },
+          on: {
+            click: function($event) {
+              $event.preventDefault()
+            }
+          }
+        },
+        [
+          _c("Pen", { attrs: { fill: "#004BC1", width: "18", height: "18" } }),
+          _c("span", [_vm._v("Додати фото")])
+        ],
+        1
+      ),
       _vm._v(" "),
-      _c("div", { staticClass: "col-10 user__photo-links" }, [
-        _c(
-          "a",
-          {
-            staticClass: "user__link user__change-photo",
-            attrs: { href: "#" },
-            on: {
-              click: function($event) {
-                $event.preventDefault()
-              }
+      _c(
+        "a",
+        {
+          staticClass: "user__link user__delete-photo",
+          attrs: { href: "#" },
+          on: {
+            click: function($event) {
+              $event.preventDefault()
             }
-          },
-          [
-            _c("Pen", {
-              attrs: { fill: "#004BC1", width: "18", height: "18" }
-            }),
-            _c("span", [_vm._v("Додати фото")])
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "a",
-          {
-            staticClass: "user__link user__delete-photo",
-            attrs: { href: "#" },
-            on: {
-              click: function($event) {
-                $event.preventDefault()
-              }
-            }
-          },
-          [
-            _c("Bucket", {
-              attrs: { fill: "#EB5757", width: "20", height: "20" }
-            }),
-            _c("span", [_vm._v("Видалити фото")])
-          ],
-          1
-        )
-      ])
+          }
+        },
+        [
+          _c("Bucket", {
+            attrs: { fill: "#EB5757", width: "20", height: "20" }
+          }),
+          _c("span", [_vm._v("Видалити фото")])
+        ],
+        1
+      )
     ])
   ])
 }

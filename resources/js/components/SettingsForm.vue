@@ -1,10 +1,9 @@
 <template>
 <div class="container-fluid user">
-	<div class="row">
-		<div class="col-2">
+		<div class="user__image">
 			<img class="user__photo" :src="user.photo" alt="">
 		</div>
-		<div class="col-10 user__photo-links">
+		<div class="user__photo-links">
 			<a
 				href="#"
 				class="user__link user__change-photo"
@@ -46,6 +45,9 @@ export default {
 .user {
 	padding: 0;
 	display: block;
+}
+.user__image {
+	float: left;
 }
 .user__photo {
 	width: 104px;

@@ -11,8 +11,8 @@
 export default {
 	props: {
 		fill: String,
-		width: Number,
-		height: Number
+		width: String,
+		height: String
 	}
 }
 </script>
