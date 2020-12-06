@@ -28,8 +28,10 @@ Route::post('/bot/getupdates', BotController::income());
 
 Route::get('bot', [BotController::class, 'income']);
 Route::middleware('auth')->get('/dashboard', [BaseController::class, 'dashboard'])->name('requests');
-Route::middleware('auth')->post('/a/update_lead', [BaseController::class, 'updateUserQuestionInfo']);
 Route::middleware('auth')->get('/q_base', [BaseController::class, 'questionBase'])->name('questions');
+Route::middleware('auth')->get('/settings', [BaseController::class, 'settings'])->name('settings');
+
+Route::middleware('auth')->post('/a/update_lead', [BaseController::class, 'updateUserQuestionInfo']);
 Route::middleware('auth')->post('/a/add_new_qa', [BaseController::class, 'saveNewQA']);
 Route::middleware('auth')->post('/a/update_qa', [BaseController::class, 'updateQABase']);
 

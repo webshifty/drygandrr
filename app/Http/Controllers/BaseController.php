@@ -25,14 +25,18 @@ class BaseController extends Controller
         return view('admin.dashboard.questions', ['data' => $data]);
     }
 
-    public static function updateUserQuestionInfo(Request $request)
+    public static function settings()
     {
-        $updateLeadInfo = QAndA::find($request->id);
-        $updateLeadInfo->question_status = $request->status;
-        $updateLeadInfo->consul_answer = $request->comment;
-        $updateLeadInfo->save();
+        $userInfo = User::getUserInfoById(auth()->id());
+        $countries = QAndA::getAllCountries();
+        $categories = QAndA::getAllQuestionCategories();
+        $data = [
+            'userInfo' => $userInfo,
+            'countries' => $countries,
+            'categories' => $categories,
+        ];
 
-        return response()->json(['html'=>'Iнформація оновлена']);
+        return view('admin.dashboard.settings', ['data' => $data]);
     }
 
     public static function questionBase()
@@ -49,6 +53,16 @@ class BaseController extends Controller
         ];
 
         return view('admin.dashboard.requests', ['data' => $data]);
+    }
+
+    public static function updateUserQuestionInfo(Request $request)
+    {
+        $updateLeadInfo = QAndA::find($request->id);
+        $updateLeadInfo->question_status = $request->status;
+        $updateLeadInfo->consul_answer = $request->comment;
+        $updateLeadInfo->save();
+
+        return response()->json(['html'=>'Iнформація оновлена']);
     }
 
     public function saveNewQA(Request $request)

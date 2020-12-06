@@ -15,6 +15,7 @@
 			routes: {
 				questions: "{{ route('questions') }}",
 				requests: "{{ route('requests') }}",
+				settings: "{{ route('settings') }}",
 				logout: "{{ route('logout') }}",
 			},
 			userInfo: @json($data['userInfo']),
