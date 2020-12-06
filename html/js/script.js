@@ -38,4 +38,10 @@
     $modal.hide();
 
     });
+
+    $(".questions-block table tr").on("hover click", function() {
+        $('.hover-block').remove();
+        $(this).append($(`<table class="hover-block">${$(this).html()}</table>`));
+        
+    });
 });

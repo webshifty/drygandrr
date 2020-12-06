@@ -214,7 +214,7 @@ main {
     line-height: 0;
     padding: 0 3px;
     left: 20px;
-    top: -5px;
+    top: 0;
     height: 7px;
 }
 
@@ -234,10 +234,33 @@ main {
     left: 0;
     top: 0;
     box-shadow: 6px 0px 18px rgba(0, 0, 0, 0.06);
+    z-index: 2;
 }
 
 .search {
     background-color: #fff;
+}
+
+.search input::placeholder {
+    font-size: 14px;
+    line-height: 17px;
+    letter-spacing: 0.01em;
+    color: #595959;
+}
+
+.search svg {
+    margin: 0 0 0 30px;
+}
+
+.search label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.search input {
+    border: 0;
+    padding-right: 40px;
 }
 
 .top {
@@ -267,7 +290,6 @@ th,td {
     text-align: left;
     letter-spacing: 0.01em;
     font-size: 14px;
-
 }
 
 th {
@@ -307,10 +329,11 @@ td {
     line-height: 17px;
     letter-spacing: 0.01em;
     color: #595959;
+    border-left: 3px solid transparent;
 }
 
 .sidebar-content .nav a.active {
-    border-left: 3px solid #004BC1;
+    border-color: #004BC1;
     background-color: #F6F8FE;
     color: #252525;
 }
@@ -358,13 +381,36 @@ td {
 
 .action-block {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
 }
 
 .action-block button {
     width: 160px;
     height: 42px;
     margin-bottom: 14px;
+}
+
+.action-block .select-list {
+    display: flex;
+}
+
+.action-block .select-list label {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    line-height: 16px;
+    color: #575757;
+    margin-right: 30px;
+}
+
+.action-block .select-list select {
+    border: 0;
+    background: none;
+    height: auto;
+    padding: 0 16px;
+    font-size: 14px;
+    line-height: 16px;
+    color: #004BC1;
 }
 
 .js-tab-content {
@@ -397,6 +443,7 @@ td {
     right: 0;
     top: 0;
     bottom: 0;
+    z-index: 2;
 }
 
 .fieldset {
@@ -437,4 +484,50 @@ h3 {
     background: #fff;
     color: #004BC1;
     border: 1px solid #004BC1;
+}
+.questions-block table {
+    display: flex;
+    flex-direction: column;
+}
+
+.questions-block table tr,
+.questions-block table th {
+    display: flex;
+    width: 100%;
+    position: relative;
+    cursor: pointer;
+}
+
+.questions-block table td {
+    max-height: 73px;
+    overflow: hidden;
+}
+
+.questions-block table td:first-child {
+    min-width: 30%;
+    max-width: 30%;
+}
+
+.questions-block table td:last-child {
+    min-width: 80px;
+    max-width: 80px;
+}
+
+.hover-block {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    padding: 11px 32px;
+    border-bottom: 1px solid #EBEFF2;
+    background-color: #fff;
+    text-align: left;
+    letter-spacing: 0.01em;
+    font-size: 14px;
+    z-index: 1;
+    padding: 0;
+}
+
+.questions-block .hover-block td {
+    max-height: none;
 }
