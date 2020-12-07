@@ -64,9 +64,10 @@ export default {
 		...mapGetters('user', [
 			'user',
 			'photo',
+			'isAdmin'
 		]),
 		access() {
-			return this.user.access === 7 ? 'Адміністратор' : 'Оператор'
+			return this.isAdmin ? 'Адміністратор' : 'Оператор'
 		}
 	},
 	methods: {
@@ -155,5 +156,6 @@ export default {
 	padding: 25px 12px;
 	font-size: 14px;
 	color: #595959;
+	border-bottom: 1px solid #EBEFF2;
 } 
 </style>

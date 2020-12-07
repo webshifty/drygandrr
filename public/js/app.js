@@ -4301,9 +4301,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     Pen: _icons_Pen_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
     Bucket: _icons_Bucket_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
-  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])('user', ['user', 'photo'])), {}, {
+  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])('user', ['user', 'photo', 'isAdmin'])), {}, {
     access: function access() {
-      return this.user.access === 7 ? 'Адміністратор' : 'Оператор';
+      return this.isAdmin ? 'Адміністратор' : 'Оператор';
     }
   }),
   methods: _objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])('user', ['uploadPhoto', 'deletePhoto'])), Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])('modal', ['showModal'])), {}, {
@@ -5764,7 +5764,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".user[data-v-7578681c] {\n  padding: 0;\n  display: block;\n}\n.user__image[data-v-7578681c] {\n  float: left;\n}\n.user__photo[data-v-7578681c] {\n  width: 104px;\n  height: 104px;\n  border-radius: 50%;\n}\n.user__link[data-v-7578681c] {\n  padding: 5px 0;\n  white-space: nowrap;\n  display: block;\n}\n.user__link span[data-v-7578681c] {\n  padding: 0 10px;\n  font-size: 14px;\n  font-weight: 700;\n  display: inline;\n  cursor: pointer;\n}\n.user__change-photo[data-v-7578681c] {\n  color: #004BC1;\n}\n.user__change-photo input[data-v-7578681c] {\n  display: none;\n}\n.user__photo-links[data-v-7578681c] {\n  padding-top: 10px;\n  padding-bottom: 10px;\n}\n.user__delete-photo[data-v-7578681c] {\n  color: #EB5757;\n}\n.user__photo-input[data-v-7578681c] {\n  display: none;\n}\n.user__name[data-v-7578681c] {\n  margin-top: 30px;\n  margin-bottom: 15px;\n  font-size: 21px;\n  font-weight: 700;\n}\n.user__line[data-v-7578681c] {\n  background-color: #fff;\n  padding: 25px 12px;\n  font-size: 14px;\n  color: #595959;\n} \n", ""]);
+exports.push([module.i, ".user[data-v-7578681c] {\n  padding: 0;\n  display: block;\n}\n.user__image[data-v-7578681c] {\n  float: left;\n}\n.user__photo[data-v-7578681c] {\n  width: 104px;\n  height: 104px;\n  border-radius: 50%;\n}\n.user__link[data-v-7578681c] {\n  padding: 5px 0;\n  white-space: nowrap;\n  display: block;\n}\n.user__link span[data-v-7578681c] {\n  padding: 0 10px;\n  font-size: 14px;\n  font-weight: 700;\n  display: inline;\n  cursor: pointer;\n}\n.user__change-photo[data-v-7578681c] {\n  color: #004BC1;\n}\n.user__change-photo input[data-v-7578681c] {\n  display: none;\n}\n.user__photo-links[data-v-7578681c] {\n  padding-top: 10px;\n  padding-bottom: 10px;\n}\n.user__delete-photo[data-v-7578681c] {\n  color: #EB5757;\n}\n.user__photo-input[data-v-7578681c] {\n  display: none;\n}\n.user__name[data-v-7578681c] {\n  margin-top: 30px;\n  margin-bottom: 15px;\n  font-size: 21px;\n  font-weight: 700;\n}\n.user__line[data-v-7578681c] {\n  background-color: #fff;\n  padding: 25px 12px;\n  font-size: 14px;\n  color: #595959;\n  border-bottom: 1px solid #EBEFF2;\n} \n", ""]);
 
 // exports
 
@@ -54500,6 +54500,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     photo: function photo(state) {
       return state.photoUrl;
+    },
+    isAdmin: function isAdmin(state) {
+      return state.access === 7;
     }
   }
 });

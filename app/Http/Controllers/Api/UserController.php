@@ -8,8 +8,6 @@ use App\Actions\Users\DTO\UserInfoResponse;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-
 
 class UserController extends Controller
 {

@@ -25,6 +25,9 @@ export default {
 		},
 		photo(state) {
 			return state.photoUrl;
+		},
+		isAdmin(state) {
+			return state.access === 7;
 		}
 	}
 };
