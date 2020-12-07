@@ -5,15 +5,15 @@ axios.defaults.headers.common['X-CSRF-TOKEN'] = $('meta[name="csrf-token"]').att
 axios.interceptors.response.use(
 	response => response,
 	error => {
-		if (error.response) {
-			return Promise.reject(
-				new Error(error?.response?.data.message || error.message)
-			);
-		} else {
+		if (!error.response) {
 			return Promise.reject(error);
 		}
+		const err = new Error(error?.response?.data.message || error.message);
+		err.response = error.response;
+		return Promise.reject(err);
 	},
 );
+
 export default {
 	get(url, params) {
 		return axios.get(url, {

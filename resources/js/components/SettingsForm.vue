@@ -44,7 +44,7 @@
 	</div>
 	<div class="row mt-4">
 		<div class="col-3">
-			<button class="button secondary" @click.stop.prevent="onEdit">Редагуати</button>
+			<button class="button secondary" @click.stop.prevent="onEdit">Редагувати</button>
 		</div>
 	</div>
 </div>
@@ -74,15 +74,24 @@ export default {
 			'uploadPhoto',
 			'deletePhoto',
 		]),
+		...mapActions('modal', [
+			'showModal',
+		]),
 		onEdit() {
-
+			this.showModal({
+				type: 'updateUser',
+				payload: {
+					...this.user,
+				}
+			});
 		},
-		onChangePhoto(e) {
-			this.uploadPhoto(e.target.files[0]);
+		async onChangePhoto(e) {
+			const file = e.target.files[0];
 			e.target.value = "";
+			await this.uploadPhoto(file);
 		},
-		onDeletePhoto() {
-			this.deletePhoto();
+		async onDeletePhoto() {
+			await this.deletePhoto();
 		}
 	}
 }

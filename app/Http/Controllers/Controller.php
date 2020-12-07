@@ -19,6 +19,13 @@ class Controller extends BaseController
         ]);
     }
 
+    public function error(string $message)
+    {
+        return response()->json([
+            'message' => $message,
+        ], 400);
+    }
+
     public function empty()
     {
         return response()->json([]);

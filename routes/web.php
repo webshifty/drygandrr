@@ -48,4 +48,5 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
 
     Route::post('user/photo', [UserController::class, 'uploadPhoto']);
     Route::delete('user/photo', [UserController::class, 'deletePhoto']);
+    Route::put('user', [UserController::class, 'updateUser']);
 });

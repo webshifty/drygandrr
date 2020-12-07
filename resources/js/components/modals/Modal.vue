@@ -5,6 +5,7 @@
 			<EditQuestionModal v-if="type === 'editQuestions'" :data="payload" v-on:close="hideModal" />
 			<DeleteQuestionModal v-if="type === 'deleteQuestion'" :data="payload" v-on:close="hideModal" />
 			<AnswerUserModal v-if="type === 'answerUser'" :data="payload" v-on:close="hideModal" />
+			<UpdateUserModal v-if="type === 'updateUser'" :data="payload" v-on:close="hideModal" />
 		</div>
 		<div v-on:click.prevent="hideModal" class="overlay"></div>
 	</div>
@@ -16,6 +17,7 @@ import AddQuestionModal from './AddQuestionModal';
 import DeleteQuestionModal from './DeleteQuestionModal.vue';
 import EditQuestionModal from './EditQuestionModal';
 import AnswerUserModal from './AnswerUserModal';
+import UpdateUserModal from './UpdateUserModal.vue';
 
 export default {
 	components: {
@@ -23,6 +25,7 @@ export default {
 		EditQuestionModal,
 		DeleteQuestionModal,
 		AnswerUserModal,
+		UpdateUserModal,
 	},
 	computed: {
 		...mapGetters('modal', [

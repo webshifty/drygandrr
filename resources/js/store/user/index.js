@@ -8,6 +8,7 @@ export default {
 
 		return {
 			id: userInfo.id,
+			work_country: userInfo.work_country,
 			country: userInfo?.country?.name || userInfo?.country?.name_ru || userInfo?.country?.name_en,
 			access: userInfo.access,
 			photo: userInfo.profile_photo_path,

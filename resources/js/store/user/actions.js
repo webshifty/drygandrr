@@ -12,5 +12,11 @@ export default {
 		await requestService.delete('/api/user/photo');
 		
 		commit(types.DELETE_PHOTO);
+	},
+
+	async updateUser({ commit }, user) {
+		const response = await requestService.put('/api/user', user);
+
+		commit(types.UPDATE_USER, response?.data?.data);
 	}
 }
