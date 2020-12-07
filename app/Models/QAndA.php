@@ -85,7 +85,7 @@ class QAndA extends Model
         ->where('publish', 1)
         ->join('countries', 'countries.id', '=', 'questions.country')
         ->join('question_categories', 'question_categories.id', '=', 'questions.category')
-        ->orderByDesc('created_at');
+        ->orderBy('created_at');
     }
 
     public static function getAllCountries ()
