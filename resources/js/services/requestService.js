@@ -31,5 +31,16 @@ export default {
 
 	delete(url) {
 		return axios.delete(url);
+	},
+
+	file(url, file) {
+		const formData = new FormData();
+		formData.append('image', file);
+
+		return axios.post(url, formData, {
+			headers: {
+			  'Content-Type': 'multipart/form-data'
+			}
+		});
 	}
 };

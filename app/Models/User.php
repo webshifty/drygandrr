@@ -19,6 +19,9 @@ class User extends Authenticatable
     use Notifiable;
     use TwoFactorAuthenticatable;
 
+    const ACCESS_SUPER_ADMIN = 7;
+    const ACCESS_OPERATOR = 4;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -60,9 +63,14 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
+    public function country()
+    {
+        return $this->belongsTo('App\Models\Country', 'work_country');
+    }
+
     public static function getUserInfoById($id)
     {
-        $user = User::find($id);
+        $user = User::with('country')->find($id);
 
         return $user;
     }

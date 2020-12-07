@@ -5,6 +5,7 @@ use App\Http\Controllers\BotController;
 use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Api\QuestionsController;
 use App\Http\Controllers\Api\RequestsController;
+use App\Http\Controllers\Api\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,4 +45,7 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
     Route::get('requests', [RequestsController::class, 'requests']);
     Route::put('requests/{id}', [RequestsController::class, 'updateRequest']);
     Route::put('requests/{id}/responsible', [RequestsController::class, 'assignResponsible']);
+
+    Route::post('user/photo', [UserController::class, 'uploadPhoto']);
+    Route::delete('user/photo', [UserController::class, 'deletePhoto']);
 });

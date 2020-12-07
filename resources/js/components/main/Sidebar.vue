@@ -2,7 +2,7 @@
 <div class="sidebar-content">
 	<span>Друг: {{ user.country }}</span>
 	<div class="user">
-		<img class="user__photo" :src="user.photo" alt="">
+		<img class="user__photo" :src="photo" alt="">
 		<div class="user-content">
 			<div class="user-name">{{ user.name }}</div>
 			<div class="user-email">{{ user.email }}</div>
@@ -46,6 +46,7 @@ export default {
 	computed: {
 		...mapGetters('user', [
 			'user',
+			'photo',
 		]),
 		...mapGetters('page', [
 			'routeName',
@@ -87,6 +88,8 @@ export default {
 
 .user__photo {
 	border-radius: 50%;
+	width: 47px;
+	height: 47px;
 }
 
 </style>

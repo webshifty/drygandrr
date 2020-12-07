@@ -31,4 +31,31 @@ export default {
 	border-bottom: 1px solid #eaeaea;
 	height: 60px;
 }
+
+.search {
+    background-color: #fff;
+}
+
+.search input::placeholder {
+    font-size: 14px;
+    line-height: 17px;
+    letter-spacing: 0.01em;
+    color: #595959;
+}
+
+.search svg {
+    margin: 0 0 0 30px;
+}
+
+.search label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.search input {
+    border: 0;
+    padding-right: 40px;
+}
+
 </style>

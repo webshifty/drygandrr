@@ -18,6 +18,7 @@
 				settings: "{{ route('settings') }}",
 				logout: "{{ route('logout') }}",
 			},
+			storage: "{{ asset('storage/') }}", 
 			userInfo: @json($data['userInfo']),
 			countries: @json($data['countries']),
 			categories: @json($data['categories']),
