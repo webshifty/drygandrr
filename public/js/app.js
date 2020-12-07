@@ -54410,7 +54410,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   deletePhoto: function deletePhoto(_ref2) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-      var commit;
+      var _response$data2;
+
+      var commit, response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
@@ -54420,9 +54422,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               return _services_requestService__WEBPACK_IMPORTED_MODULE_2__["default"]["delete"]('/api/user/photo');
 
             case 3:
-              commit(_types__WEBPACK_IMPORTED_MODULE_1__["DELETE_PHOTO"]);
+              response = _context2.sent;
+              commit(_types__WEBPACK_IMPORTED_MODULE_1__["UPLOAD_PHOTO"], response === null || response === void 0 ? void 0 : (_response$data2 = response.data) === null || _response$data2 === void 0 ? void 0 : _response$data2.data.photo);
 
-            case 4:
+            case 5:
             case "end":
               return _context2.stop();
           }
@@ -54432,7 +54435,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   updateUser: function updateUser(_ref3, user) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
-      var _response$data2;
+      var _response$data3;
 
       var commit, response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
@@ -54445,7 +54448,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
             case 3:
               response = _context3.sent;
-              commit(_types__WEBPACK_IMPORTED_MODULE_1__["UPDATE_USER"], response === null || response === void 0 ? void 0 : (_response$data2 = response.data) === null || _response$data2 === void 0 ? void 0 : _response$data2.data);
+              commit(_types__WEBPACK_IMPORTED_MODULE_1__["UPDATE_USER"], response === null || response === void 0 ? void 0 : (_response$data3 = response.data) === null || _response$data3 === void 0 ? void 0 : _response$data3.data);
 
             case 5:
             case "end":
@@ -54484,7 +54487,7 @@ __webpack_require__.r(__webpack_exports__);
       country: (userInfo === null || userInfo === void 0 ? void 0 : (_userInfo$country = userInfo.country) === null || _userInfo$country === void 0 ? void 0 : _userInfo$country.name) || (userInfo === null || userInfo === void 0 ? void 0 : (_userInfo$country2 = userInfo.country) === null || _userInfo$country2 === void 0 ? void 0 : _userInfo$country2.name_ru) || (userInfo === null || userInfo === void 0 ? void 0 : (_userInfo$country3 = userInfo.country) === null || _userInfo$country3 === void 0 ? void 0 : _userInfo$country3.name_en),
       access: userInfo.access,
       photo: userInfo.profile_photo_path,
-      defaultPhoto: userInfo.profile_photo_url || '/img/profile_photo.png',
+      photoUrl: userInfo.profile_photo_url,
       name: userInfo.name,
       email: userInfo.email
     };
@@ -54496,11 +54499,7 @@ __webpack_require__.r(__webpack_exports__);
       return state;
     },
     photo: function photo(state) {
-      if (state.photo) {
-        return window.__PAGE_STATE__.storage + '/' + state.photo;
-      }
-
-      return state.defaultPhoto;
+      return state.photoUrl;
     }
   }
 });
@@ -54523,9 +54522,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 /* harmony default export */ __webpack_exports__["default"] = (_types$UPLOAD_PHOTO$t = {}, _defineProperty(_types$UPLOAD_PHOTO$t, _types__WEBPACK_IMPORTED_MODULE_0__["UPLOAD_PHOTO"], function (state, photo) {
-  state.photo = photo;
+  state.photoUrl = photo;
 }), _defineProperty(_types$UPLOAD_PHOTO$t, _types__WEBPACK_IMPORTED_MODULE_0__["DELETE_PHOTO"], function (state) {
-  state.photo = undefined;
+  state.photoUrl = undefined;
 }), _defineProperty(_types$UPLOAD_PHOTO$t, _types__WEBPACK_IMPORTED_MODULE_0__["UPDATE_USER"], function (state, user) {
   var _user$country, _user$country2, _user$country3;
 

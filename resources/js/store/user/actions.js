@@ -9,9 +9,9 @@ export default {
 	},
 
 	async deletePhoto({ commit }) {
-		await requestService.delete('/api/user/photo');
+		const response = await requestService.delete('/api/user/photo');
 		
-		commit(types.DELETE_PHOTO);
+		commit(types.UPLOAD_PHOTO, response?.data?.data.photo);
 	},
 
 	async updateUser({ commit }, user) {

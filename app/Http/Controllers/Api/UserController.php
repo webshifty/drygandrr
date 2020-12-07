@@ -26,30 +26,20 @@ class UserController extends Controller
 		$request->validate([
 			'image' => 'mimes:jpeg,png|max:4096',
 		]);
-		$extension = $request->image->extension();
-		$name = uniqid();
-		$request->image->storeAs('/public', $name.".".$extension);
-		$url = $name.".".$extension;
 		$user = User::find(auth()->id());
+		$user->updateProfilePhoto($request->image);
 
-		if ($user->profile_photo_path) {
-			Storage::delete($user->profile_photo_path);
-		}
-
-		$user->profile_photo_path = $url;
-		$user->save();
-
-		return $this->success(new PhotoResponse($url));
+		return $this->success(new PhotoResponse($user->getProfilePhotoUrlAttribute()));
 	}
 
 	public function deletePhoto()
 	{
 		$user = User::find(auth()->id());
-		Storage::delete($user->profile_photo_path);
-		$user->profile_photo_path = null;
-		$user->save();
+		$user->deleteProfilePhoto();
 
-		return $this->empty();
+		return $this->success(
+			new PhotoResponse($user->getProfilePhotoUrlAttribute())
+		);
 	}
 
 	public function updateUser(Request $request, UpdateUserPassword $updatePassword)

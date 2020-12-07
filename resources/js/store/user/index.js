@@ -12,7 +12,7 @@ export default {
 			country: userInfo?.country?.name || userInfo?.country?.name_ru || userInfo?.country?.name_en,
 			access: userInfo.access,
 			photo: userInfo.profile_photo_path,
-			defaultPhoto: userInfo.profile_photo_url || '/img/profile_photo.png',
+			photoUrl: userInfo.profile_photo_url,
 			name: userInfo.name,
 			email: userInfo.email
 		}
@@ -24,11 +24,7 @@ export default {
 			return state;
 		},
 		photo(state) {
-			if (state.photo) {
-				return window.__PAGE_STATE__.storage + '/' + state.photo;
-			}
-
-			return state.defaultPhoto;
+			return state.photoUrl;
 		}
 	}
 };

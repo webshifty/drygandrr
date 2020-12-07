@@ -2,11 +2,11 @@ import * as types from './types';
 
 export default {
 	[types.UPLOAD_PHOTO]: (state, photo) => {
-		state.photo = photo;
+		state.photoUrl = photo;
 	},
 
 	[types.DELETE_PHOTO]: (state) => {
-		state.photo = undefined;
+		state.photoUrl = undefined;
 	},
 
 	[types.UPDATE_USER]: (state, user) => {
