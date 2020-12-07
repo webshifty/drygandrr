@@ -61,6 +61,8 @@ class User extends Authenticatable
      */
     protected $appends = [
         'profile_photo_url',
+        'is_admin',
+        'is_operator'
     ];
 
     public function country()
@@ -73,5 +75,25 @@ class User extends Authenticatable
         $user = User::with('country')->find($id);
 
         return $user;
+    }
+
+    public function isOperator(): bool
+    {
+        return $this->access === 4 || $this->access === null;
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->access === 7;
+    }
+
+    public function getIsAdminAttribute()
+    {
+        return $this->isAdmin();        
+    }
+
+    public function getIsOperatorAttribute()
+    {
+        return $this->isOperator();        
     }
 }

@@ -5,7 +5,7 @@ export default {
 	namespaced: true,
 	state: () => {
 		const userInfo = window.__PAGE_STATE__?.userInfo || {};
-
+		console.log(userInfo);
 		return {
 			id: userInfo.id,
 			work_country: userInfo.work_country,
@@ -14,7 +14,9 @@ export default {
 			photo: userInfo.profile_photo_path,
 			photoUrl: userInfo.profile_photo_url,
 			name: userInfo.name,
-			email: userInfo.email
+			email: userInfo.email,
+			is_admin: userInfo.is_admin,
+			is_operator: userInfo.is_operator,
 		}
 	},
 	mutations,
@@ -27,7 +29,10 @@ export default {
 			return state.photoUrl;
 		},
 		isAdmin(state) {
-			return state.access === 7;
+			return state.is_admin;
+		},
+		isOperator(state) {
+			return state.is_operator;
 		}
 	}
 };

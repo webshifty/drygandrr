@@ -1,5 +1,5 @@
 <template>
-	<div class="alert">
+	<div v-if="isShown" class="alert">
 		<ErrorAlert
 			v-if="alert.type === 'error'"
 			:message="alert.message"

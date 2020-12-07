@@ -16,6 +16,7 @@
 				questions: "{{ route('questions') }}",
 				requests: "{{ route('requests') }}",
 				settings: "{{ route('settings') }}",
+				workers: "{{ route('workers') }}",
 				logout: "{{ route('logout') }}",
 			},
 			storage: "{{ asset('storage/') }}", 
