@@ -2,9 +2,9 @@
 <form action="" class="form">
 	<h3>{{ title }}</h3>
 	<div class="fieldset ">
-		<div class="field styling-label">
+		<div class="field styling-label" :class="{ disabled: isOperator }">
 			<label>Країна</label>
-			<select v-model="question.country">
+			<select v-model="question.country" :disabled="isOperator">
 				<option v-for="(country, key) in countries" :key="key" :value="country.id">{{ country.name }}</option>
 			</select>  
 		</div>
@@ -56,6 +56,11 @@ export default {
 			'countries',
 			'categories',
 		]),
+		...mapGetters('user', [
+			'isAdmin',
+			'isOperator',
+			'user',
+		]),
 	},
 	methods: {
 		onSave() {
@@ -65,6 +70,11 @@ export default {
 		},
 		onCancel() {
 			this.$emit('cancel');
+		}
+	},
+	mounted() {
+		if (this.isOperator) {
+			this.question.country = this.user.work_country;
 		}
 	}
 }

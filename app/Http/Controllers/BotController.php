@@ -123,7 +123,7 @@ class BotController extends Controller
                     }
                     break;
 
-                case !is_null($update->message->text):
+                case isset($update->message) && !is_null($update->message->text):
                     if (strpos($text, '/consul') !== false) {
                         $userQuestion = str_replace('/consul', "", $text);
                         TelegramBotData::saveUserQuestion($chatId, $client->easy->from_id, $userQuestion);

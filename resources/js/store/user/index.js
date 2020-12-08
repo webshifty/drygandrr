@@ -5,7 +5,6 @@ export default {
 	namespaced: true,
 	state: () => {
 		const userInfo = window.__PAGE_STATE__?.userInfo || {};
-		console.log(userInfo);
 		return {
 			id: userInfo.id,
 			work_country: userInfo.work_country,

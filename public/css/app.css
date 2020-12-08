@@ -121,6 +121,10 @@ select {
 }.field a {
     margin-top: 11px;
     display: inline-block;
+}.field select:disabled {
+	color: #252525;
+	background-color: #F2F2F2;
+	border: 1px solid #BABABA;
 }.links {
     display: flex;
     justify-content: space-between;
@@ -304,13 +308,18 @@ select {
 }.table__icon {
 	display: inline-block;
 	width: 16px;
-	height: 16px;
+    height: 16px;
 }.table__icon.delete {
-	margin-right: 15px;
+    margin-right: 15px;
+    vertical-align: middle;
 }.table__icon.delete .table__icon-image {
 	display: none;
 }.table__row:hover .table__icon.delete .table__icon-image {
 	display: block;
+}.table__icon.edit .table__icon-image {
+    fill: #949494;
+}.table__icon.edit:hover .table__icon-image {
+    fill: #004BC1;
 }.action-block {
 	display: flex;
 	align-items: stretch;
@@ -327,8 +336,6 @@ select {
 	font-size: 14px;
 	display: inline-block;
 	max-width: 50%;
-}.dropdown--left {
-	padding-left: 25px;
 }.dropdown label {
 	color: #575757;
 }.dropdown select {
@@ -341,4 +348,6 @@ select {
 	color: #004BC1;
 	border: none;
 	max-width: 200px;
+}.dropdown:not(:last-child) {
+	padding-right: 25px;
 }

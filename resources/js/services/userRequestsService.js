@@ -6,6 +6,7 @@ export default {
 			'filter[search]': filter.search,
 			'filter[category]': filter.category,
 			'filter[requests]': filter.requests,
+			'filter[country]': filter.country,
 		});
 
 		return response?.data || { data: [] };

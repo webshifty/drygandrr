@@ -10,6 +10,7 @@ export default {
 			search: '',
 			requests: 'my',
 			category: '0',
+			country: ''
 		}
 	}),
 	actions,

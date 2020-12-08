@@ -3912,7 +3912,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])('questions', ['questions', 'filter'])), Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])('page', ['countries', 'categories'])),
+  computed: _objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])('questions', ['questions', 'filter'])), Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])('page', ['countries', 'categories'])), Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])('user', ['isOperator', 'isAdmin'])),
   methods: _objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])('modal', ['showModal'])), Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])('questions', ['getQuestions', 'changeFilter'])), {}, {
     onEdit: function onEdit(questionId) {
       var question = this.questions.find(function (question) {
@@ -4092,10 +4092,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  computed: _objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])('user', ['user'])), Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])('requests', ['requests', 'filter'])), Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])('page', ['statuses', 'categories'])),
+  computed: _objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])('user', ['user', 'isOperator', 'isAdmin'])), Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])('requests', ['requests', 'filter'])), Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])('page', ['statuses', 'categories', 'countries'])),
   methods: _objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])('modal', ['showModal'])), Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])('requests', ['getRequests', 'assignRequest', 'changeFilter'])), {}, {
     renderDate: function renderDate(strDate) {
       return _services_dateService__WEBPACK_IMPORTED_MODULE_2__["default"].getFormatDate(strDate);
@@ -4112,12 +4119,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return status.name;
     },
     onEdit: function onEdit(request) {
-      if (!request.responsible) {
-        return;
-      }
+      if (!this.isAdmin) {
+        if (!request.responsible) {
+          return;
+        }
 
-      if (request.responsible.id !== this.user.id) {
-        return;
+        if (request.responsible.id !== this.user.id) {
+          return;
+        }
       }
 
       this.showModal({
@@ -4190,25 +4199,47 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           }
         }, _callee3);
       }))();
+    },
+    onFilterCountries: function onFilterCountries(e) {
+      var _this4 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                _context4.next = 2;
+                return _this4.changeFilter({
+                  filter: 'country',
+                  value: Number(e.target.value || 0)
+                });
+
+              case 2:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
+      }))();
     }
   }),
   mounted: function mounted() {
-    var _this4 = this;
+    var _this5 = this;
 
-    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
         while (1) {
-          switch (_context4.prev = _context4.next) {
+          switch (_context5.prev = _context5.next) {
             case 0:
-              _context4.next = 2;
-              return _this4.getRequests();
+              _context5.next = 2;
+              return _this5.getRequests();
 
             case 2:
             case "end":
-              return _context4.stop();
+              return _context5.stop();
           }
         }
-      }, _callee4);
+      }, _callee5);
     }))();
   }
 });
@@ -5419,7 +5450,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     };
   },
-  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])('page', ['countries', 'categories', 'statuses'])), {}, {
+  computed: _objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])('page', ['countries', 'categories', 'statuses'])), Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])('user', ['isOperator'])), {}, {
     countryList: function countryList() {
       if (this.countryId === -1) {
         return [{
@@ -5571,13 +5602,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     };
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])('page', ['countries', 'categories'])),
+  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])('page', ['countries', 'categories'])), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])('user', ['isAdmin', 'isOperator', 'user'])),
   methods: {
     onSave: function onSave() {
       this.$emit('save', _objectSpread({}, this.question));
     },
     onCancel: function onCancel() {
       this.$emit('cancel');
+    }
+  },
+  mounted: function mounted() {
+    if (this.isOperator) {
+      this.question.country = this.user.work_country;
     }
   }
 });
@@ -36205,34 +36241,36 @@ var render = function() {
   return _c("div", [
     _c("div", { staticClass: "action-block" }, [
       _c("div", { staticClass: "action-block__left" }, [
-        _c("div", { staticClass: "dropdown" }, [
-          _c("label", { attrs: { for: "filter-country" } }, [
-            _vm._v("Країна:")
-          ]),
-          _vm._v(" "),
-          _c(
-            "select",
-            {
-              attrs: { id: "filter-country" },
-              domProps: { value: _vm.filter.country },
-              on: { change: _vm.onFilterCountry }
-            },
-            [
-              _c("option", { attrs: { value: "" } }, [_vm._v("Усі")]),
+        _vm.isAdmin
+          ? _c("div", { staticClass: "dropdown" }, [
+              _c("label", { attrs: { for: "filter-country" } }, [
+                _vm._v("Країна:")
+              ]),
               _vm._v(" "),
-              _vm._l(_vm.countries, function(country) {
-                return _c(
-                  "option",
-                  { key: country.id, domProps: { value: country.id } },
-                  [_vm._v(_vm._s(country.name))]
-                )
-              })
-            ],
-            2
-          )
-        ]),
+              _c(
+                "select",
+                {
+                  attrs: { id: "filter-country" },
+                  domProps: { value: _vm.filter.country },
+                  on: { change: _vm.onFilterCountry }
+                },
+                [
+                  _c("option", { attrs: { value: "" } }, [_vm._v("Усі")]),
+                  _vm._v(" "),
+                  _vm._l(_vm.countries, function(country) {
+                    return _c(
+                      "option",
+                      { key: country.id, domProps: { value: country.id } },
+                      [_vm._v(_vm._s(country.name))]
+                    )
+                  })
+                ],
+                2
+              )
+            ])
+          : _vm._e(),
         _vm._v(" "),
-        _c("div", { staticClass: "dropdown dropdown--left" }, [
+        _c("div", { staticClass: "dropdown" }, [
           _c("label", { attrs: { for: "filter-category" } }, [
             _vm._v("Категорія:")
           ]),
@@ -36362,7 +36400,6 @@ var render = function() {
                             width: "15",
                             height: "15",
                             viewBox: "0 0 15 15",
-                            fill: "none",
                             xmlns: "http://www.w3.org/2000/svg"
                           }
                         },
@@ -36370,8 +36407,7 @@ var render = function() {
                           _c("path", {
                             attrs: {
                               d:
-                                "M1.66667 13.0933H2.845L10.6067 5.47451L9.42833 4.31787L1.66667 11.9367V13.0933ZM15 14.7293H0V11.2585L11.1958 0.268795C11.3521 0.115444 11.564 0.0292969 11.785 0.0292969C12.006 0.0292969 12.2179 0.115444 12.3742 0.268795L14.7317 2.5829C14.8879 2.7363 14.9757 2.94432 14.9757 3.16122C14.9757 3.37812 14.8879 3.58615 14.7317 3.73954L5.2025 13.0933H15V14.7293ZM10.6067 3.16122L11.785 4.31787L12.9633 3.16122L11.785 2.00458L10.6067 3.16122Z",
-                              fill: "#949494"
+                                "M1.66667 13.0933H2.845L10.6067 5.47451L9.42833 4.31787L1.66667 11.9367V13.0933ZM15 14.7293H0V11.2585L11.1958 0.268795C11.3521 0.115444 11.564 0.0292969 11.785 0.0292969C12.006 0.0292969 12.2179 0.115444 12.3742 0.268795L14.7317 2.5829C14.8879 2.7363 14.9757 2.94432 14.9757 3.16122C14.9757 3.37812 14.8879 3.58615 14.7317 3.73954L5.2025 13.0933H15V14.7293ZM10.6067 3.16122L11.785 4.31787L12.9633 3.16122L11.785 2.00458L10.6067 3.16122Z"
                             }
                           })
                         ]
@@ -36428,6 +36464,35 @@ var render = function() {
   return _c("div", [
     _c("div", { staticClass: "action-block" }, [
       _c("div", { staticClass: "action-block__left" }, [
+        _vm.isAdmin
+          ? _c("div", { staticClass: "dropdown" }, [
+              _c("label", { attrs: { for: "filter-requests" } }, [
+                _vm._v("Країни:")
+              ]),
+              _vm._v(" "),
+              _c(
+                "select",
+                {
+                  attrs: { id: "filter-requests" },
+                  domProps: { value: _vm.filter.country },
+                  on: { change: _vm.onFilterCountries }
+                },
+                [
+                  _c("option", { attrs: { value: "" } }, [_vm._v("Усі")]),
+                  _vm._v(" "),
+                  _vm._l(_vm.countries, function(country) {
+                    return _c(
+                      "option",
+                      { key: country.id, domProps: { value: country.id } },
+                      [_vm._v(_vm._s(country.name))]
+                    )
+                  })
+                ],
+                2
+              )
+            ])
+          : _vm._e(),
+        _vm._v(" "),
         _c("div", { staticClass: "dropdown" }, [
           _c("label", { attrs: { for: "filter-requests" } }, [
             _vm._v("Запити:")
@@ -36565,7 +36630,6 @@ var render = function() {
                           width: "15",
                           height: "15",
                           viewBox: "0 0 15 15",
-                          fill: "none",
                           xmlns: "http://www.w3.org/2000/svg"
                         }
                       },
@@ -36573,8 +36637,7 @@ var render = function() {
                         _c("path", {
                           attrs: {
                             d:
-                              "M1.66667 13.0933H2.845L10.6067 5.47451L9.42833 4.31787L1.66667 11.9367V13.0933ZM15 14.7293H0V11.2585L11.1958 0.268795C11.3521 0.115444 11.564 0.0292969 11.785 0.0292969C12.006 0.0292969 12.2179 0.115444 12.3742 0.268795L14.7317 2.5829C14.8879 2.7363 14.9757 2.94432 14.9757 3.16122C14.9757 3.37812 14.8879 3.58615 14.7317 3.73954L5.2025 13.0933H15V14.7293ZM10.6067 3.16122L11.785 4.31787L12.9633 3.16122L11.785 2.00458L10.6067 3.16122Z",
-                            fill: "#949494"
+                              "M1.66667 13.0933H2.845L10.6067 5.47451L9.42833 4.31787L1.66667 11.9367V13.0933ZM15 14.7293H0V11.2585L11.1958 0.268795C11.3521 0.115444 11.564 0.0292969 11.785 0.0292969C12.006 0.0292969 12.2179 0.115444 12.3742 0.268795L14.7317 2.5829C14.8879 2.7363 14.9757 2.94432 14.9757 3.16122C14.9757 3.37812 14.8879 3.58615 14.7317 3.73954L5.2025 13.0933H15V14.7293ZM10.6067 3.16122L11.785 4.31787L12.9633 3.16122L11.785 2.00458L10.6067 3.16122Z"
                           }
                         })
                       ]
@@ -37757,6 +37820,7 @@ var render = function() {
                 expression: "request.country"
               }
             ],
+            attrs: { disabled: _vm.isOperator },
             on: {
               change: function($event) {
                 var $$selectedVal = Array.prototype.filter
@@ -38085,46 +38149,56 @@ var render = function() {
     _c("h3", [_vm._v(_vm._s(_vm.title))]),
     _vm._v(" "),
     _c("div", { staticClass: "fieldset " }, [
-      _c("div", { staticClass: "field styling-label" }, [
-        _c("label", [_vm._v("Країна")]),
-        _vm._v(" "),
-        _c(
-          "select",
-          {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.question.country,
-                expression: "question.country"
+      _c(
+        "div",
+        {
+          staticClass: "field styling-label",
+          class: { disabled: _vm.isOperator }
+        },
+        [
+          _c("label", [_vm._v("Країна")]),
+          _vm._v(" "),
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.question.country,
+                  expression: "question.country"
+                }
+              ],
+              attrs: { disabled: _vm.isOperator },
+              on: {
+                change: function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.$set(
+                    _vm.question,
+                    "country",
+                    $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                  )
+                }
               }
-            ],
-            on: {
-              change: function($event) {
-                var $$selectedVal = Array.prototype.filter
-                  .call($event.target.options, function(o) {
-                    return o.selected
-                  })
-                  .map(function(o) {
-                    var val = "_value" in o ? o._value : o.value
-                    return val
-                  })
-                _vm.$set(
-                  _vm.question,
-                  "country",
-                  $event.target.multiple ? $$selectedVal : $$selectedVal[0]
-                )
-              }
-            }
-          },
-          _vm._l(_vm.countries, function(country, key) {
-            return _c("option", { key: key, domProps: { value: country.id } }, [
-              _vm._v(_vm._s(country.name))
-            ])
-          }),
-          0
-        )
-      ]),
+            },
+            _vm._l(_vm.countries, function(country, key) {
+              return _c(
+                "option",
+                { key: key, domProps: { value: country.id } },
+                [_vm._v(_vm._s(country.name))]
+              )
+            }),
+            0
+          )
+        ]
+      ),
       _vm._v(" "),
       _c("div", { staticClass: "field styling-label" }, [
         _c("label", [_vm._v("Категорія")]),
@@ -53664,7 +53738,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               return _requestService__WEBPACK_IMPORTED_MODULE_1__["default"].get('/api/requests', {
                 'filter[search]': filter.search,
                 'filter[category]': filter.category,
-                'filter[requests]': filter.requests
+                'filter[requests]': filter.requests,
+                'filter[country]': filter.country
               });
 
             case 2:
@@ -54416,7 +54491,8 @@ __webpack_require__.r(__webpack_exports__);
       filter: {
         search: '',
         requests: 'my',
-        category: '0'
+        category: '0',
+        country: ''
       }
     };
   },
@@ -54621,7 +54697,6 @@ __webpack_require__.r(__webpack_exports__);
     var _window$__PAGE_STATE_, _userInfo$country, _userInfo$country2, _userInfo$country3;
 
     var userInfo = ((_window$__PAGE_STATE_ = window.__PAGE_STATE__) === null || _window$__PAGE_STATE_ === void 0 ? void 0 : _window$__PAGE_STATE_.userInfo) || {};
-    console.log(userInfo);
     return {
       id: userInfo.id,
       work_country: userInfo.work_country,
