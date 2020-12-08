@@ -6,6 +6,7 @@ use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Api\QuestionsController;
 use App\Http\Controllers\Api\RequestsController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\WorkersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,4 +51,6 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
     Route::post('user/photo', [UserController::class, 'uploadPhoto']);
     Route::delete('user/photo', [UserController::class, 'deletePhoto']);
     Route::put('user', [UserController::class, 'updateUser']);
+
+    Route::get('workers', [WorkersController::class, 'getWorkers']);
 });

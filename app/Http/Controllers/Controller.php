@@ -28,6 +28,8 @@ class Controller extends BaseController
 
     public function empty()
     {
-        return response()->json([]);
+        return response()->json([
+            'data' => [],
+        ]);
     }
 }

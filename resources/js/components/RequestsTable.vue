@@ -9,7 +9,7 @@
 						<option v-for="country in countries" :key="country.id" :value="country.id">{{country.name}}</option>
 					</select>
 				</div>
-				<div class="dropdown">
+				<div v-if="isOperator" class="dropdown">
 					<label for="filter-requests">Запити:</label>
 					<select id="filter-requests" :value="filter.requests" @change="onFilterRequests">
 						<option value="my">Мої</option>
@@ -45,7 +45,15 @@
 				}"></span>{{ getStatus(request.status) }}</td>
 				<td>{{ renderDate(request.created_at) }}</td>
 				<td>
-					<div v-if="request.responsible" class="responsible">{{ request.responsible.name }}</div>
+					<div v-if="isAdmin">
+						<Dropdown
+							emptyValue="Немає"
+							:value="getResponsible(request)"
+							:options="getWorkersByCountry(request.country)"
+							@change="changeResponsible(request.id, $event)"
+						/>
+					</div>
+					<div v-else-if="request.responsible" class="responsible">{{ request.responsible.name }}</div>
 					<button v-else class="button secondary" @click.stop.prevent="onAssign(request.id)" @dblclik.stop.prevent>Виконувати</button>
 				</td>
 				<td class="table--control">
@@ -62,9 +70,13 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
+import Dropdown from './controls/Dropdown.vue';
 import dateService from '../services/dateService';
 
 export default {
+	components: {
+		Dropdown,
+	},
 	computed: {
 		...mapGetters('user', [
 			'user',
@@ -80,10 +92,17 @@ export default {
 			'categories',
 			'countries',
 		]),
+		...mapGetters('workers', [
+			'workers',
+			'workersByCountry',
+		]),
 	},
 	methods: {
 		...mapActions('modal', [
 			'showModal',
+		]),
+		...mapActions('workers', [
+			'getWorkers',
 		]),
 		...mapActions('requests', [
 			'getRequests',
@@ -121,6 +140,14 @@ export default {
 			});
 		},
 
+		getResponsible(request) {
+			if (!request.responsible) {
+				return '';
+			}
+
+			return request.responsible.id;
+		},
+
 		async onAssign(requestId) {
 			await this.assignRequest({
 				requestId,
@@ -148,9 +175,41 @@ export default {
 				value: Number(e.target.value || 0),
 			});
 		},
+
+		async changeResponsible(requestId, userId) {
+			await this.assignRequest({
+				requestId,
+				userId: userId,
+			});
+		},
+
+		getCountryId(countryName = '') {
+			const country = this.countries.find(country => {
+				return (
+					(country.name || '').toLowerCase() === countryName.toLowerCase()
+					||
+					(country.name_ru || '').toLowerCase() === countryName.toLowerCase()
+					||
+					(country.name_en || '').toLowerCase() === countryName.toLowerCase()
+				);
+			});
+
+			if (!country) {
+				return;
+			}
+
+			return country.id;
+		},
+
+		getWorkersByCountry(country) {
+			return this.workersByCountry[
+				this.getCountryId(country)
+			] || [];
+		}
 	},
 	async mounted() {
 		await this.getRequests();
+		await this.getWorkers();
 	}
 };
 </script>

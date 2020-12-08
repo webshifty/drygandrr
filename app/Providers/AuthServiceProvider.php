@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Models\QAndA;
 use App\Models\Questions;
 use App\Policies\QuestionPolicy;
+use App\Policies\RequestPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 

@@ -24,11 +24,12 @@ class RequestsController extends Controller
 
         $filterData = $request->input('filter') ?? [];
         $country = (int)$filterData['country'] ?? 0;
+        $requests = $filterData['requests'] ?? '';
         $requests = $getRequests->execute(
             new FilterRequest(
                 $filterData['search'] ?? '',
                 (int)$filterData['category'] ?? 0,
-                $filterData['requests'] ?? '',
+                $user->is_admin ? '' : $requests,
                 $user->is_admin ? $country : $user->work_country,
             )
         );
@@ -57,10 +58,10 @@ class RequestsController extends Controller
 
     public function assignResponsible(Request $request, int $id, AssignResponsible $assignResponsible)
     {
-        $request = QAndA::findOrFail($id);
+        $question = QAndA::findOrFail($id);
         $user = $request->user();
 
-        if (!$user->can('changeResponsible')) {
+        if (!$user->can('changeResponsible', $question)) {
             return $this->error('you cannot change responsible');
         }
 

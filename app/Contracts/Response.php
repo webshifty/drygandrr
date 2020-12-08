@@ -2,7 +2,6 @@
 
 namespace App\Contracts;
 
-interface Response
+interface Response extends Arrayable
 {
-	public function toArray(): array;
 }

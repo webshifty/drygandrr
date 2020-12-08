@@ -10,7 +10,7 @@ class RequestPolicy
 {
     use HandlesAuthorization;
 
-    public function changeResponsible(QAndA $request, User $user)
+    public function changeResponsible(User $user, QAndA $request)
     {
         if ($user->is_admin) {
             return true;
