@@ -145,6 +145,7 @@ class BotController extends Controller
                             exit();
                         }
                     } else {
+                        $userCountry = TelegramBotData::getUserCountry($client->easy->from_id);
                         $findQuestions = TelegramBotData::findQuestionsLikeText($text);
 
                         if (!empty($findQuestions)) {
@@ -160,7 +161,7 @@ class BotController extends Controller
                                 ];
                             }
                             $reply = "Оберiть питання яке вас цiкавить";
-                            $reply2 = json_encode($findQuestions);
+                            $reply2 = json_encode($userCountry);
                             $client->sendMessage($chatId, $reply2, null, null, null, null, null, null, $menuQuestions);
                             exit();
                         } else {
