@@ -18,7 +18,7 @@ class TelegramService
 		$this->client->sendMessage(
 			$chatId,
 			$message,
-			null,
+			'HTML',
 			null,
 			null,
 			null,
