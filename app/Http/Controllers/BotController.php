@@ -145,7 +145,8 @@ class BotController extends Controller
                             exit();
                         }
                     } else {
-                        $findQuestions = TelegramBotData::findQuestionsLikeText($text);
+                        $userCountry = TelegramBotData::getUserCountry($client->easy->from_id);
+                        $findQuestions = TelegramBotData::findQuestionsLikeText($text, $userCountry);
 
                         if (!empty($findQuestions)) {
                             $client->sendPhoto($chatId, asset('/img/telegram/have_question1.png'));
@@ -160,10 +161,12 @@ class BotController extends Controller
                                 ];
                             }
                             $reply = "Оберiть питання яке вас цiкавить";
-                            $client->sendMessage($chatId, $reply, null, null, null, null, null, null, $menuQuestions);
+                            $reply2 = json_encode($userCountry);
+                            $client->sendMessage($chatId, $reply2, null, null, null, null, null, null, null);
                             exit();
                         } else {
-
+                            $reply2 = json_encode($userCountry);
+                            $client->sendMessage($chatId, $reply2, null, null, null, null, null, null, null);
                             exit();
                         }
                     }
