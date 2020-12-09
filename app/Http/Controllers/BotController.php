@@ -159,7 +159,7 @@ class BotController extends Controller
                                     ],
                                 ];
                             }
-                            $reply = $text . " - Країна обрана";
+                            $reply = "Оберiть питання яке вас цiкавить";
                             $client->sendMessage($chatId, $reply, null, null, null, null, null, null, $menuQuestions);
                             exit();
                         } else {
