@@ -38,6 +38,7 @@ class UpdateRequest
 
 	private function sendMessage(QAndA $session): void
 	{
-		$this->telegramService->sendMessage($session->chat_id, $session->consul_answer);
+        $reply = $session->user_question . " - ". $session->consul_answer;
+		$this->telegramService->sendMessage($session->chat_id, $reply);
 	}
 }
