@@ -162,10 +162,11 @@ class BotController extends Controller
                             }
                             $reply = "Оберiть питання яке вас цiкавить";
                             $reply2 = json_encode($userCountry);
-                            $client->sendMessage($chatId, $reply2, null, null, null, null, null, null, $menuQuestions);
+                            $client->sendMessage($chatId, $reply2, null, null, null, null, null, null, null);
                             exit();
                         } else {
-
+                            $reply2 = json_encode($userCountry);
+                            $client->sendMessage($chatId, $reply2, null, null, null, null, null, null, null);
                             exit();
                         }
                     }
