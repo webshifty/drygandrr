@@ -17,4 +17,9 @@ class UserInfoResponse implements Response {
 	{
 		return $this->user->toArray();
 	}
+
+	public function getMeta(): array
+	{
+		return [];
+	}
 }

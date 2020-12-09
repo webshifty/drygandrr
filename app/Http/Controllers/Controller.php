@@ -16,6 +16,7 @@ class Controller extends BaseController
     {
         return response()->json([
             'data' => $response->toArray(),
+            'meta' => $response->getMeta(),
         ]);
     }
 
@@ -30,6 +31,7 @@ class Controller extends BaseController
     {
         return response()->json([
             'data' => [],
+            'meta' => [],
         ]);
     }
 }

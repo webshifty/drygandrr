@@ -1,11 +1,11 @@
 <?php
 
 namespace App\Actions\Requests\DTO;
-use App\Contracts\Response;
+use App\Contracts\Arrayable;
 use App\Models\QAndA;
 use Carbon\Carbon;
 
-class Request implements Response
+class Request implements Arrayable
 {
 	public int $id;
 	public string $question;

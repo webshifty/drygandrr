@@ -2,6 +2,7 @@
 
 namespace App\Actions\Questions;
 
+use App\Actions\General\SingleResponse;
 use App\Actions\Questions\DTO\Question;
 use App\Models\Country;
 use App\Models\Questions;
@@ -9,7 +10,7 @@ use Carbon\Carbon;
 
 class CreateQuestion
 {
-	public function execute(Question $data, ?string $countryName = null): Question
+	public function execute(Question $data, ?string $countryName = null): SingleResponse
 	{
 		if ($data->country === -1 && $countryName) {
 			$country = new Country();
@@ -29,14 +30,16 @@ class CreateQuestion
         $qa->created_at = Carbon::now();
         $qa->save();
 
-		return new Question(
-			$qa->id,
-			$qa->country,
-			$qa->category,
-			$data->status,
-			$qa->question,
-			$qa->answer,
-			(bool)$qa->publish
+		return new SingleResponse(
+			new Question(
+				$qa->id,
+				$qa->country,
+				$qa->category,
+				$data->status,
+				$qa->question,
+				$qa->answer,
+				(bool)$qa->publish
+			)
 		);
 	}
 }

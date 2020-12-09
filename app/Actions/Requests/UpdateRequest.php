@@ -2,6 +2,7 @@
 
 namespace App\Actions\Requests;
 
+use App\Actions\General\SingleResponse;
 use App\Actions\Requests\DTO\Request;
 use App\Models\QAndA;
 use App\Services\TelegramService;
@@ -15,7 +16,7 @@ class UpdateRequest
 		$this->telegramService = $telegramService;
 	}
 
-	public function execute(Request $data): Request
+	public function execute(Request $data): SingleResponse
 	{
 		$qa = QAndA::with(['responsible'])->findOrFail($data->id);
         $qa->country = $data->country;
@@ -30,7 +31,9 @@ class UpdateRequest
 
 		$qa->save();
 
-		return Request::fromEntity($qa);
+		return new SingleResponse(
+			Request::fromEntity($qa)
+		);
 	}
 
 	private function sendMessage(QAndA $session): void

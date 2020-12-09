@@ -2,12 +2,13 @@
 
 namespace App\Actions\Questions;
 
+use App\Actions\General\SingleResponse;
 use App\Actions\Questions\DTO\Question;
 use App\Models\Questions;
 
 class UpdateQuestion
 {
-	public function execute(Question $data): Question
+	public function execute(Question $data): SingleResponse
 	{
 		$qa = Questions::findOrFail($data->id);
         $qa->country = $data->country;
@@ -17,6 +18,6 @@ class UpdateQuestion
         $qa->publish = $data->publish ? 1 : 0;
         $qa->save();
 
-		return $data;
+		return new SingleResponse($data);
 	}
 }
