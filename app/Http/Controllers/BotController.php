@@ -40,12 +40,12 @@ class BotController extends Controller
         $reply2 = json_encode($update->callback_query);
         $client->sendMessage($client->easy->chat_id, $reply2, 'HTML');
         exit();
-         **/
+
         $chatId = $client->easy->chat_id;
         $reply = "" . $client->easy->text;
         $client->sendMessage($chatId, $reply, null, null, null, null, null);
         exit();
-
+         **/
         $menu = [
             'keyboard' => [
                 [
