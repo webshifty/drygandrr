@@ -147,7 +147,9 @@ class BotController extends Controller
                     } else {
                         $userCountryId = TelegramBotData::getUserCountry($client->easy->from_id);
                         //$findQuestions = TelegramBotData::findQuestionsLikeText($text, $userCountry);
-
+                        $reply2 = json_encode($userCountryId);
+                        $client->sendMessage($chatId, $reply2, null, null, null, null, null, null, null);
+                        exit();
                         if (!empty($findQuestions)) {
                             $client->sendPhoto($chatId, asset('/img/telegram/have_question1.png'));
                             $menuQuestions["inline_keyboard"] = [];
@@ -165,8 +167,6 @@ class BotController extends Controller
                             $client->sendMessage($chatId, $reply, null, null, null, null, null, null, null);
                             exit();
                         } else {
-                            $reply2 = json_encode($userCountryId);
-                            $client->sendMessage($chatId, $reply2, null, null, null, null, null, null, null);
                             exit();
                         }
                     }
