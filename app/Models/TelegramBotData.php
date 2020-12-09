@@ -39,7 +39,7 @@ class TelegramBotData extends Model
 
     public static function getUserCountry($id)
     {
-        $country = DB::table('tg_users')->select('countries.id')->where('tg_id', $id)->join('countries', 'name', 'LIKE', 'tg_users.country')->join('countries', 'name_ru', 'LIKE', 'tg_users.country')->join('countries', 'name_en', 'LIKE', 'tg_users.country')->first();
+        $country = DB::table('tg_users')->select('countries.id')->where('tg_id', $id)->joinWhere('countries', 'name', 'LIKE', 'tg_users.country')->joinWhere('countries', 'name_ru', 'LIKE', 'tg_users.country')->joinWhere('countries', 'name_en', 'LIKE', 'tg_users.country')->first();
 
         return $country;
     }
