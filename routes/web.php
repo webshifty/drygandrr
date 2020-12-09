@@ -53,4 +53,6 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
     Route::put('user', [UserController::class, 'updateUser']);
 
     Route::get('workers', [WorkersController::class, 'getWorkers']);
+    Route::get('workers/{id}', [WorkersController::class, 'getWorker']);
+    Route::get('workers/{id}/requests', [WorkersController::class, 'getRequests']);
 });

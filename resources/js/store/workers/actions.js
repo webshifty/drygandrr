@@ -14,4 +14,41 @@ export default {
 
 		await dispatch('getWorkers');
 	},
+
+	async getRequests({ commit }, workerId) {
+		const response = await workerService.getRequests(workerId);
+
+		commit(types.SET_REQUESTS, {
+			workerId,
+			requests: response?.data?.data,
+		});
+	},
+
+	async getWorker({ commit, state }, workerId) {
+		const worker = state.workers.find(worker => worker.id === Number(workerId));
+		
+		if (worker) {
+			commit(types.SET_WORKER, worker);
+		}
+
+		const response = await workerService.getWorker(workerId);
+
+		commit(types.SET_WORKER, response?.data?.data);
+	},
+
+	async uploadPhoto({ commit }, { workerId, file }) {
+		console.log('update photo');
+	},
+
+	async deletePhoto({ commit }, { workerId }) {
+		console.log('delete photo');
+	},
+
+	async updateWorker({ commit }, worker) {
+		console.log(worker);
+	},
+
+	async deleteWorker({ commit }, workerId) {
+		console.log(workerId);
+	}
 };

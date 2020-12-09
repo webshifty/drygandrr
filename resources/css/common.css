@@ -505,3 +505,129 @@ h3 {
 .dropdown:not(:last-child) {
 	padding-right: 25px;
 }
+
+.styled-checkbox {
+    display: flex;
+}
+
+.styled-checkbox span {
+    width: 16px;
+    height: 16px;
+    padding: 4px;
+    border: 1.4px solid #595959;
+    box-sizing: border-box;
+    border-radius: 4px;
+    display: block;
+    cursor: pointer;
+    transition: 0.4s;
+    position: relative;
+}
+
+.styled-checkbox:hover span {
+    border-color: #013C99;
+}
+
+.styled-checkbox input + span:after {
+    content: "";
+    position: absolute;
+    left: 3px;
+    top: 3px;
+    right: 3px;
+    bottom: 3px;
+    transition: 0.4s;
+}
+
+.styled-checkbox input:disabled + span {
+    border-color: rgba(130, 130, 130, 0.5);
+    cursor: not-allowed	;
+}
+
+
+.styled-checkbox input:checked + span {
+    border-color: #013C99;
+}
+
+.styled-checkbox input:checked + span:after {
+    background-color: #013C99;
+}
+
+.styled-checkbox input {
+    height: 0;
+    margin: 0;
+    overflow: hidden;
+}
+
+select.executor {
+    border: 1px solid #949494;
+    border-radius: 4px;
+    width: 200px;
+    font-size: 14px;
+    height: 40px;
+    padding: 10px 16px;
+}
+
+.toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    font-size: 13px;
+    line-height: 16px;
+    background-color: #fff;
+}
+
+.pages {
+    display: flex;
+    align-items: center;
+    margin-left: 100px;
+    padding: 10px 40px;
+}
+
+.prev__page svg {
+    fill: rgba(87, 87, 87, 0.5);
+}
+
+.next__page svg {
+    fill: #252525;
+}
+.pages span {
+    display: block;
+    margin-right: 12px;
+}
+
+.pages a {
+    width: 24px;
+    height: 24px;
+    display: block;
+}
+
+.sidebar-bottom__button {
+    color: #EB5757;
+    fill: #EB5757;
+    display: flex;
+    align-items: center;
+    transition: 0.4s;
+}
+
+.sidebar-bottom__button:hover {
+    color: #B3202E;
+    fill: #B3202E;
+}
+
+.sidebar-bottom__button:active {
+    color: #7C0006;
+    fill: #7C0006;
+}
+
+.sidebar-bottom__button svg {
+    transition: 0.4s;
+    margin-right: 20px;
+}
+
+.page {
+	height: 100%;
+}
+.table-container {
+	height: calc(100% - 44px);
+	overflow: auto;
+	position: relative;
+}

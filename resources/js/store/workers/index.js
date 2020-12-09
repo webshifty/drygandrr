@@ -13,6 +13,8 @@ export default {
 			country: '',
 			search: '',
 		},
+		requestsByWorkerId: {},
+		worker: {},
 	}),
 	getters: {
 		workers: state => state.workers,
@@ -28,7 +30,9 @@ export default {
 			}, {});
 		},
 		countWorkers: state => state.meta.total,
-		filter: state => state.filter
+		filter: state => state.filter,
+		requestsByWorkerId: state => state.requestsByWorkerId,
+		worker: state => state.worker,
 	},
 	actions,
 	mutations,

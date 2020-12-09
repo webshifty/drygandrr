@@ -1,4 +1,5 @@
 import workerService from '../../services/workerService';
+import userRequestsService from '../../services/userRequestsService';
 import * as types from './types';
 
 export default {
@@ -16,5 +17,14 @@ export default {
 			...state.meta,
 			[key]: value,
 		};
+	},
+	[types.SET_REQUESTS]: (state, { requests, workerId }) => {
+		state.requestsByWorkerId = {
+			...state.requestsByWorkerId,
+			[workerId]: requests.map(userRequestsService.mapRequest),
+		};
+	},
+	[types.SET_WORKER]: (state, worker) => {
+		state.worker = workerService.mapWorker(worker);
 	}
 };

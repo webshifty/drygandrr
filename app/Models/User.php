@@ -84,7 +84,7 @@ class User extends Authenticatable
 
     public function isOperator(): bool
     {
-        return $this->access === 4 || $this->access === null;
+        return $this->access === 4;
     }
 
     public function isAdmin(): bool

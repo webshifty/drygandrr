@@ -44,10 +44,12 @@ class BaseController extends Controller
         $userInfo = User::getUserInfoById(auth()->id());
         $countries = QAndA::getAllCountries();
         $categories = QAndA::getAllQuestionCategories();
+        $statuses = QAndA::getStatuses();
         $data = [
             'userInfo' => $userInfo,
             'countries' => $countries,
             'categories' => $categories,
+            'statuses' => $statuses,
         ];
 
         return view('admin.dashboard.workers', ['data' => $data]);
