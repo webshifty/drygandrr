@@ -85,6 +85,13 @@ class TelegramBotData extends Model
         return $answer;
     }
 
+    public static function findQuestionsLikeText($text)
+    {
+        $questions = DB::table('questions')->select()->where('question', 'LIKE', '%' . $text . '%')->get();
+
+        return $questions;
+    }
+
     public static function saveUserQuestion($chatId, $userId, $question)
     {
         $userData = DB::table('tg_users')->where('tg_id', $userId)->first();

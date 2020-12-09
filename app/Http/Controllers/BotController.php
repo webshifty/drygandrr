@@ -111,13 +111,13 @@ class BotController extends Controller
                     if (!is_null($update->message->chat->first_name)) {
                         $client->sendPhoto($chatId, asset('/img/telegram/hello.png'));
                         $userName = ", " . $update->message->chat->first_name;
-                        $reply = "Вітаю" . $userName . "!\nОберіть, будь-ласка, країну знаходження, щоб розпочати спілкування \xF0\x9F\x98\x8A\nМожете натиснути кнопку Подiлитись геолокацiєю або ввести країну вручну.";
+                        $reply = "Вітаю" . $userName . "!\nОберіть, будь-ласка, країну знаходження, щоб розпочати спілкування \xF0\x9F\x98\x8A\nМожете натиснути кнопку Подiлитись геолокацiєю або ввести країну вручну. \nЩоб ввести країну вручну почнiть з команди /country Далі країна";
                         $client->sendMessage($chatId, $reply, null, null, null, null, null, null, $menu);
                         exit();
                     } else {
                         $client->sendPhoto($chatId, asset('/img/telegram/hello.png'));
                         $userName = "";
-                        $reply = "Вітаю" . $userName . "!\nОберіть, будь-ласка, країну знаходження, щоб розпочати спілкування \xF0\x9F\x98\x8AnМожете натиснути кнопку Подiлитись геолокацiєю або ввести країну вручну.";
+                        $reply = "Вітаю" . $userName . "!\nОберіть, будь-ласка, країну знаходження, щоб розпочати спілкування \xF0\x9F\x98\x8AnМожете натиснути кнопку Подiлитись геолокацiєю або ввести країну вручну. \nЩоб ввести країну вручну почнiть з команди /country Далі країна";
                         $client->sendMessage($chatId, $reply, null, null, null, null, null, null, $menu);
                         exit();
                     }
@@ -131,13 +131,36 @@ class BotController extends Controller
                         $reply = "В нашій базі немає відповіді на це питання. Я все передала консулу. Він повернеться з відповіддю в свої робочі години, протягом двох робочих днів.";
                         $client->sendMessage($chatId, $reply, null, null, null, null, null, null, $menuQuestion);
                         exit();
-                    } else {
-                        $addCountry = TelegramBotData::addCountry($client->easy->from_id, $text);
+                    } elseif (strpos($text, '/country') !== false) {
+                        $userCountry = str_replace('/country', "", $text);
+                        $addCountry = TelegramBotData::addCountry($client->easy->from_id, $userCountry);
 
                         if ($addCountry == true) {
                             $client->sendPhoto($chatId, asset('/img/telegram/have_question1.png'));
                             $reply = $text . " - Країна обрана";
                             $client->sendMessage($chatId, $reply, null, null, null, null, null, null, $menuQuestion);
+                            exit();
+                        } else {
+
+                            exit();
+                        }
+                    } else {
+                        $findQuestions = TelegramBotData::findQuestionsLikeText($text);
+
+                        if (!empty($findQuestions)) {
+                            $client->sendPhoto($chatId, asset('/img/telegram/have_question1.png'));
+                            $menuQuestions["inline_keyboard"] = [];
+
+                            foreach ($findQuestions as $question) {
+                                $menuQuestions["inline_keyboard"][] = [
+                                    [
+                                        "text" => $question->question,
+                                        "callback_data" => "question" . $question->id,
+                                    ],
+                                ];
+                            }
+                            $reply = $text . " - Країна обрана";
+                            $client->sendMessage($chatId, $reply, null, null, null, null, null, null, $menuQuestions);
                             exit();
                         } else {
 
