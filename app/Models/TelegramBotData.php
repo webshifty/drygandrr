@@ -42,7 +42,7 @@ class TelegramBotData extends Model
         $country = DB::table('tg_users')->select('country')->where('tg_id', $id)->first();
 
         if (!is_null($country)) {
-            $countryId = DB::table('countries')->select('id')->orWhere('name', 'LIKE', '%' . $country . '%')->orWhere('name_ru', 'LIKE', '%' . $country . '%')->orWhere('name_en', 'LIKE', '%' . $country . '%')->first();
+            $countryId = DB::table('countries')->select('id')->orWhere('name', 'LIKE', '%' . $country->country . '%')->orWhere('name_ru', 'LIKE', '%' . $country->country . '%')->orWhere('name_en', 'LIKE', '%' . $country->country . '%')->first();
         } else {
             $countryId = null;
         }
@@ -101,7 +101,7 @@ class TelegramBotData extends Model
     public static function findQuestionsLikeText($text, $countryId)
     {
         if (!is_null($countryId)) {
-            $questions = DB::table('questions')->select()->where('country', '=', $countryId)->where('question', 'LIKE', '%' . $text . '%')->get();
+            $questions = DB::table('questions')->select()->where('country', '=', $countryId->id)->where('question', 'LIKE', '%' . $text . '%')->get();
         } else {
             $questions = DB::table('questions')->select()->where('question', 'LIKE', '%' . $text . '%')->get();
         }
