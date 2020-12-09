@@ -132,7 +132,7 @@ class BotController extends Controller
                         $client->sendMessage($chatId, $reply, null, null, null, null, null, null, $menuQuestion);
                         exit();
                     } elseif (strpos($text, '/country') !== false) {
-                        $userCountry = str_replace('/country', "", $text);
+                        $userCountry = trim(str_replace('/country', "", $text));
                         $addCountry = TelegramBotData::addCountry($client->easy->from_id, $userCountry);
 
                         if ($addCountry == true) {
