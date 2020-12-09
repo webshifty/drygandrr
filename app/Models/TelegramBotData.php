@@ -39,9 +39,15 @@ class TelegramBotData extends Model
 
     public static function getUserCountry($id)
     {
-        $country = DB::table('tg_users')->select('countries.id')->where('tg_id', $id)->joinWhere('countries', 'name', 'LIKE', 'tg_users.country')->joinWhere('countries', 'name_ru', 'LIKE', 'tg_users.country')->joinWhere('countries', 'name_en', 'LIKE', 'tg_users.country')->first();
+        $country = DB::table('tg_users')->select('country')->where('tg_id', $id)->first();
 
-        return $country;
+        if (!is_null($country)) {
+            $countryId = DB::table('countries')->select('id')->orWhere('name', 'LIKE', '%' . $country . '%')->orWhere('name_ru', 'LIKE', '%' . $country . '%')->orWhere('name_en', 'LIKE', '%' . $country . '%')->first();
+        } else {
+            $countryId = null;
+        }
+
+        return $countryId;
     }
 
     public static function getAllQuestionCategories () {
@@ -92,9 +98,13 @@ class TelegramBotData extends Model
         return $answer;
     }
 
-    public static function findQuestionsLikeText($text)
+    public static function findQuestionsLikeText($text, $countryId)
     {
-        $questions = DB::table('questions')->select()->where('question', 'LIKE', '%' . $text . '%')->get();
+        if (!is_null($countryId)) {
+            $questions = DB::table('questions')->select()->where('country', '=', $countryId)->where('question', 'LIKE', '%' . $text . '%')->get();
+        } else {
+            $questions = DB::table('questions')->select()->where('question', 'LIKE', '%' . $text . '%')->get();
+        }
 
         return $questions;
     }

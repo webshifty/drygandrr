@@ -146,7 +146,7 @@ class BotController extends Controller
                         }
                     } else {
                         $userCountry = TelegramBotData::getUserCountry($client->easy->from_id);
-                        $findQuestions = TelegramBotData::findQuestionsLikeText($text);
+                        $findQuestions = TelegramBotData::findQuestionsLikeText($text, $userCountry);
 
                         if (!empty($findQuestions)) {
                             $client->sendPhoto($chatId, asset('/img/telegram/have_question1.png'));
