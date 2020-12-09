@@ -2,14 +2,14 @@
 	<div>
 		<div class="action-block">
 			<div class="action-block__left">
-				<div class="dropdown">
+				<div v-if="isAdmin" class="dropdown">
 					<label for="filter-country">Країна:</label>
 					<select id="filter-country" :value="filter.country" @change="onFilterCountry">
 						<option value="">Усі</option>
 						<option v-for="country in countries" :key="country.id" :value="country.id">{{country.name}}</option>
 					</select>
 				</div>
-				<div class="dropdown dropdown--left">
+				<div class="dropdown">
 					<label for="filter-category">Категорія:</label>
 					<select id="filter-category" :value="filter.category" @change="onFilterCategory">
 						<option value="">Усі</option>
@@ -44,8 +44,8 @@
 						</a>
 
 						<a href="#" class="table__icon edit" @click.prevent="onEdit(question.id)">
-							<svg class="table__icon-image" width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-								<path d="M1.66667 13.0933H2.845L10.6067 5.47451L9.42833 4.31787L1.66667 11.9367V13.0933ZM15 14.7293H0V11.2585L11.1958 0.268795C11.3521 0.115444 11.564 0.0292969 11.785 0.0292969C12.006 0.0292969 12.2179 0.115444 12.3742 0.268795L14.7317 2.5829C14.8879 2.7363 14.9757 2.94432 14.9757 3.16122C14.9757 3.37812 14.8879 3.58615 14.7317 3.73954L5.2025 13.0933H15V14.7293ZM10.6067 3.16122L11.785 4.31787L12.9633 3.16122L11.785 2.00458L10.6067 3.16122Z" fill="#949494"/>
+							<svg class="table__icon-image" width="15" height="15" viewBox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
+								<path d="M1.66667 13.0933H2.845L10.6067 5.47451L9.42833 4.31787L1.66667 11.9367V13.0933ZM15 14.7293H0V11.2585L11.1958 0.268795C11.3521 0.115444 11.564 0.0292969 11.785 0.0292969C12.006 0.0292969 12.2179 0.115444 12.3742 0.268795L14.7317 2.5829C14.8879 2.7363 14.9757 2.94432 14.9757 3.16122C14.9757 3.37812 14.8879 3.58615 14.7317 3.73954L5.2025 13.0933H15V14.7293ZM10.6067 3.16122L11.785 4.31787L12.9633 3.16122L11.785 2.00458L10.6067 3.16122Z"/>
 							</svg>
 						</a>
 					</td>
@@ -67,6 +67,10 @@ export default {
 		...mapGetters('page', [
 			'countries',
 			'categories',
+		]),
+		...mapGetters('user', [
+			'isOperator',
+			'isAdmin',
 		]),
 	},
 
@@ -130,5 +134,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>

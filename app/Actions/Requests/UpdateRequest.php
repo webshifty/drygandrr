@@ -25,9 +25,9 @@ class UpdateRequest
 		
 		if ($data->answer) {
 			$this->sendMessage($qa);
+			$qa->question_status = QAndA::STATUS_COMPLETED;
 		}
 
-		$qa->question_status = QAndA::STATUS_COMPLETED;
 		$qa->save();
 
 		return Request::fromEntity($qa);

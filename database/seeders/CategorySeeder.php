@@ -18,7 +18,7 @@ class CategorySeeder extends Seeder
             'name' => 'category 1',
         ]);
         Category::factory()->create([
-            'name' => 'category 1',
+            'name' => 'category 2',
         ]);
     }
 }

@@ -4,7 +4,7 @@
 	<div class="fieldset ">
 		<div class="field styling-label">
 			<label>Країна</label>
-			<select v-model="request.country">
+			<select v-model="request.country" :disabled="isOperator">
 				<option v-for="(country, key) in countryList" :key="key" :value="country.id">{{ country.name }}</option>
 			</select>  
 		</div>
@@ -69,6 +69,10 @@ export default {
 			'countries',
 			'categories',
 			'statuses',
+		]),
+
+		...mapGetters('user', [
+			'isOperator',
 		]),
 
 		countryList() {

@@ -8,6 +8,7 @@ use App\Actions\Requests\AssignResponsible;
 use App\Actions\Requests\DTO\Request as UserRequest;
 use App\Actions\Requests\GetRequests;
 use App\Actions\Requests\DTO\FilterRequest;
+use App\Models\QAndA;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -15,12 +16,21 @@ class RequestsController extends Controller
 {
     public function requests(Request $request, GetRequests $getRequests)
     {
+        $user = $request->user();
+
+        if ($user->is_operator && !$user->work_country) {
+            return $this->error('Оберіть країну у налаштуваннях');
+        }
+
         $filterData = $request->input('filter') ?? [];
+        $country = (int)$filterData['country'] ?? 0;
+        $requests = $filterData['requests'] ?? '';
         $requests = $getRequests->execute(
             new FilterRequest(
                 $filterData['search'] ?? '',
                 (int)$filterData['category'] ?? 0,
-                $filterData['requests'] ?? '',
+                $user->is_admin ? '' : $requests,
+                $user->is_admin ? $country : $user->work_country,
             )
         );
 
@@ -48,6 +58,13 @@ class RequestsController extends Controller
 
     public function assignResponsible(Request $request, int $id, AssignResponsible $assignResponsible)
     {
+        $question = QAndA::findOrFail($id);
+        $user = $request->user();
+
+        if (!$user->can('changeResponsible', $question)) {
+            return $this->error('you cannot change responsible');
+        }
+
         $response = $assignResponsible->execute($id, $request->input('responsible'));
 
         return $this->success($response);

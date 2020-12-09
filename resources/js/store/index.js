@@ -4,6 +4,7 @@ import modal from './modal';
 import questions from './questions';
 import requests from './requests';
 import alerts from './alerts';
+import workers from './workers';
 
 export default {
 	modules: {
@@ -13,5 +14,6 @@ export default {
 		questions,
 		requests,
 		alerts,
+		workers,
 	}
 };

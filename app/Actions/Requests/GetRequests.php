@@ -6,6 +6,7 @@ use App\Actions\Requests\DTO\RequestsResponse;
 use App\Actions\Requests\DTO\Request;
 use App\Models\QAndA;
 use App\Actions\Requests\DTO\FilterRequest;
+use App\Models\Country;
 use Illuminate\Database\Eloquent\Builder;
 
 class GetRequests
@@ -16,12 +17,11 @@ class GetRequests
 
 		$builder = QAndA::getTelegramRequests();
 		$builder = $this->applyFilter($filter, $builder);
-
 		$builder->get()
 			->each(function (QAndA $data) use ($response) {
 				$response->add(Request::fromEntity($data));
 			});
-
+		
 		return $response;
 	}
 
@@ -41,12 +41,36 @@ class GetRequests
 			});
 		}
 
+		if ($filter->country) {
+			$country = Country::find($filter->country);
+			$this->applyCountry($country, $builder);
+		}
+
 		if ($filter->search) {
 			$builder
 				->whereRaw('LOWER(`user_question`) LIKE ? ', [
-					'%' . trim(strtolower($filter->search)) . '%'
+					'%' . trim(mb_strtolower($filter->search)) . '%'
 				]);
 		}
+
+		return $builder;
+	}
+
+	private function applyCountry(Country $country, Builder $builder): Builder
+	{
+		$builder->where(function ($query) use ($country) {
+			if ($country->name) {
+				$query->orWhereRaw('LOWER(`country`) = ?', trim(mb_strtolower($country->name)));
+			}
+
+			if ($country->name_ru) {
+				$query->orWhereRaw('LOWER(`country`) = ?', trim(mb_strtolower($country->name_ru)));
+			}
+
+			if ($country->name_en) {
+				$query->orWhereRaw('LOWER(`country`) = ?', trim(mb_strtolower($country->name_en)));
+			}
+		});
 
 		return $builder;
 	}
