@@ -39,7 +39,7 @@ class BaseController extends Controller
         return view('admin.dashboard.settings', ['data' => $data]);
     }
 
-    public static function workers()
+    public function workers()
     {
         $userInfo = User::getUserInfoById(auth()->id());
         $countries = QAndA::getAllCountries();

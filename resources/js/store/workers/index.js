@@ -6,6 +6,13 @@ export default {
 	state: () => ({
 		workers: [],
 		workersByCountry: [],
+		meta: {
+			total: 0,
+		},
+		filter: {
+			country: '',
+			search: '',
+		},
 	}),
 	getters: {
 		workers: state => state.workers,
@@ -20,6 +27,8 @@ export default {
 				return hash;
 			}, {});
 		},
+		countWorkers: state => state.meta.total,
+		filter: state => state.filter
 	},
 	actions,
 	mutations,

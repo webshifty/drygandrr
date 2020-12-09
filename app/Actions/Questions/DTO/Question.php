@@ -1,9 +1,9 @@
 <?php
 
 namespace App\Actions\Questions\DTO;
-use App\Contracts\Response;
+use App\Contracts\Arrayable;
 
-class Question implements Response
+class Question implements Arrayable
 {
 	public int $id;
 	public int $country;

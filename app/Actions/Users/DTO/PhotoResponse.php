@@ -18,4 +18,9 @@ class PhotoResponse implements Response {
 			'photo' => $this->photo,
 		];
 	}
+
+	public function getMeta(): array
+	{
+		return [];
+	}
 }

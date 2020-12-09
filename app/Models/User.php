@@ -70,6 +70,11 @@ class User extends Authenticatable
         return $this->belongsTo('App\Models\Country', 'work_country');
     }
 
+    public function requests()
+    {
+        return $this->hasMany('App\Models\QAndA', 'responsible_user_id');
+    }
+
     public static function getUserInfoById($id)
     {
         $user = User::with('country')->find($id);
