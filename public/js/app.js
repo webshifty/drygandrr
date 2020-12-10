@@ -5393,28 +5393,30 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 return _this.deleteWorker(workerId);
 
               case 5:
-                _context.next = 10;
+                _this.$router.push('/');
+
+                _context.next = 11;
                 break;
 
-              case 7:
-                _context.prev = 7;
+              case 8:
+                _context.prev = 8;
                 _context.t0 = _context["catch"](0);
                 throw _context.t0;
 
-              case 10:
-                _context.prev = 10;
+              case 11:
+                _context.prev = 11;
                 _this.sending = false;
 
                 _this.$emit('close');
 
-                return _context.finish(10);
+                return _context.finish(11);
 
-              case 14:
+              case 15:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[0, 7, 10, 14]]);
+        }, _callee, null, [[0, 8, 11, 15]]);
       }))();
     },
     onClose: function onClose() {
@@ -59765,6 +59767,26 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }, _callee6);
     }))();
   },
+  updateWorker: function updateWorker(worker) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee7() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee7$(_context7) {
+        while (1) {
+          switch (_context7.prev = _context7.next) {
+            case 0:
+              _context7.next = 2;
+              return _services_requestService__WEBPACK_IMPORTED_MODULE_1__["default"].put('/api/workers/' + worker.id, worker);
+
+            case 2:
+              return _context7.abrupt("return", _context7.sent);
+
+            case 3:
+            case "end":
+              return _context7.stop();
+          }
+        }
+      }, _callee7);
+    }))();
+  },
   mapWorker: function mapWorker(worker) {
     return {
       id: worker.id,
@@ -60931,15 +60953,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   updateWorker: function updateWorker(_ref10, worker) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee7() {
-      var commit;
+      var _response$data7;
+
+      var commit, response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee7$(_context7) {
         while (1) {
           switch (_context7.prev = _context7.next) {
             case 0:
               commit = _ref10.commit;
-              console.log(worker);
+              _context7.next = 3;
+              return _services_workerService__WEBPACK_IMPORTED_MODULE_1__["default"].updateWorker(worker);
 
-            case 2:
+            case 3:
+              response = _context7.sent;
+              commit(_types__WEBPACK_IMPORTED_MODULE_2__["SET_WORKER"], response === null || response === void 0 ? void 0 : (_response$data7 = response.data) === null || _response$data7 === void 0 ? void 0 : _response$data7.data);
+
+            case 5:
             case "end":
               return _context7.stop();
           }

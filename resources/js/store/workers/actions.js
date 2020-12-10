@@ -49,7 +49,9 @@ export default {
 	},
 
 	async updateWorker({ commit }, worker) {
-		console.log(worker);
+		const response = await workerService.updateWorker(worker);
+
+		commit(types.SET_WORKER, response?.data?.data);
 	},
 
 	async deleteWorker({ commit }, workerId) {

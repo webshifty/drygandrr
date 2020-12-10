@@ -31,6 +31,7 @@ export default {
 				this.sending = true;
 				const workerId = this.data.id;
 				await this.deleteWorker(workerId);
+				this.$router.push('/');
 			} catch (error) {
 				throw error;
 			} finally {

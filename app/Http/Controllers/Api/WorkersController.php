@@ -7,8 +7,10 @@ use App\Actions\Users\DeletePhoto;
 use App\Actions\Users\UploadPhoto;
 use App\Actions\Workers\DeleteWorker;
 use App\Actions\Workers\DTO\FilterWorker;
+use App\Actions\Workers\DTO\UpdateWorkerPayload;
 use App\Actions\Workers\GetWorker;
 use App\Actions\Workers\GetWorkers;
+use App\Actions\Workers\UpdateWorker;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -56,9 +58,19 @@ class WorkersController extends Controller
 		);
 	}
 
-	public function updateWorker()
+	public function updateWorker(Request $request, int $workerId, UpdateWorker $updateWorker)
 	{
-
+		return $this->success(
+			$updateWorker->execute(
+				new UpdateWorkerPayload(
+					$workerId,
+					(int)$request->input('access'),
+					(int)$request->input('country'),
+					$request->input('email'),
+					$request->input('name'),
+				),
+			),
+		);
 	}
 
 	public function deleteWorker(int $workerId, DeleteWorker $deleteWorker)

@@ -28,6 +28,10 @@ export default {
 		return await requestService.delete('/api/workers/' + workerId);
 	},
 
+	async updateWorker(worker) {
+		return await requestService.put('/api/workers/' + worker.id, worker);
+	},
+
 	mapWorker(worker) {
 		return {
 			id: worker.id,
