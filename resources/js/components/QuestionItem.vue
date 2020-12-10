@@ -1,6 +1,6 @@
 <template>
     <div class="question-item d-flex align-items-center">
-        <div>
+        <div class="d-flex">
             <div class="question-item-dot" />
             <div>
                 {{ question }}
