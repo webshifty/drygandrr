@@ -8,6 +8,14 @@ export default {
 		});
 	},
 
+	async getRequests(workerId) {
+		return await requestService.get('/api/workers/' + workerId + '/requests');
+	},
+
+	async getWorker(workerId) {
+		return await requestService.get('/api/workers/' + workerId);
+	},
+
 	mapWorker(worker) {
 		return {
 			id: worker.id,
@@ -16,6 +24,9 @@ export default {
 			country: worker.country,
 			countryName: worker.countryName,
 			requests_count: worker.requests_count,
+			photo: worker.photo,
+			is_operator: worker.is_operator,
+			is_admin: worker.is_admin,
 		};
 	}
 };

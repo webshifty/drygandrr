@@ -23,6 +23,7 @@
 			userInfo: @json($data['userInfo']),
 			countries: @json($data['countries']),
 			categories: @json($data['categories']),
+			statuses: @json($data['statuses'] ?? [])
 		};
 	</script>
 	@stack('states')

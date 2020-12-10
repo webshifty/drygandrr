@@ -64,6 +64,7 @@ export default {
 .main {
 	width: 100%;
 	margin-left: 256px;
+	max-height: 100vh;
 }
 
 .search {
@@ -97,6 +98,9 @@ export default {
 }
 
 .content {
+    height: calc(100% - 60px);
     padding: 36px;
+    padding-bottom: 64px;
 }
+
 </style>

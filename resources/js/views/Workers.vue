@@ -1,7 +1,7 @@
 <template>
 	<Dashboard @search="onSearch">
 		<template v-if="isAdmin">
-			<WorkersTable />
+			<router-view></router-view>
 		</template>
 		<template v-else>
 			У вас немає доступу до цієї сторінки
@@ -11,13 +11,11 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import Dashboard from '../components/layouts/Dashboard';
-import WorkersTable from '../components/WorkersTable.vue';
+import Dashboard from '../components/layouts/Dashboard.vue';
 
 export default {
 	components: {
 		Dashboard,
-		WorkersTable,
 	},
 	computed: {
 		...mapGetters('user', [

@@ -29,6 +29,7 @@ Route::post('/bot/getupdates', BotController::income());
 //})->name('dashboard');
 
 Route::get('bot', [BotController::class, 'income']);
+Route::get('/public', [BaseController::class, 'publicPage'])->name('public');
 Route::middleware('auth')->get('/dashboard', [BaseController::class, 'dashboard'])->name('requests');
 Route::middleware('auth')->get('/q_base', [BaseController::class, 'questionBase'])->name('questions');
 Route::middleware('auth')->get('/settings', [BaseController::class, 'settings'])->name('settings');
@@ -53,4 +54,6 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
     Route::put('user', [UserController::class, 'updateUser']);
 
     Route::get('workers', [WorkersController::class, 'getWorkers']);
+    Route::get('workers/{id}', [WorkersController::class, 'getWorker']);
+    Route::get('workers/{id}/requests', [WorkersController::class, 'getRequests']);
 });

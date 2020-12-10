@@ -13,6 +13,9 @@ class Worker implements Arrayable
 	public string $email;
 	public string $countryName;
 	public int $requestsCount;
+	public ?string $photo;
+	public ?bool $isOperator; 
+	public ?bool $isAdmin;
 
 	public function __construct(
 		int $id,
@@ -20,7 +23,10 @@ class Worker implements Arrayable
 		string $name,
 		string $email,
 		string $countryName,
-		?int $requestsCount = 0
+		?int $requestsCount = 0,
+		?string $photo, 
+		?bool $isOperator, 
+		?bool $isAdmin 
 	)
 	{
 		$this->id = $id;
@@ -29,6 +35,9 @@ class Worker implements Arrayable
 		$this->email = $email;
 		$this->countryName = $countryName;
 		$this->requestsCount = $requestsCount;
+		$this->photo = $photo;
+		$this->isOperator = $isOperator;
+		$this->isAdmin = $isAdmin;
 	}
 
 	public static function fromUser(User $user)
@@ -41,7 +50,10 @@ class Worker implements Arrayable
 			$user->name,
 			$user->email,
 			$countryName,
-			$user->requests_count,
+			$user->requests_count ?? 0,
+			$user->profile_photo_url,
+			$user->is_operator,
+			$user->is_admin,
 		);
 	}
 
@@ -54,6 +66,9 @@ class Worker implements Arrayable
 			'email' => $this->email,
 			'countryName' => $this->countryName,
 			'requests_count' => $this->requestsCount,
+			'photo' => $this->photo,
+			'is_operator' => $this->isOperator,
+			'is_admin' => $this->isAdmin,
 		];
 	}
 }
