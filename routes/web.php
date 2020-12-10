@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\QuestionsController;
 use App\Http\Controllers\Api\RequestsController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\WorkersController;
+use App\Http\Controllers\Api\CategoriesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,11 +55,13 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
     Route::put('user', [UserController::class, 'updateUser']);
 
     Route::get('workers/list', [WorkersController::class, 'getWorkerList']);
-    Route::get('workers', [WorkersController::class, 'getWorkers'])->middleware('can:handle-workers');
-    Route::get('workers/{id}', [WorkersController::class, 'getWorker'])->middleware('can:handle-workers');
-    Route::get('workers/{id}/requests', [WorkersController::class, 'getRequests'])->middleware('can:handle-workers');
-    Route::post('workers/{id}/photo', [WorkersController::class, 'uploadPhoto'])->middleware('can:handle-workers');
-    Route::delete('workers/{id}/photo', [WorkersController::class, 'deletePhoto'])->middleware('can:handle-workers');
-    Route::put('workers/{id}', [WorkersController::class, 'updateWorker'])->middleware('can:handle-workers');
-    Route::delete('workers/{id}', [WorkersController::class, 'deleteWorker'])->middleware('can:handle-workers');
+    Route::get('workers', [WorkersController::class, 'getWorkers'])->middleware('is:admin');
+    Route::get('workers/{id}', [WorkersController::class, 'getWorker'])->middleware('is:admin');
+    Route::get('workers/{id}/requests', [WorkersController::class, 'getRequests'])->middleware('is:admin');
+    Route::post('workers/{id}/photo', [WorkersController::class, 'uploadPhoto'])->middleware('is:admin');
+    Route::delete('workers/{id}/photo', [WorkersController::class, 'deletePhoto'])->middleware('is:admin');
+    Route::put('workers/{id}', [WorkersController::class, 'updateWorker'])->middleware('is:admin');
+    Route::delete('workers/{id}', [WorkersController::class, 'deleteWorker'])->middleware('is:admin');
+
+    Route::post('categories', [CategoriesController::class, 'createCategory'])->middleware('is:admin');
 });

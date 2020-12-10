@@ -18,7 +18,13 @@
 				</div>
 			</div>
 			<div class="action-block__right">
-				<button class="button" v-on:click.prevent="onAdd">Додати</button>
+				<div class="dropdown">
+					<button class="button" v-on:click.prevent="onAdd">Додати</button>
+					<div v-if="isAdmin" class="dropdown-menu" :class="{ show: showDropdown }">
+						<a class="dropdown-item" href="#" @click.prevent="onAddCategory">Категорію</a>
+						<a class="dropdown-item" href="#" @click.prevent="onAddQuestion">Запитання</a>
+					</div>
+				</div>
 			</div>
 		</div>
 		<div class="questions-block">
@@ -59,6 +65,11 @@
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
+	data() {
+		return {
+			showDropdown: false,
+		};
+	},
 	computed: {
 		...mapGetters('questions', [
 			'questions',
@@ -92,6 +103,22 @@ export default {
 			});
 		},
 		onAdd() {
+			if (this.isOperator) {
+				this.onAddQuestion();
+			} else if (this.isAdmin) {
+				this.showDropdown = !this.showDropdown;
+			}
+		},
+		onAddCategory() {
+			this.showDropdown = false;
+			this.showModal({
+				type: 'addCateogory',
+				payload: {
+				}
+			});
+		},
+		onAddQuestion() {
+			this.showDropdown = false;
 			this.showModal({
 				type: 'addQuestions',
 				payload: {
@@ -134,4 +161,12 @@ export default {
 </script>
 
 <style scoped>
+.dropdown-item {
+	color: #252525;
+	font-size: 16px;
+}
+
+.dropdown-item:active {
+	color: #fff;
+}
 </style>

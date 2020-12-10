@@ -8,6 +8,7 @@
 			<UpdateUserModal v-if="type === 'updateUser'" :data="payload" v-on:close="hideModal" />
 			<UpdateWorkerModal v-if="type === 'updateWorker'" :data="payload" v-on:close="hideModal" />
 			<DeleteWorkerModal v-if="type === 'deleteWorker'" :data="payload" v-on:close="hideModal" />
+			<AddCategoryModal v-if="type === 'addCateogory'" :data="payload" v-on:close="hideModal" />
 		</div>
 		<div v-on:click.prevent="hideModal" class="overlay"></div>
 	</div>
@@ -22,6 +23,7 @@ import AnswerUserModal from './AnswerUserModal';
 import UpdateUserModal from './UpdateUserModal.vue';
 import UpdateWorkerModal from './UpdateWorkerModal.vue';
 import DeleteWorkerModal from './DeleteWorkerModal.vue';
+import AddCategoryModal from './AddCategoryModal.vue';
 
 export default {
 	components: {
@@ -32,6 +34,7 @@ export default {
 		UpdateUserModal,
 		UpdateWorkerModal,
 		DeleteWorkerModal,
+		AddCategoryModal,
 	},
 	computed: {
 		...mapGetters('modal', [
