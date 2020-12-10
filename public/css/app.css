@@ -435,4 +435,13 @@ select {
 }.table-container {
 	height: calc(100% - 44px);
 	overflow: auto;
+}*::-webkit-scrollbar {
+	width: 8px;
+}*::-webkit-scrollbar-track {
+	background: transparent;
+}*::-webkit-scrollbar-thumb {
+	background-color: #b1b1b1;
+	border-radius: 20px;
+	opacity: .5;
 }
+
