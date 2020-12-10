@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Actions\Requests\GetRequestsByWorker;
+use App\Actions\Users\DeletePhoto;
+use App\Actions\Users\UploadPhoto;
+use App\Actions\Workers\DeleteWorker;
 use App\Actions\Workers\DTO\FilterWorker;
 use App\Actions\Workers\GetWorker;
 use App\Actions\Workers\GetWorkers;
@@ -13,11 +16,6 @@ class WorkersController extends Controller
 {
 	public function getWorkers(Request $request, GetWorkers $getWorkers)
 	{
-		$user = $request->user();
-
-		if (!$user->is_admin) {
-			return $this->empty();
-		}
 		$filter = $request->input('filter') ?? [];
 
 		$response = $getWorkers->execute(
@@ -30,28 +28,43 @@ class WorkersController extends Controller
 		return $this->success($response);
 	}
 
-	public function getRequests(Request $request, int $workerId, GetRequestsByWorker $getRequests)
+	public function getRequests(int $workerId, GetRequestsByWorker $getRequests)
 	{
-		$user = $request->user();
-
-		if (!$user->is_admin) {
-			return $this->empty();
-		}
-
 		$response = $getRequests->execute($workerId);
 
 		return $this->success($response);
 	}
 
-	public function getWorker(Request $request, int $workerId, GetWorker $getWorker)
+	public function getWorker(int $workerId, GetWorker $getWorker)
 	{
-		$user = $request->user();
-		if (!$user->is_admin) {
-			return $this->empty();
-		}
-
 		$response = $getWorker->execute($workerId);
 
 		return $this->success($response);
+	}
+
+	public function uploadPhoto(Request $request, int $workerId, UploadPhoto $uploadPhoto)
+	{
+		return $this->success(
+			$uploadPhoto->execute($request, $workerId)
+		);
+	}
+
+	public function deletePhoto(int $workerId, DeletePhoto $deletePhoto)
+	{
+		return $this->success(
+			$deletePhoto->execute($workerId)
+		);
+	}
+
+	public function updateWorker()
+	{
+
+	}
+
+	public function deleteWorker(int $workerId, DeleteWorker $deleteWorker)
+	{
+		$deleteWorker->execute($workerId);
+
+		return $this->empty();
 	}
 }

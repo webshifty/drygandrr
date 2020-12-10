@@ -53,7 +53,11 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
     Route::delete('user/photo', [UserController::class, 'deletePhoto']);
     Route::put('user', [UserController::class, 'updateUser']);
 
-    Route::get('workers', [WorkersController::class, 'getWorkers']);
-    Route::get('workers/{id}', [WorkersController::class, 'getWorker']);
-    Route::get('workers/{id}/requests', [WorkersController::class, 'getRequests']);
+    Route::get('workers', [WorkersController::class, 'getWorkers'])->middleware('can:handle-workers');
+    Route::get('workers/{id}', [WorkersController::class, 'getWorker'])->middleware('can:handle-workers');
+    Route::get('workers/{id}/requests', [WorkersController::class, 'getRequests'])->middleware('can:handle-workers');
+    Route::post('workers/{id}/photo', [WorkersController::class, 'uploadPhoto'])->middleware('can:handle-workers');
+    Route::delete('workers/{id}/photo', [WorkersController::class, 'deletePhoto'])->middleware('can:handle-workers');
+    Route::put('workers/{id}', [WorkersController::class, 'updateWorker'])->middleware('can:handle-workers');
+    Route::delete('workers/{id}', [WorkersController::class, 'deleteWorker'])->middleware('can:handle-workers');
 });

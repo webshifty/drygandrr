@@ -37,11 +37,15 @@ export default {
 	},
 
 	async uploadPhoto({ commit }, { workerId, file }) {
-		console.log('update photo');
+		const response = await workerService.uploadPhoto(workerId, file);
+		
+		commit(types.UPLOAD_PHOTO, response?.data?.data.photo);
 	},
 
 	async deletePhoto({ commit }, { workerId }) {
-		console.log('delete photo');
+		const response = await workerService.deletePhoto(workerId);
+		
+		commit(types.UPLOAD_PHOTO, response?.data?.data.photo);
 	},
 
 	async updateWorker({ commit }, worker) {
@@ -49,6 +53,8 @@ export default {
 	},
 
 	async deleteWorker({ commit }, workerId) {
-		console.log(workerId);
+		await workerService.deleteWorker(workerId);
+
+		commit(types.DELETE_WORKER, workerId);
 	}
 };

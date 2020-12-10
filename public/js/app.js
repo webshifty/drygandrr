@@ -4347,7 +4347,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _tables_Pagination_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./tables/Pagination.vue */ "./resources/js/components/tables/Pagination.vue");
+/* harmony import */ var _tables_Pagination_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tables/Pagination.vue */ "./resources/js/components/tables/Pagination.vue");
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 
 
@@ -4415,7 +4415,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    Pagination: _tables_Pagination_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
+    Pagination: _tables_Pagination_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])('workers', ['countWorkers', 'workers', 'filter'])), Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])('page', ['countries'])),
   methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapActions"])('workers', ['getWorkers', 'changeFilter'])), {}, {
@@ -59705,6 +59705,66 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }, _callee3);
     }))();
   },
+  uploadPhoto: function uploadPhoto(workerId, file) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              _context4.next = 2;
+              return _services_requestService__WEBPACK_IMPORTED_MODULE_1__["default"].file('/api/workers/' + workerId + '/photo', file);
+
+            case 2:
+              return _context4.abrupt("return", _context4.sent);
+
+            case 3:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4);
+    }))();
+  },
+  deletePhoto: function deletePhoto(workerId) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
+        while (1) {
+          switch (_context5.prev = _context5.next) {
+            case 0:
+              _context5.next = 2;
+              return _services_requestService__WEBPACK_IMPORTED_MODULE_1__["default"]["delete"]('/api/workers/' + workerId + '/photo');
+
+            case 2:
+              return _context5.abrupt("return", _context5.sent);
+
+            case 3:
+            case "end":
+              return _context5.stop();
+          }
+        }
+      }, _callee5);
+    }))();
+  },
+  deleteWorker: function deleteWorker(workerId) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
+        while (1) {
+          switch (_context6.prev = _context6.next) {
+            case 0:
+              _context6.next = 2;
+              return _services_requestService__WEBPACK_IMPORTED_MODULE_1__["default"]["delete"]('/api/workers/' + workerId);
+
+            case 2:
+              return _context6.abrupt("return", _context6.sent);
+
+            case 3:
+            case "end":
+              return _context6.stop();
+          }
+        }
+      }, _callee6);
+    }))();
+  },
   mapWorker: function mapWorker(worker) {
     return {
       id: worker.id,
@@ -60819,16 +60879,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   uploadPhoto: function uploadPhoto(_ref6, _ref7) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
-      var commit, workerId, file;
+      var _response$data5;
+
+      var commit, workerId, file, response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
         while (1) {
           switch (_context5.prev = _context5.next) {
             case 0:
               commit = _ref6.commit;
               workerId = _ref7.workerId, file = _ref7.file;
-              console.log('update photo');
+              _context5.next = 4;
+              return _services_workerService__WEBPACK_IMPORTED_MODULE_1__["default"].uploadPhoto(workerId, file);
 
-            case 3:
+            case 4:
+              response = _context5.sent;
+              commit(_types__WEBPACK_IMPORTED_MODULE_2__["UPLOAD_PHOTO"], response === null || response === void 0 ? void 0 : (_response$data5 = response.data) === null || _response$data5 === void 0 ? void 0 : _response$data5.data.photo);
+
+            case 6:
             case "end":
               return _context5.stop();
           }
@@ -60838,16 +60905,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   deletePhoto: function deletePhoto(_ref8, _ref9) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6() {
-      var commit, workerId;
+      var _response$data6;
+
+      var commit, workerId, response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
         while (1) {
           switch (_context6.prev = _context6.next) {
             case 0:
               commit = _ref8.commit;
               workerId = _ref9.workerId;
-              console.log('delete photo');
+              _context6.next = 4;
+              return _services_workerService__WEBPACK_IMPORTED_MODULE_1__["default"].deletePhoto(workerId);
 
-            case 3:
+            case 4:
+              response = _context6.sent;
+              commit(_types__WEBPACK_IMPORTED_MODULE_2__["UPLOAD_PHOTO"], response === null || response === void 0 ? void 0 : (_response$data6 = response.data) === null || _response$data6 === void 0 ? void 0 : _response$data6.data.photo);
+
+            case 6:
             case "end":
               return _context6.stop();
           }
@@ -60881,9 +60955,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           switch (_context8.prev = _context8.next) {
             case 0:
               commit = _ref11.commit;
-              console.log(workerId);
+              _context8.next = 3;
+              return _services_workerService__WEBPACK_IMPORTED_MODULE_1__["default"].deleteWorker(workerId);
 
-            case 2:
+            case 3:
+              commit(_types__WEBPACK_IMPORTED_MODULE_2__["DELETE_WORKER"], workerId);
+
+            case 4:
             case "end":
               return _context8.stop();
           }
@@ -60997,6 +61075,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   state.requestsByWorkerId = _objectSpread(_objectSpread({}, state.requestsByWorkerId), {}, _defineProperty({}, workerId, requests.map(_services_userRequestsService__WEBPACK_IMPORTED_MODULE_1__["default"].mapRequest)));
 }), _defineProperty(_types$SET_WORKERS$ty, _types__WEBPACK_IMPORTED_MODULE_2__["SET_WORKER"], function (state, worker) {
   state.worker = _services_workerService__WEBPACK_IMPORTED_MODULE_0__["default"].mapWorker(worker);
+}), _defineProperty(_types$SET_WORKERS$ty, _types__WEBPACK_IMPORTED_MODULE_2__["UPLOAD_PHOTO"], function (state, photo) {
+  state.worker = _objectSpread(_objectSpread({}, state.worker), {}, {
+    photo: photo
+  });
+}), _defineProperty(_types$SET_WORKERS$ty, _types__WEBPACK_IMPORTED_MODULE_2__["DELETE_WORKER"], function (state, workerId) {
+  state.worker = {};
+  state.workers = state.workers.filter(function (worker) {
+    return worker.id === workerId;
+  });
 }), _types$SET_WORKERS$ty);
 
 /***/ }),
@@ -61005,7 +61092,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /*!*********************************************!*\
   !*** ./resources/js/store/workers/types.js ***!
   \*********************************************/
-/*! exports provided: SET_WORKERS, SET_WORKER, SET_META, CHANGE_FILTER, SET_REQUESTS */
+/*! exports provided: SET_WORKERS, SET_WORKER, SET_META, CHANGE_FILTER, SET_REQUESTS, UPLOAD_PHOTO, DELETE_WORKER, UPDATE_WORKER */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -61015,11 +61102,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_META", function() { return SET_META; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CHANGE_FILTER", function() { return CHANGE_FILTER; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_REQUESTS", function() { return SET_REQUESTS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UPLOAD_PHOTO", function() { return UPLOAD_PHOTO; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DELETE_WORKER", function() { return DELETE_WORKER; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UPDATE_WORKER", function() { return UPDATE_WORKER; });
 var SET_WORKERS = 'SET_WORKERS';
 var SET_WORKER = 'SET_WORKER';
 var SET_META = 'SET_META';
 var CHANGE_FILTER = 'CHANGE_FILTER';
 var SET_REQUESTS = 'SET_REQUESTS';
+var UPLOAD_PHOTO = 'UPLOAD_PHOTO';
+var DELETE_WORKER = 'DELETE_WORKER';
+var UPDATE_WORKER = 'UPDATE_WORKER';
 
 /***/ }),
 

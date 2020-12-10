@@ -434,5 +434,4 @@ select {
 }.table-container {
 	height: calc(100% - 44px);
 	overflow: auto;
-	position: relative;
 }

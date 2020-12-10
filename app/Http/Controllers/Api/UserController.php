@@ -3,40 +3,26 @@
 namespace App\Http\Controllers\Api;
 
 use App\Actions\Fortify\UpdateUserPassword;
-use App\Actions\Users\DTO\PhotoResponse;
+use App\Actions\Users\DeletePhoto;
 use App\Actions\Users\DTO\UserInfoResponse;
+use App\Actions\Users\UploadPhoto;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-	public function uploadPhoto(Request $request)
+	public function uploadPhoto(Request $request, UploadPhoto $uploadPhoto)
 	{
-		if (!$request->hasFile('image')) {
-			return $this->error('there is no file');
-		}
+		$response = $uploadPhoto->execute($request, auth()->id());
 
-		if (!$request->file('image')->isValid()) {
-			return $this->error('file is invalid image');
-		}
-
-		$request->validate([
-			'image' => 'mimes:jpeg,png|max:4096',
-		]);
-		$user = User::find(auth()->id());
-		$user->updateProfilePhoto($request->image);
-
-		return $this->success(new PhotoResponse($user->getProfilePhotoUrlAttribute()));
+		return $this->success($response);
 	}
 
-	public function deletePhoto()
+	public function deletePhoto(DeletePhoto $deletePhoto)
 	{
-		$user = User::find(auth()->id());
-		$user->deleteProfilePhoto();
-
 		return $this->success(
-			new PhotoResponse($user->getProfilePhotoUrlAttribute())
+			$deletePhoto->execute(auth()->id())
 		);
 	}
 

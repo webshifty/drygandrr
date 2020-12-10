@@ -26,5 +26,15 @@ export default {
 	},
 	[types.SET_WORKER]: (state, worker) => {
 		state.worker = workerService.mapWorker(worker);
+	},
+	[types.UPLOAD_PHOTO]: (state, photo) => {
+		state.worker = {
+			...state.worker,
+			photo
+		};
+	},
+	[types.DELETE_WORKER]: (state, workerId) => {
+		state.worker = {};
+		state.workers = state.workers.filter(worker => worker.id === workerId);
 	}
 };

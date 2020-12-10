@@ -16,6 +16,18 @@ export default {
 		return await requestService.get('/api/workers/' + workerId);
 	},
 
+	async uploadPhoto(workerId, file) {
+		return await requestService.file('/api/workers/' + workerId + '/photo', file);
+	},
+
+	async deletePhoto(workerId) {
+		return await requestService.delete('/api/workers/' + workerId + '/photo');
+	},
+
+	async deleteWorker(workerId) {
+		return await requestService.delete('/api/workers/' + workerId);
+	},
+
 	mapWorker(worker) {
 		return {
 			id: worker.id,
