@@ -45,14 +45,14 @@ export default {
 	methods: {
 	},
 	mounted() {
-		this.onNext = _.debounce(() => {
+		this.onNext = _.throttle(() => {
 			if (this.isLast) {
 				return;
 			}
 
 			this.$emit('next');
 		}, 500);
-		this.onPrev = _.debounce(() => {
+		this.onPrev = _.throttle(() => {
 			if (this.isFirst) {
 				return;
 			}

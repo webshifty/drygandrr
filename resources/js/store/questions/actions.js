@@ -1,27 +1,23 @@
 import questionService from "../../services/questionService";
-import {
-	SET_QUESTIONS,
-	ADD_QUESTION,
-	UPDATE_QUESTION,
-	DELETE_QUESTION,
-	CHANGE_FILTER,
-} from "./types";
+import * as types from "./types";
 
 export default {
 	async getQuestions({ commit, state }) {
 		const response = await questionService.getQuestions(
-			state.filter
+			state.filter,
+			state.meta.page,
 		);
 
-		commit(SET_QUESTIONS, {
+		commit(types.SET_QUESTIONS, {
 			questions: response.data,
 		});
+		commit(types.SET_META, response.meta);
 	},
 
 	async createQuestion({ commit }, question) {
 		const response = await questionService.createQuestion(question);
 
-		commit(ADD_QUESTION, {
+		commit(types.ADD_QUESTION, {
 			question: response.data,
 		});
 	},
@@ -29,7 +25,7 @@ export default {
 	async updateQuestion({ commit }, question) {
 		const response = await questionService.updateQuestion(question.id, question);
 
-		commit(UPDATE_QUESTION, {
+		commit(types.UPDATE_QUESTION, {
 			question: response.data,
 		});
 	},
@@ -37,12 +33,23 @@ export default {
 	async deleteQuestion({ commit }, questionId) {
 		await questionService.deleteQuestion(questionId);
 
-		commit(DELETE_QUESTION, questionId);
+		commit(types.DELETE_QUESTION, questionId);
 	},
 
 	async changeFilter({ commit, dispatch }, { filter, value }) {
-		commit(CHANGE_FILTER, { filter, value });
+		commit(types.CHANGE_FILTER, { filter, value });
+		commit(types.SET_PAGE, 1);
 
+		await dispatch('getQuestions');
+	},
+
+	async nextPage({ commit, state, dispatch }) {
+		commit(types.SET_PAGE, state.meta.page + 1);
+		await dispatch('getQuestions');
+	},
+
+	async prevPage({ commit, state, dispatch }) {
+		commit(types.SET_PAGE, state.meta.page - 1);
 		await dispatch('getQuestions');
 	}
 };

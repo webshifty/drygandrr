@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="page">
 		<div class="action-block">
 			<div class="action-block__left">
 				<div v-if="isAdmin" class="dropdown">
@@ -27,7 +27,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="questions-block">
+		<div class="table-container">
 			<table class="table">
 				<tr>
 					<th class="table__header table__header--questions">Питання</th>
@@ -58,11 +58,20 @@
 				</tr>
 			</table>
 		</div>
+		<Pagination
+			:total="meta.total"
+			:page="meta.page"
+			:perPage="meta.per_page"
+			:lastPage="meta.last_page"
+			@next="nextPage"
+			@prev="prevPage"
+		/>
 	</div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import Pagination from './tables/Pagination.vue';
 
 export default {
 	data() {
@@ -70,10 +79,14 @@ export default {
 			showDropdown: false,
 		};
 	},
+	components: {
+		Pagination,
+	},
 	computed: {
 		...mapGetters('questions', [
 			'questions',
 			'filter',
+			'meta',
 		]),
 		...mapGetters('page', [
 			'countries',
@@ -92,6 +105,8 @@ export default {
 		...mapActions('questions', [
 			'getQuestions',
 			'changeFilter',
+			'nextPage',
+			'prevPage',
 		]),
 		
 		onEdit(questionId) {

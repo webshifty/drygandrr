@@ -3841,6 +3841,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _tables_Pagination_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./tables/Pagination.vue */ "./resources/js/components/tables/Pagination.vue");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -3916,6 +3917,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -3923,8 +3933,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       showDropdown: false
     };
   },
-  computed: _objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])('questions', ['questions', 'filter'])), Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])('page', ['countries', 'categories'])), Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])('user', ['isOperator', 'isAdmin'])),
-  methods: _objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])('modal', ['showModal'])), Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])('questions', ['getQuestions', 'changeFilter'])), {}, {
+  components: {
+    Pagination: _tables_Pagination_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+  },
+  computed: _objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])('questions', ['questions', 'filter', 'meta'])), Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])('page', ['countries', 'categories'])), Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])('user', ['isOperator', 'isAdmin'])),
+  methods: _objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])('modal', ['showModal'])), Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])('questions', ['getQuestions', 'changeFilter', 'nextPage', 'prevPage'])), {}, {
     onEdit: function onEdit(questionId) {
       var question = this.questions.find(function (question) {
         return question.id === questionId;
@@ -6445,14 +6458,14 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this = this;
 
-    this.onNext = lodash__WEBPACK_IMPORTED_MODULE_0___default.a.debounce(function () {
+    this.onNext = lodash__WEBPACK_IMPORTED_MODULE_0___default.a.throttle(function () {
       if (_this.isLast) {
         return;
       }
 
       _this.$emit('next');
     }, 500);
-    this.onPrev = lodash__WEBPACK_IMPORTED_MODULE_0___default.a.debounce(function () {
+    this.onPrev = lodash__WEBPACK_IMPORTED_MODULE_0___default.a.throttle(function () {
       if (_this.isFirst) {
         return;
       }
@@ -37900,234 +37913,249 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("div", { staticClass: "action-block" }, [
-      _c("div", { staticClass: "action-block__left" }, [
-        _vm.isAdmin
-          ? _c("div", { staticClass: "dropdown" }, [
-              _c("label", { attrs: { for: "filter-country" } }, [
-                _vm._v("Країна:")
-              ]),
-              _vm._v(" "),
-              _c(
-                "select",
-                {
-                  attrs: { id: "filter-country" },
-                  domProps: { value: _vm.filter.country },
-                  on: { change: _vm.onFilterCountry }
-                },
-                [
-                  _c("option", { attrs: { value: "" } }, [_vm._v("Усі")]),
-                  _vm._v(" "),
-                  _vm._l(_vm.countries, function(country) {
-                    return _c(
-                      "option",
-                      { key: country.id, domProps: { value: country.id } },
-                      [_vm._v(_vm._s(country.name))]
-                    )
-                  })
-                ],
-                2
-              )
-            ])
-          : _vm._e(),
-        _vm._v(" "),
-        _c("div", { staticClass: "dropdown" }, [
-          _c("label", { attrs: { for: "filter-category" } }, [
-            _vm._v("Категорія:")
-          ]),
-          _vm._v(" "),
-          _c(
-            "select",
-            {
-              attrs: { id: "filter-category" },
-              domProps: { value: _vm.filter.category },
-              on: { change: _vm.onFilterCategory }
-            },
-            [
-              _c("option", { attrs: { value: "" } }, [_vm._v("Усі")]),
-              _vm._v(" "),
-              _vm._l(_vm.categories, function(category) {
-                return _c(
-                  "option",
-                  { key: category.id, domProps: { value: category.id } },
-                  [_vm._v(_vm._s(category.name))]
-                )
-              })
-            ],
-            2
-          )
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "action-block__right" }, [
-        _c("div", { staticClass: "dropdown" }, [
-          _c(
-            "button",
-            {
-              staticClass: "button",
-              on: {
-                click: function($event) {
-                  $event.preventDefault()
-                  return _vm.onAdd($event)
-                }
-              }
-            },
-            [_vm._v("Додати")]
-          ),
-          _vm._v(" "),
+  return _c(
+    "div",
+    { staticClass: "page" },
+    [
+      _c("div", { staticClass: "action-block" }, [
+        _c("div", { staticClass: "action-block__left" }, [
           _vm.isAdmin
-            ? _c(
-                "div",
-                {
-                  staticClass: "dropdown-menu",
-                  class: { show: _vm.showDropdown }
-                },
-                [
-                  _c(
-                    "a",
-                    {
-                      staticClass: "dropdown-item",
-                      attrs: { href: "#" },
-                      on: {
-                        click: function($event) {
-                          $event.preventDefault()
-                          return _vm.onAddCategory($event)
-                        }
-                      }
-                    },
-                    [_vm._v("Категорію")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "a",
-                    {
-                      staticClass: "dropdown-item",
-                      attrs: { href: "#" },
-                      on: {
-                        click: function($event) {
-                          $event.preventDefault()
-                          return _vm.onAddQuestion($event)
-                        }
-                      }
-                    },
-                    [_vm._v("Запитання")]
-                  )
-                ]
-              )
-            : _vm._e()
-        ])
-      ])
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "questions-block" }, [
-      _c(
-        "table",
-        { staticClass: "table" },
-        [
-          _vm._m(0),
+            ? _c("div", { staticClass: "dropdown" }, [
+                _c("label", { attrs: { for: "filter-country" } }, [
+                  _vm._v("Країна:")
+                ]),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    attrs: { id: "filter-country" },
+                    domProps: { value: _vm.filter.country },
+                    on: { change: _vm.onFilterCountry }
+                  },
+                  [
+                    _c("option", { attrs: { value: "" } }, [_vm._v("Усі")]),
+                    _vm._v(" "),
+                    _vm._l(_vm.countries, function(country) {
+                      return _c(
+                        "option",
+                        { key: country.id, domProps: { value: country.id } },
+                        [_vm._v(_vm._s(country.name))]
+                      )
+                    })
+                  ],
+                  2
+                )
+              ])
+            : _vm._e(),
           _vm._v(" "),
-          _vm._l(_vm.questions, function(question) {
-            return _c(
-              "tr",
+          _c("div", { staticClass: "dropdown" }, [
+            _c("label", { attrs: { for: "filter-category" } }, [
+              _vm._v("Категорія:")
+            ]),
+            _vm._v(" "),
+            _c(
+              "select",
               {
-                key: question.id,
-                staticClass: "table__row",
+                attrs: { id: "filter-category" },
+                domProps: { value: _vm.filter.category },
+                on: { change: _vm.onFilterCategory }
+              },
+              [
+                _c("option", { attrs: { value: "" } }, [_vm._v("Усі")]),
+                _vm._v(" "),
+                _vm._l(_vm.categories, function(category) {
+                  return _c(
+                    "option",
+                    { key: category.id, domProps: { value: category.id } },
+                    [_vm._v(_vm._s(category.name))]
+                  )
+                })
+              ],
+              2
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "action-block__right" }, [
+          _c("div", { staticClass: "dropdown" }, [
+            _c(
+              "button",
+              {
+                staticClass: "button",
                 on: {
-                  dblclick: function($event) {
-                    return _vm.onEdit(question.id)
+                  click: function($event) {
+                    $event.preventDefault()
+                    return _vm.onAdd($event)
                   }
                 }
               },
-              [
-                _c("td", [_vm._v(_vm._s(question.question))]),
-                _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(question.answer))]),
-                _vm._v(" "),
-                _c("td", [
-                  _c(
-                    "a",
-                    {
-                      staticClass: "table__icon delete",
-                      attrs: { href: "#" },
-                      on: {
-                        click: function($event) {
-                          $event.preventDefault()
-                          $event.stopPropagation()
-                          return _vm.onDelete(question.id)
-                        }
-                      }
-                    },
-                    [
-                      _c(
-                        "svg",
-                        {
-                          staticClass: "table__icon-image",
-                          attrs: {
-                            width: "16",
-                            height: "16",
-                            viewBox: "0 0 16 16",
-                            fill: "none",
-                            xmlns: "http://www.w3.org/2000/svg"
+              [_vm._v("Додати")]
+            ),
+            _vm._v(" "),
+            _vm.isAdmin
+              ? _c(
+                  "div",
+                  {
+                    staticClass: "dropdown-menu",
+                    class: { show: _vm.showDropdown }
+                  },
+                  [
+                    _c(
+                      "a",
+                      {
+                        staticClass: "dropdown-item",
+                        attrs: { href: "#" },
+                        on: {
+                          click: function($event) {
+                            $event.preventDefault()
+                            return _vm.onAddCategory($event)
                           }
-                        },
-                        [
-                          _c("path", {
-                            attrs: {
-                              d:
-                                "M12 3.2H16V4.8H14.4V15.2C14.4 15.4122 14.3157 15.6157 14.1657 15.7657C14.0157 15.9157 13.8122 16 13.6 16H2.4C2.18783 16 1.98434 15.9157 1.83431 15.7657C1.68429 15.6157 1.6 15.4122 1.6 15.2V4.8H0V3.2H4V0.8C4 0.587827 4.08429 0.384344 4.23431 0.234315C4.38434 0.0842854 4.58783 0 4.8 0H11.2C11.4122 0 11.6157 0.0842854 11.7657 0.234315C11.9157 0.384344 12 0.587827 12 0.8V3.2ZM12.8 4.8H3.2V14.4H12.8V4.8ZM5.6 7.2H7.2V12H5.6V7.2ZM8.8 7.2H10.4V12H8.8V7.2ZM5.6 1.6V3.2H10.4V1.6H5.6Z",
-                              fill: "#EB5757"
-                            }
-                          })
-                        ]
-                      )
-                    ]
-                  ),
+                        }
+                      },
+                      [_vm._v("Категорію")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "a",
+                      {
+                        staticClass: "dropdown-item",
+                        attrs: { href: "#" },
+                        on: {
+                          click: function($event) {
+                            $event.preventDefault()
+                            return _vm.onAddQuestion($event)
+                          }
+                        }
+                      },
+                      [_vm._v("Запитання")]
+                    )
+                  ]
+                )
+              : _vm._e()
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "table-container" }, [
+        _c(
+          "table",
+          { staticClass: "table" },
+          [
+            _vm._m(0),
+            _vm._v(" "),
+            _vm._l(_vm.questions, function(question) {
+              return _c(
+                "tr",
+                {
+                  key: question.id,
+                  staticClass: "table__row",
+                  on: {
+                    dblclick: function($event) {
+                      return _vm.onEdit(question.id)
+                    }
+                  }
+                },
+                [
+                  _c("td", [_vm._v(_vm._s(question.question))]),
                   _vm._v(" "),
-                  _c(
-                    "a",
-                    {
-                      staticClass: "table__icon edit",
-                      attrs: { href: "#" },
-                      on: {
-                        click: function($event) {
-                          $event.preventDefault()
-                          return _vm.onEdit(question.id)
-                        }
-                      }
-                    },
-                    [
-                      _c(
-                        "svg",
-                        {
-                          staticClass: "table__icon-image",
-                          attrs: {
-                            width: "15",
-                            height: "15",
-                            viewBox: "0 0 15 15",
-                            xmlns: "http://www.w3.org/2000/svg"
+                  _c("td", [_vm._v(_vm._s(question.answer))]),
+                  _vm._v(" "),
+                  _c("td", [
+                    _c(
+                      "a",
+                      {
+                        staticClass: "table__icon delete",
+                        attrs: { href: "#" },
+                        on: {
+                          click: function($event) {
+                            $event.preventDefault()
+                            $event.stopPropagation()
+                            return _vm.onDelete(question.id)
                           }
-                        },
-                        [
-                          _c("path", {
+                        }
+                      },
+                      [
+                        _c(
+                          "svg",
+                          {
+                            staticClass: "table__icon-image",
                             attrs: {
-                              d:
-                                "M1.66667 13.0933H2.845L10.6067 5.47451L9.42833 4.31787L1.66667 11.9367V13.0933ZM15 14.7293H0V11.2585L11.1958 0.268795C11.3521 0.115444 11.564 0.0292969 11.785 0.0292969C12.006 0.0292969 12.2179 0.115444 12.3742 0.268795L14.7317 2.5829C14.8879 2.7363 14.9757 2.94432 14.9757 3.16122C14.9757 3.37812 14.8879 3.58615 14.7317 3.73954L5.2025 13.0933H15V14.7293ZM10.6067 3.16122L11.785 4.31787L12.9633 3.16122L11.785 2.00458L10.6067 3.16122Z"
+                              width: "16",
+                              height: "16",
+                              viewBox: "0 0 16 16",
+                              fill: "none",
+                              xmlns: "http://www.w3.org/2000/svg"
                             }
-                          })
-                        ]
-                      )
-                    ]
-                  )
-                ])
-              ]
-            )
-          })
-        ],
-        2
-      )
-    ])
-  ])
+                          },
+                          [
+                            _c("path", {
+                              attrs: {
+                                d:
+                                  "M12 3.2H16V4.8H14.4V15.2C14.4 15.4122 14.3157 15.6157 14.1657 15.7657C14.0157 15.9157 13.8122 16 13.6 16H2.4C2.18783 16 1.98434 15.9157 1.83431 15.7657C1.68429 15.6157 1.6 15.4122 1.6 15.2V4.8H0V3.2H4V0.8C4 0.587827 4.08429 0.384344 4.23431 0.234315C4.38434 0.0842854 4.58783 0 4.8 0H11.2C11.4122 0 11.6157 0.0842854 11.7657 0.234315C11.9157 0.384344 12 0.587827 12 0.8V3.2ZM12.8 4.8H3.2V14.4H12.8V4.8ZM5.6 7.2H7.2V12H5.6V7.2ZM8.8 7.2H10.4V12H8.8V7.2ZM5.6 1.6V3.2H10.4V1.6H5.6Z",
+                                fill: "#EB5757"
+                              }
+                            })
+                          ]
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "a",
+                      {
+                        staticClass: "table__icon edit",
+                        attrs: { href: "#" },
+                        on: {
+                          click: function($event) {
+                            $event.preventDefault()
+                            return _vm.onEdit(question.id)
+                          }
+                        }
+                      },
+                      [
+                        _c(
+                          "svg",
+                          {
+                            staticClass: "table__icon-image",
+                            attrs: {
+                              width: "15",
+                              height: "15",
+                              viewBox: "0 0 15 15",
+                              xmlns: "http://www.w3.org/2000/svg"
+                            }
+                          },
+                          [
+                            _c("path", {
+                              attrs: {
+                                d:
+                                  "M1.66667 13.0933H2.845L10.6067 5.47451L9.42833 4.31787L1.66667 11.9367V13.0933ZM15 14.7293H0V11.2585L11.1958 0.268795C11.3521 0.115444 11.564 0.0292969 11.785 0.0292969C12.006 0.0292969 12.2179 0.115444 12.3742 0.268795L14.7317 2.5829C14.8879 2.7363 14.9757 2.94432 14.9757 3.16122C14.9757 3.37812 14.8879 3.58615 14.7317 3.73954L5.2025 13.0933H15V14.7293ZM10.6067 3.16122L11.785 4.31787L12.9633 3.16122L11.785 2.00458L10.6067 3.16122Z"
+                              }
+                            })
+                          ]
+                        )
+                      ]
+                    )
+                  ])
+                ]
+              )
+            })
+          ],
+          2
+        )
+      ]),
+      _vm._v(" "),
+      _c("Pagination", {
+        attrs: {
+          total: _vm.meta.total,
+          page: _vm.meta.page,
+          perPage: _vm.meta.per_page,
+          lastPage: _vm.meta.last_page
+        },
+        on: { next: _vm.nextPage, prev: _vm.prevPage }
+      })
+    ],
+    1
+  )
 }
 var staticRenderFns = [
   function() {
@@ -60230,26 +60258,29 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   getQuestions: function getQuestions(filter) {
+    var _arguments = arguments;
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-      var response;
+      var page, response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              _context.next = 2;
-              return _requestService__WEBPACK_IMPORTED_MODULE_1__["default"].get('/api/questions', {
+              page = _arguments.length > 1 && _arguments[1] !== undefined ? _arguments[1] : 1;
+              _context.next = 3;
+              return _requestService__WEBPACK_IMPORTED_MODULE_1__["default"].get('/api/questions?page=' + page, {
                 'filter[category]': filter.category,
                 'filter[country]': filter.country,
                 'filter[search]': filter.search
               });
 
-            case 2:
+            case 3:
               response = _context.sent;
               return _context.abrupt("return", (response === null || response === void 0 ? void 0 : response.data) || {
-                data: []
+                data: [],
+                meta: {}
               });
 
-            case 4:
+            case 5:
             case "end":
               return _context.stop();
           }
@@ -61032,15 +61063,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             case 0:
               commit = _ref.commit, state = _ref.state;
               _context.next = 3;
-              return _services_questionService__WEBPACK_IMPORTED_MODULE_1__["default"].getQuestions(state.filter);
+              return _services_questionService__WEBPACK_IMPORTED_MODULE_1__["default"].getQuestions(state.filter, state.meta.page);
 
             case 3:
               response = _context.sent;
               commit(_types__WEBPACK_IMPORTED_MODULE_2__["SET_QUESTIONS"], {
                 questions: response.data
               });
+              commit(_types__WEBPACK_IMPORTED_MODULE_2__["SET_META"], response.meta);
 
-            case 5:
+            case 6:
             case "end":
               return _context.stop();
           }
@@ -61133,15 +61165,56 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 filter: filter,
                 value: value
               });
-              _context5.next = 5;
+              commit(_types__WEBPACK_IMPORTED_MODULE_2__["SET_PAGE"], 1);
+              _context5.next = 6;
               return dispatch('getQuestions');
 
-            case 5:
+            case 6:
             case "end":
               return _context5.stop();
           }
         }
       }, _callee5);
+    }))();
+  },
+  nextPage: function nextPage(_ref7) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6() {
+      var commit, state, dispatch;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
+        while (1) {
+          switch (_context6.prev = _context6.next) {
+            case 0:
+              commit = _ref7.commit, state = _ref7.state, dispatch = _ref7.dispatch;
+              commit(_types__WEBPACK_IMPORTED_MODULE_2__["SET_PAGE"], state.meta.page + 1);
+              _context6.next = 4;
+              return dispatch('getQuestions');
+
+            case 4:
+            case "end":
+              return _context6.stop();
+          }
+        }
+      }, _callee6);
+    }))();
+  },
+  prevPage: function prevPage(_ref8) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee7() {
+      var commit, state, dispatch;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee7$(_context7) {
+        while (1) {
+          switch (_context7.prev = _context7.next) {
+            case 0:
+              commit = _ref8.commit, state = _ref8.state, dispatch = _ref8.dispatch;
+              commit(_types__WEBPACK_IMPORTED_MODULE_2__["SET_PAGE"], state.meta.page - 1);
+              _context7.next = 4;
+              return dispatch('getQuestions');
+
+            case 4:
+            case "end":
+              return _context7.stop();
+          }
+        }
+      }, _callee7);
     }))();
   }
 });
@@ -61163,6 +61236,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   filter: function filter(state) {
     return state.filter;
+  },
+  meta: function meta(state) {
+    return state.meta;
   }
 });
 
@@ -61192,6 +61268,12 @@ __webpack_require__.r(__webpack_exports__);
         country: '',
         category: '',
         search: ''
+      },
+      meta: {
+        total: 0,
+        page: 1,
+        per_page: 20,
+        last_page: 1
       }
     };
   },
@@ -61213,7 +61295,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_questionService__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../services/questionService */ "./resources/js/services/questionService.js");
 /* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./types */ "./resources/js/store/questions/types.js");
-var _SET_QUESTIONS$ADD_QU;
+var _types$SET_QUESTIONS$;
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
@@ -61235,13 +61317,13 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 
 
-/* harmony default export */ __webpack_exports__["default"] = (_SET_QUESTIONS$ADD_QU = {}, _defineProperty(_SET_QUESTIONS$ADD_QU, _types__WEBPACK_IMPORTED_MODULE_1__["SET_QUESTIONS"], function (state, _ref) {
+/* harmony default export */ __webpack_exports__["default"] = (_types$SET_QUESTIONS$ = {}, _defineProperty(_types$SET_QUESTIONS$, _types__WEBPACK_IMPORTED_MODULE_1__["SET_QUESTIONS"], function (state, _ref) {
   var questions = _ref.questions;
   state.questions = questions.map(_services_questionService__WEBPACK_IMPORTED_MODULE_0__["default"].mapQuestion);
-}), _defineProperty(_SET_QUESTIONS$ADD_QU, _types__WEBPACK_IMPORTED_MODULE_1__["ADD_QUESTION"], function (state, _ref2) {
+}), _defineProperty(_types$SET_QUESTIONS$, _types__WEBPACK_IMPORTED_MODULE_1__["ADD_QUESTION"], function (state, _ref2) {
   var question = _ref2.question;
   state.questions = [_services_questionService__WEBPACK_IMPORTED_MODULE_0__["default"].mapQuestion(question)].concat(_toConsumableArray(state.questions));
-}), _defineProperty(_SET_QUESTIONS$ADD_QU, _types__WEBPACK_IMPORTED_MODULE_1__["UPDATE_QUESTION"], function (state, _ref3) {
+}), _defineProperty(_types$SET_QUESTIONS$, _types__WEBPACK_IMPORTED_MODULE_1__["UPDATE_QUESTION"], function (state, _ref3) {
   var question = _ref3.question;
   var questionIndex = state.questions.findIndex(function (_ref4) {
     var id = _ref4.id;
@@ -61253,16 +61335,31 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
   }
 
   state.questions = [].concat(_toConsumableArray(state.questions.slice(0, questionIndex)), [_services_questionService__WEBPACK_IMPORTED_MODULE_0__["default"].mapQuestion(question)], _toConsumableArray(state.questions.slice(questionIndex + 1)));
-}), _defineProperty(_SET_QUESTIONS$ADD_QU, _types__WEBPACK_IMPORTED_MODULE_1__["DELETE_QUESTION"], function (state, questionId) {
+}), _defineProperty(_types$SET_QUESTIONS$, _types__WEBPACK_IMPORTED_MODULE_1__["DELETE_QUESTION"], function (state, questionId) {
   state.questions = state.questions.filter(function (_ref5) {
     var id = _ref5.id;
     return id !== questionId;
   });
-}), _defineProperty(_SET_QUESTIONS$ADD_QU, _types__WEBPACK_IMPORTED_MODULE_1__["CHANGE_FILTER"], function (state, _ref6) {
+}), _defineProperty(_types$SET_QUESTIONS$, _types__WEBPACK_IMPORTED_MODULE_1__["CHANGE_FILTER"], function (state, _ref6) {
   var filter = _ref6.filter,
       value = _ref6.value;
   state.filter = _objectSpread(_objectSpread({}, state.filter), {}, _defineProperty({}, filter, value));
-}), _SET_QUESTIONS$ADD_QU);
+}), _defineProperty(_types$SET_QUESTIONS$, _types__WEBPACK_IMPORTED_MODULE_1__["SET_META"], function (state, _ref7) {
+  var total = _ref7.total,
+      per_page = _ref7.per_page,
+      current_page = _ref7.current_page,
+      last_page = _ref7.last_page;
+  state.meta = {
+    total: total,
+    page: current_page,
+    per_page: per_page,
+    last_page: last_page
+  };
+}), _defineProperty(_types$SET_QUESTIONS$, _types__WEBPACK_IMPORTED_MODULE_1__["SET_PAGE"], function (state, page) {
+  state.meta = _objectSpread(_objectSpread({}, state.meta), {}, {
+    page: page
+  });
+}), _types$SET_QUESTIONS$);
 
 /***/ }),
 
@@ -61270,7 +61367,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 /*!***********************************************!*\
   !*** ./resources/js/store/questions/types.js ***!
   \***********************************************/
-/*! exports provided: SET_QUESTIONS, ADD_QUESTION, UPDATE_QUESTION, DELETE_QUESTION, CHANGE_FILTER */
+/*! exports provided: SET_QUESTIONS, ADD_QUESTION, UPDATE_QUESTION, DELETE_QUESTION, CHANGE_FILTER, SET_PAGE, SET_META */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -61280,11 +61377,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UPDATE_QUESTION", function() { return UPDATE_QUESTION; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DELETE_QUESTION", function() { return DELETE_QUESTION; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CHANGE_FILTER", function() { return CHANGE_FILTER; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_PAGE", function() { return SET_PAGE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_META", function() { return SET_META; });
 var SET_QUESTIONS = 'SET_QUESTIONS';
 var ADD_QUESTION = 'ADD_QUESTION';
 var UPDATE_QUESTION = 'UPDATE_QUESTION';
 var DELETE_QUESTION = 'DELETE_QUESTION';
 var CHANGE_FILTER = 'CHANGE_FILTER';
+var SET_PAGE = 'SET_PAGE';
+var SET_META = 'SET_META';
 
 /***/ }),
 

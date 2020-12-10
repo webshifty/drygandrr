@@ -16,7 +16,8 @@ class GetQuestions
 
 		$questionsBuilder = QAndA::questionsBuilder();
 		$questionsBuilder = $this->applyFilter($filter, $questionsBuilder);
-		$questionsBuilder->get()->each(function ($data) use ($response) {
+		$paginator = $questionsBuilder->paginate(20);
+		collect($paginator->items())->each(function ($data) use ($response) {
 			$response->add(new Question(
 				(int)$data->id,
 				(int)$data->country,
@@ -27,6 +28,8 @@ class GetQuestions
 				(bool)$data->publish,
 			));
 		});
+
+		$response->setPaginator($paginator);
 
 		return $response;
 	}
