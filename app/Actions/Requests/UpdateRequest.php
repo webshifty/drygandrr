@@ -38,6 +38,7 @@ class UpdateRequest
 
 	private function sendMessage(QAndA $session): void
 	{
+        $this->telegramService->sendSticker($session->chat_id, 'CAACAgIAAxkBAAEBq45f0mrUq4zYoRR4KEffps6Xm95vbQACMwAD3OdiCEuFU2oXL1LqHgQ');
         $reply = "<b>Ваше запитання:</b>\n" . $session->user_question . "\n\n<b>Вiдповiдь консула:</b>\n". $session->consul_answer;
 		$this->telegramService->sendMessage($session->chat_id, $reply);
 	}
