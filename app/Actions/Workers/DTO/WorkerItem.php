@@ -26,7 +26,7 @@ class WorkerItem implements Arrayable
 	{
 		return new self(
 			$user->id,
-			$user->work_country,
+			$user->work_country ?? 0,
 			$user->name,
 		);
 	}
