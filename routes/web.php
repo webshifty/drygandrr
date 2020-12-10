@@ -53,6 +53,7 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
     Route::delete('user/photo', [UserController::class, 'deletePhoto']);
     Route::put('user', [UserController::class, 'updateUser']);
 
+    Route::get('workers/list', [WorkersController::class, 'getWorkerList']);
     Route::get('workers', [WorkersController::class, 'getWorkers'])->middleware('can:handle-workers');
     Route::get('workers/{id}', [WorkersController::class, 'getWorker'])->middleware('can:handle-workers');
     Route::get('workers/{id}/requests', [WorkersController::class, 'getRequests'])->middleware('can:handle-workers');

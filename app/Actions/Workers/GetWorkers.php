@@ -19,10 +19,7 @@ class GetWorkers
 			'email',
 			'work_country',
 			'access',
-		])
-		->where(function ($query) {
-			$query->where('access', User::ACCESS_OPERATOR)->orWhereNull('access');
-		});
+		]);
 		$userBuilder = $this->applyFilter($filter, $userBuilder);
 
 		$userBuilder

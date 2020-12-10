@@ -73,12 +73,16 @@ export default {
 		...mapActions('workers', [
 			'updateWorker'
 		]),
+		...mapActions('alerts', [
+			'success',
+		]),
 
 		async onSave(data) {
 			try {
 				this.sending = true;
 				await this.updateWorker(data);
 				this.sending = false;
+				this.success({ message: 'Працівника оновлено' });
 				this.$emit('close');
 			} catch (error) {
 				this.sending = false;

@@ -9,6 +9,7 @@ use App\Actions\Workers\DeleteWorker;
 use App\Actions\Workers\DTO\FilterWorker;
 use App\Actions\Workers\DTO\UpdateWorkerPayload;
 use App\Actions\Workers\GetWorker;
+use App\Actions\Workers\GetWorkerList;
 use App\Actions\Workers\GetWorkers;
 use App\Actions\Workers\UpdateWorker;
 use App\Http\Controllers\Controller;
@@ -16,6 +17,13 @@ use Illuminate\Http\Request;
 
 class WorkersController extends Controller
 {
+	public function getWorkerList(GetWorkerList $getWorkerList)
+	{
+		return $this->success(
+			$getWorkerList->execute()
+		);
+	}
+
 	public function getWorkers(Request $request, GetWorkers $getWorkers)
 	{
 		$filter = $request->input('filter') ?? [];

@@ -5,16 +5,23 @@
 			:message="alert.message"
 			v-on:close="hideAlert"
 		/>
+		<SuccessAlert
+			v-if="alert.type === 'success'"
+			:message="alert.message"
+			v-on:close="hideAlert"
+		/>
 	</div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import ErrorAlert from './ErrorAlert.vue'
+import ErrorAlert from './ErrorAlert.vue';
+import SuccessAlert from './SuccessAlert.vue';
 
 export default {
 	components: {
 		ErrorAlert,
+		SuccessAlert,
 	},
 	computed: {
 		...mapGetters('alerts', [

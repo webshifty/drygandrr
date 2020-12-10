@@ -32,6 +32,10 @@ export default {
 		return await requestService.put('/api/workers/' + worker.id, worker);
 	},
 
+	async getWorkerList() {
+		return await requestService.get('/api/workers/list');
+	},
+
 	mapWorker(worker) {
 		return {
 			id: worker.id,
@@ -43,6 +47,14 @@ export default {
 			photo: worker.photo,
 			is_operator: worker.is_operator,
 			is_admin: worker.is_admin,
+		};
+	},
+
+	mapWorkerListItem(worker) {
+		return {
+			id: worker.id,
+			name: worker.name,
+			country: worker.country,
 		};
 	}
 };

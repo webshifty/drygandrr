@@ -4,7 +4,9 @@ import actions from './actions';
 export default {
 	namespaced: true,
 	state: () => ({
+		worker: {},
 		workers: [],
+		workerList: [],
 		workersByCountry: [],
 		meta: {
 			total: 0,
@@ -14,12 +16,11 @@ export default {
 			search: '',
 		},
 		requestsByWorkerId: {},
-		worker: {},
 	}),
 	getters: {
 		workers: state => state.workers,
 		workersByCountry: state => {
-			return state.workers.reduce((hash, worker) => {
+			return state.workerList.reduce((hash, worker) => {
 				if (!hash[worker.country]) {
 					hash[worker.country] = [];
 				}

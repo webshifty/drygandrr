@@ -28,7 +28,7 @@
 					v-for="worker in workers"
 					:key="worker.id"
 				>
-					<td>{{ worker.name }}</td>
+					<td :class="{ 'font-weight-bold': worker.is_admin, 'font-weight-italic': (!worker.is_admin && !worker.is_operator) }" :title="getRole(worker)">{{ worker.name }}</td>
 					<td>{{ worker.countryName }}</td>
 					<td>{{ worker.email }}</td>
 					<td>{{ worker.requests_count }}</td>
@@ -72,6 +72,16 @@ export default {
 			'getWorkers',
 			'changeFilter',
 		]),
+
+		getRole(worker) {
+			if (worker.is_admin) {
+				return 'Адміністратор';
+			} else if (worker.is_operator) {
+				return 'Оператор';
+			} else {
+				return 'Без ролі';
+			}
+		},
 
 		async onFilterCountry(e) {
 			await this.changeFilter({

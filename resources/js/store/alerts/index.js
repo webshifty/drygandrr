@@ -20,6 +20,9 @@ export default {
 		error({ commit }, { message }) {
 			commit(SHOW_ALERT, { type: 'error', message });
 		},
+		success({ commit }, { message }) {
+			commit(SHOW_ALERT, { type: 'success', message });
+		},
 		hideAlert({ commit }) {
 			commit(HIDE_ALERT);
 		}

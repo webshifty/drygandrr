@@ -26,11 +26,15 @@ export default {
 		...mapActions('workers', [
 			'deleteWorker'
 		]),
+		...mapActions('alerts', [
+			'success',
+		]),
 		async onDelete() {
 			try {
 				this.sending = true;
 				const workerId = this.data.id;
 				await this.deleteWorker(workerId);
+				this.success({ message: 'Користуача видалено' });
 				this.$router.push('/');
 			} catch (error) {
 				throw error;

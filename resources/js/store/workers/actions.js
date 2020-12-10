@@ -58,5 +58,11 @@ export default {
 		await workerService.deleteWorker(workerId);
 
 		commit(types.DELETE_WORKER, workerId);
-	}
+	},
+
+	async getWorkerList({ commit, state }) {
+		const response = await workerService.getWorkerList();
+
+		commit(types.SET_WORKER_LIST, response?.data?.data);
+	},
 };

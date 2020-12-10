@@ -79,7 +79,7 @@ export default {
 	},
 	methods: {
 		...mapActions('workers', [
-			'getWorkers',
+			'getWorkerList',
 		]),
 		...mapActions('requests', [
 			'assignRequest',
@@ -162,7 +162,7 @@ export default {
 		}
 	},
 	async mounted() {
-		await this.getWorkers();
+		await this.getWorkerList();
 	}
 }
 </script>

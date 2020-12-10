@@ -36,5 +36,8 @@ export default {
 	[types.DELETE_WORKER]: (state, workerId) => {
 		state.worker = {};
 		state.workers = state.workers.filter(worker => worker.id === workerId);
+	},
+	[types.SET_WORKER_LIST]: (state, workers) => {
+		state.workerList = workers.map(workerService.mapWorkerListItem);
 	}
 };

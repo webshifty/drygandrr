@@ -8,7 +8,6 @@ use App\Models\User;
 class Worker implements Arrayable
 {
 	public int $id;
-	public int $country;
 	public string $name;
 	public string $email;
 	public string $countryName;
@@ -16,21 +15,21 @@ class Worker implements Arrayable
 	public ?string $photo;
 	public ?bool $isOperator; 
 	public ?bool $isAdmin;
+	public ?int $country;
 
 	public function __construct(
 		int $id,
-		int $country,
 		string $name,
 		string $email,
 		string $countryName,
 		?int $requestsCount = 0,
 		?string $photo, 
 		?bool $isOperator, 
-		?bool $isAdmin 
+		?bool $isAdmin,
+		?int $country = null
 	)
 	{
 		$this->id = $id;
-		$this->country = $country;
 		$this->name = $name;
 		$this->email = $email;
 		$this->countryName = $countryName;
@@ -38,6 +37,7 @@ class Worker implements Arrayable
 		$this->photo = $photo;
 		$this->isOperator = $isOperator;
 		$this->isAdmin = $isAdmin;
+		$this->country = $country;
 	}
 
 	public static function fromUser(User $user)
@@ -46,7 +46,6 @@ class Worker implements Arrayable
 
 		return new self(
 			$user->id,
-			$user->work_country,
 			$user->name,
 			$user->email,
 			$countryName,
@@ -54,6 +53,7 @@ class Worker implements Arrayable
 			$user->profile_photo_url,
 			$user->is_operator,
 			$user->is_admin,
+			$user->work_country,
 		);
 	}
 
