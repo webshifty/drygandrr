@@ -115,7 +115,7 @@ class BotController extends Controller
 
                 if ($addCountry == true) {
                     $client->sendPhoto($chatId, asset('/img/telegram/have_question_2.png'));
-                    $reply = $text . " - Країна обрана";
+                    $reply = $text . " - Країна обрана.\nНапишіть ваше запитання.\xF0\x9F\x98\x89";
                     $client->sendMessage($chatId, $reply, null, null, null, null, null, null, $menuQuestion);
                     exit();
                 } else {
@@ -148,7 +148,7 @@ class BotController extends Controller
                         TelegramBotData::saveUserQuestion($chatId, $client->easy->from_id, $userQuestion);
                         $client->sendPhoto($chatId, asset('/img/telegram/byebye_2.png'));
                         $reply = "В нашій базі немає відповіді на це питання. Я все передала консулу. Він повернеться з відповіддю в свої робочі години, протягом двох робочих днів.";
-                        $client->sendMessage($chatId, $reply, null, null, null, null, null, null, $menuQuestion);
+                        $client->sendMessage($chatId, $reply, null, null, null, null, null, null, $menuInBase);
                         exit();
                     } elseif (strpos($text, '/country') !== false) {
                         $userCountry = trim(str_replace('/country', "", $text));
@@ -156,7 +156,7 @@ class BotController extends Controller
 
                         if ($addCountry == true) {
                             $client->sendPhoto($chatId, asset('/img/telegram/have_question_2.png'));
-                            $reply = $text . " - Країна обрана";
+                            $reply = $text . " - Країна обрана.\nНапишіть ваше запитання.\xF0\x9F\x98\x89";
                             $client->sendMessage($chatId, $reply, null, null, null, null, null, null, $menuQuestion);
                             exit();
                         } else {
@@ -283,7 +283,7 @@ class BotController extends Controller
 
                         if ($addCountry == true) {
                             $client->sendPhoto($message_chat_id, asset('/img/telegram/have_question_2.png'));
-                            $reply = "Країна обрана";
+                            $reply = "Країна обрана.\nНапишіть ваше запитання.\xF0\x9F\x98\x89";
                             $client->sendMessage($message_chat_id, $reply, null, null, null, null, null, null, $menuQuestion);
                             exit();
                             break;
