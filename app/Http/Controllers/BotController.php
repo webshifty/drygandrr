@@ -189,7 +189,7 @@ class BotController extends Controller
                     case "writeQuestion":
                         $client->sendPhoto($chatId, asset('/img/telegram/question_to_consul_2.png'));
                         $reply = "Введіть ваше запитання. Починайте текст питання з команди /consul Далі питання";
-                        $client->sendMessage($message_chat_id, $reply, null, null, null, null, null, null, $menuQuestion);
+                        $client->sendMessage($message_chat_id, $reply, null, null, null, null, null, null, $menuInBase);
                         exit();
                         break;
 
