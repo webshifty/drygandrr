@@ -83,6 +83,27 @@ class BotController extends Controller
             ],
         ];
 
+        $menuAlphabet["inline_keyboard"] = [
+            [
+                [
+                    "text" => "А",
+                    "callback_data" => "letterА",
+                ],
+                [
+                    "text" => "Б",
+                    "callback_data" => "letterБ",
+                ],
+                [
+                    "text" => "В",
+                    "callback_data" => "letterВ",
+                ],
+                [
+                    "text" => "Г",
+                    "callback_data" => "letterГ",
+                ],
+            ],
+        ];
+
         if (isset($update->message) or isset($update->edited_message)) {
             $chatId = $client->easy->chat_id;
             $text = $client->easy->text;
@@ -125,7 +146,7 @@ class BotController extends Controller
 
                 case isset($update->message) && !is_null($update->message->text):
                     if (strpos($text, '/consul') !== false) {
-                        $userQuestion = str_replace('/consul', "", $text);
+                        $userQuestion = trim(str_replace('/consul', "", $text));
                         TelegramBotData::saveUserQuestion($chatId, $client->easy->from_id, $userQuestion);
                         $client->sendPhoto($chatId, asset('/img/telegram/byebye_2.png'));
                         $reply = "В нашій базі немає відповіді на це питання. Я все передала консулу. Він повернеться з відповіддю в свої робочі години, протягом двох робочих днів.";
@@ -141,7 +162,8 @@ class BotController extends Controller
                             $client->sendMessage($chatId, $reply, null, null, null, null, null, null, $menuQuestion);
                             exit();
                         } else {
-
+                            $reply = "Такої країни в нашій великій базі немає. Виберіть будь ласка першу букву назви країни:";
+                            $client->sendMessage($chatId, $reply, null, null, null, null, null, null, $menuAlphabet);
                             exit();
                         }
                     } else {
@@ -187,9 +209,9 @@ class BotController extends Controller
 
                 switch ($update->callback_query->data) {
                     case "writeQuestion":
-                        $client->sendPhoto($chatId, asset('/img/telegram/question_to_consul_2.png'));
+                        $client->sendPhoto($message_chat_id, asset('/img/telegram/question_to_consul_2.png'));
                         $reply = "Введіть ваше запитання. Починайте текст питання з команди /consul Далі питання";
-                        $client->sendMessage($message_chat_id, $reply, null, null, null, null, null, null, $menuQuestion);
+                        $client->sendMessage($message_chat_id, $reply, null, null, null, null, null, null, $menuInBase);
                         exit();
                         break;
 
