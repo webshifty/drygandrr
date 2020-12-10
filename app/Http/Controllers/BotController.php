@@ -97,7 +97,7 @@ class BotController extends Controller
                 $addCountry = TelegramBotData::addCountry($client->easy->from_id, $text);
 
                 if ($addCountry == true) {
-                    $client->sendPhoto($chatId, asset('/img/telegram/have_question.png'));
+                    $client->sendPhoto($chatId, asset('/img/telegram/have_question_2.png'));
                     $reply = $text . " - Країна обрана";
                     $client->sendMessage($chatId, $reply, null, null, null, null, null, null, $menuQuestion);
                     exit();
@@ -109,13 +109,13 @@ class BotController extends Controller
                 case "/start":
                     TelegramBotData::firstAddUser($client->easy->from_id, $update->message->chat->username);
                     if (!is_null($update->message->chat->first_name)) {
-                        $client->sendPhoto($chatId, asset('/img/telegram/hello.png'));
+                        $client->sendPhoto($chatId, asset('/img/telegram/hello_2.png'));
                         $userName = ", " . $update->message->chat->first_name;
                         $reply = "Вітаю" . $userName . "!\nОберіть, будь-ласка, країну знаходження, щоб розпочати спілкування \xF0\x9F\x98\x8A\nМожете натиснути кнопку Подiлитись геолокацiєю або ввести країну вручну. \nЩоб ввести країну вручну почнiть з команди /country Далі країна";
                         $client->sendMessage($chatId, $reply, null, null, null, null, null, null, $menu);
                         exit();
                     } else {
-                        $client->sendPhoto($chatId, asset('/img/telegram/hello.png'));
+                        $client->sendPhoto($chatId, asset('/img/telegram/hello_2.png'));
                         $userName = "";
                         $reply = "Вітаю" . $userName . "!\nОберіть, будь-ласка, країну знаходження, щоб розпочати спілкування \xF0\x9F\x98\x8AnМожете натиснути кнопку Подiлитись геолокацiєю або ввести країну вручну. \nЩоб ввести країну вручну почнiть з команди /country Далі країна";
                         $client->sendMessage($chatId, $reply, null, null, null, null, null, null, $menu);
@@ -127,7 +127,7 @@ class BotController extends Controller
                     if (strpos($text, '/consul') !== false) {
                         $userQuestion = str_replace('/consul', "", $text);
                         TelegramBotData::saveUserQuestion($chatId, $client->easy->from_id, $userQuestion);
-                        $client->sendPhoto($chatId, asset('/img/telegram/byebye.png'));
+                        $client->sendPhoto($chatId, asset('/img/telegram/byebye_2.png'));
                         $reply = "В нашій базі немає відповіді на це питання. Я все передала консулу. Він повернеться з відповіддю в свої робочі години, протягом двох робочих днів.";
                         $client->sendMessage($chatId, $reply, null, null, null, null, null, null, $menuQuestion);
                         exit();
@@ -136,7 +136,7 @@ class BotController extends Controller
                         $addCountry = TelegramBotData::addCountry($client->easy->from_id, $userCountry);
 
                         if ($addCountry == true) {
-                            $client->sendPhoto($chatId, asset('/img/telegram/have_question.png'));
+                            $client->sendPhoto($chatId, asset('/img/telegram/have_question_2.png'));
                             $reply = $text . " - Країна обрана";
                             $client->sendMessage($chatId, $reply, null, null, null, null, null, null, $menuQuestion);
                             exit();
@@ -149,7 +149,7 @@ class BotController extends Controller
                         $findQuestions = TelegramBotData::findQuestionsLikeText($text, $userCountryId);
 
                         if (count($findQuestions) > 0) {
-                            $client->sendPhoto($chatId, asset('/img/telegram/have_question.png'));
+                            $client->sendPhoto($chatId, asset('/img/telegram/have_question_2.png'));
                             $menuQuestions["inline_keyboard"] = [];
 
                             foreach ($findQuestions as $question) {
@@ -164,7 +164,7 @@ class BotController extends Controller
                             $client->sendMessage($chatId, $reply, null, null, null, null, null, null, $menuQuestions);
                             exit();
                         } else {
-                            $client->sendPhoto($chatId, asset('/img/telegram/no_answer.png'));
+                            $client->sendPhoto($chatId, asset('/img/telegram/no_answer_2.png'));
                             $reply = "За цим запитом в базі нічого не знайдено. Але ви можете пошукати відповідь в нашій базі знань або передати питання консулу.";
                             $client->sendMessage($chatId, $reply, null, null, null, null, null, null, $menuQuestion);
                             exit();
@@ -187,7 +187,7 @@ class BotController extends Controller
 
                 switch ($update->callback_query->data) {
                     case "writeQuestion":
-                        $client->sendPhoto($chatId, asset('/img/telegram/question_to_consul.png'));
+                        $client->sendPhoto($chatId, asset('/img/telegram/question_to_consul_2.png'));
                         $reply = "Введіть ваше запитання. Починайте текст питання з команди /consul Далі питання";
                         $client->sendMessage($message_chat_id, $reply, null, null, null, null, null, null, $menuQuestion);
                         exit();
@@ -205,7 +205,7 @@ class BotController extends Controller
                                 ],
                             ];
                         }
-                        $client->sendPhoto($message_chat_id, asset('/img/telegram/it_is_our_base.png'));
+                        $client->sendPhoto($message_chat_id, asset('/img/telegram/it_is_our_base_2.png'));
                         $reply = "Оберiть тематику питання";
                         $client->sendMessage($message_chat_id, $reply, null, null, null, null, null, null, $menuCategories);
                         exit();
@@ -225,7 +225,7 @@ class BotController extends Controller
                                 ],
                             ];
                         }
-                        $client->sendPhoto($message_chat_id, asset('/img/telegram/search_in_base.png'));
+                        $client->sendPhoto($message_chat_id, asset('/img/telegram/search_in_base_2.png'));
                         $reply = "Оберiть питання яке вас цiкавить";
                         $reply2 = json_encode($categoryId);
                         $client->sendMessage($message_chat_id, $reply, null, null, null, null, null, null, $menuQuestions);
@@ -236,7 +236,7 @@ class BotController extends Controller
                         $questionId = str_replace('question', "", $update->callback_query->data);
 
                         $answer = TelegramBotData::getAnswerById($questionId);
-                        $client->sendPhoto($message_chat_id, asset('/img/telegram/byebye.png'));
+                        $client->sendPhoto($message_chat_id, asset('/img/telegram/byebye_2.png'));
                         $client->sendMessage($message_chat_id, $answer->answer, null, null, null, null, null, null, $menuQuestion);
                         exit();
                         break;

@@ -27,4 +27,16 @@ class TelegramService
 			null
 		);
 	}
+
+    public function sendSticker(int $chatId, string $sticker)
+    {
+        $this->client->sendSticker(
+            $chatId,
+            $sticker,
+            null,
+            null,
+            null,
+            null
+        );
+    }
 }
