@@ -68,6 +68,12 @@ class WorkersController extends Controller
 
 	public function updateWorker(Request $request, int $workerId, UpdateWorker $updateWorker)
 	{
+		$request->validate([
+			'name' => 'required',
+			'email' => 'required|email',
+			'country' => 'required|exists:countries,id'			
+		]);
+
 		return $this->success(
 			$updateWorker->execute(
 				new UpdateWorkerPayload(
