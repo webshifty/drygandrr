@@ -262,7 +262,6 @@ class BotController extends Controller
                     case strpos($update->callback_query->data, 'letter'):
                         $letter = str_replace('letter', "", $update->callback_query->data);
                         $countries = TelegramBotData::getCountryByLetter($letter);
-                        //$client->sendPhoto($message_chat_id, asset('/img/telegram/byebye_2.png'));
                         $menuCountries["inline_keyboard"] = [];
 
                         foreach ($countries as $country) {

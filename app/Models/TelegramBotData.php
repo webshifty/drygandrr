@@ -70,7 +70,7 @@ class TelegramBotData extends Model
 
     public static function getCountryByLetter($letter)
     {
-        $countries = DB::table('countries')->select('id')->orWhere('name', 'LIKE', '%' . $letter . '%')->orWhere('name_ru', 'LIKE', '%' . $letter . '%')->orWhere('name_en', 'LIKE', '%' . $letter . '%')->get();
+        $countries = DB::table('countries')->select('id', 'name')->where('name', 'LIKE', $letter . '%')->get();
 
         return $countries;
     }
