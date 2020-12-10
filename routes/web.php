@@ -29,6 +29,7 @@ Route::post('/bot/getupdates', BotController::income());
 //})->name('dashboard');
 
 Route::get('bot', [BotController::class, 'income']);
+Route::get('/public', [BaseController::class, 'publicPage'])->name('public');
 Route::middleware('auth')->get('/dashboard', [BaseController::class, 'dashboard'])->name('requests');
 Route::middleware('auth')->get('/q_base', [BaseController::class, 'questionBase'])->name('questions');
 Route::middleware('auth')->get('/settings', [BaseController::class, 'settings'])->name('settings');

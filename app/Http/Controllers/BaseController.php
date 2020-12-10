@@ -55,6 +55,11 @@ class BaseController extends Controller
         return view('admin.dashboard.workers', ['data' => $data]);
     }
 
+    public function publicPage()
+    {
+        return view('public', ['data' => []]);
+    }
+
     public static function questionBase()
     {
         $userInfo = User::getUserInfoById(auth()->id());
