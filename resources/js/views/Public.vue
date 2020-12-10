@@ -1,5 +1,5 @@
 <template>
-    Public
+    <div>Public</div>
 </template>
 
 <script>
