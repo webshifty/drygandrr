@@ -32,15 +32,27 @@ class TelegramBotData extends Model
 
         if (!is_null($countryName)) {
             $data = [
-                'country' => $countryName,
+                'country' => $countryName->name,
                 'updated_at' => Carbon::now()
             ];
             $country = DB::table('tg_users')->where('tg_id', $id)->update($data);
 
-            return $country;
+            return true;
         } else {
             return false;
         }
+    }
+
+    public static function addCountryById($id, $countryId)
+    {
+        $countryName = DB::table('countries')->select('name')->where('id', $countryId)->first();
+        $data = [
+            'country' => $countryName->name,
+            'updated_at' => Carbon::now()
+        ];
+        $country = DB::table('tg_users')->where('tg_id', $id)->update($data);
+
+        return true;
     }
 
     public static function getUserCountry($id)
@@ -54,6 +66,13 @@ class TelegramBotData extends Model
         }
 
         return $countryId;
+    }
+
+    public static function getCountryByLetter($letter)
+    {
+        $countries = DB::table('countries')->select('id', 'name')->where('name', 'LIKE', $letter . '%')->get();
+
+        return $countries;
     }
 
     public static function getAllQuestionCategories () {
