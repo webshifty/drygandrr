@@ -4101,6 +4101,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 
 
@@ -4110,8 +4113,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     Dropdown: _controls_Dropdown_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
     RequestTable: _tables_RequestTable__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
-  computed: _objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])('user', ['user', 'isOperator', 'isAdmin'])), Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])('requests', ['requests', 'filter'])), Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])('page', ['categories', 'countries'])),
-  methods: _objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])('modal', ['showModal'])), Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])('requests', ['getRequests', 'changeFilter'])), {}, {
+  computed: _objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])('user', ['user', 'isOperator', 'isAdmin'])), Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])('requests', ['requests', 'filter', 'meta'])), Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])('page', ['categories', 'countries'])),
+  methods: _objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])('modal', ['showModal'])), Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])('requests', ['getRequests', 'changeFilter', 'nextPage', 'prevPage'])), {}, {
     onEdit: function onEdit(request) {
       if (!this.isAdmin) {
         if (!request.responsible) {
@@ -4437,14 +4440,35 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     Pagination: _tables_Pagination_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
-  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])('workers', ['countWorkers', 'workers', 'filter'])), Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])('page', ['countries'])),
-  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapActions"])('workers', ['getWorkers', 'changeFilter'])), {}, {
+  computed: _objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])('workers', ['countWorkers', 'workers', 'filter', 'meta'])), Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])('page', ['countries'])), {}, {
+    ending: function ending() {
+      var str = this.countWorkers + '';
+
+      if (/1$/.test(str) && !/11$/.test(str)) {
+        return '';
+      }
+
+      if (/[234]$/.test(str) && !/1[234]$/.test(str)) {
+        return 'а';
+      }
+
+      return 'ів';
+    }
+  }),
+  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapActions"])('workers', ['getWorkers', 'changeFilter', 'nextPage', 'prevPage'])), {}, {
     getRole: function getRole(worker) {
       if (worker.is_admin) {
         return 'Адміністратор';
@@ -6373,6 +6397,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -6392,7 +6418,49 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    total: Number,
+    page: Number,
+    perPage: Number,
+    lastPage: Number
+  },
+  computed: {
+    current: function current() {
+      if (this.isLast) {
+        return this.total;
+      }
+
+      return this.page * this.perPage;
+    },
+    isFirst: function isFirst() {
+      return this.page === 1;
+    },
+    isLast: function isLast() {
+      return this.page === this.lastPage;
+    }
+  },
+  methods: {},
+  mounted: function mounted() {
+    var _this = this;
+
+    this.onNext = lodash__WEBPACK_IMPORTED_MODULE_0___default.a.debounce(function () {
+      if (_this.isLast) {
+        return;
+      }
+
+      _this.$emit('next');
+    }, 500);
+    this.onPrev = lodash__WEBPACK_IMPORTED_MODULE_0___default.a.debounce(function () {
+      if (_this.isFirst) {
+        return;
+      }
+
+      _this.$emit('prev');
+    }, 500);
+  }
+});
 
 /***/ }),
 
@@ -6474,6 +6542,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -6481,7 +6556,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     requests: Array,
-    editable: Boolean
+    editable: Boolean,
+    meta: Object
   },
   components: {
     Dropdown: _controls_Dropdown_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
@@ -6910,6 +6986,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 
 
@@ -6925,14 +7004,28 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       tab: 'requests'
     };
   },
-  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])('workers', ['workers', 'worker', 'requestsByWorkerId'])), {}, {
+  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])('workers', ['workers', 'worker', 'requestsByWorkerId', 'metaByWorkerId'])), {}, {
     requests: function requests() {
       return this.requestsByWorkerId[this.$route.params.id] || [];
+    },
+    meta: function meta() {
+      return this.metaByWorkerId[this.$route.params.id] || {
+        total: 0,
+        per_page: 20,
+        page: 1,
+        last_page: 1
+      };
     }
   }),
-  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])('workers', ['getRequests', 'getWorker'])), {}, {
+  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])('workers', ['getRequests', 'getWorker', 'nextPageByWorker', 'prevPageByWorker'])), {}, {
     isActive: function isActive(tab) {
       return this.tab === tab;
+    },
+    nextPage: function nextPage() {
+      this.nextPageByWorker(this.$route.params.id);
+    },
+    prevPage: function prevPage() {
+      this.prevPageByWorker(this.$route.params.id);
     }
   }),
   mounted: function mounted() {
@@ -7287,6 +7380,25 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 // module
 exports.push([module.i, ".textarea[data-v-4aaeb7d8] {\n  background: #FFFFFF;\n  border: 1px solid #BABABA;\n  border-radius: 4px;\n  padding: 16px;\n  font-size: 18px;\n  width: 100%;\n  resize: none;\n  height: 200px;\n}\n.form[data-v-4aaeb7d8] {\n  min-width: 800px;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tables/Pagination.vue?vue&type=style&index=0&id=0cac30e9&scoped=true&lang=css&":
+/*!***********************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--7-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/tables/Pagination.vue?vue&type=style&index=0&id=0cac30e9&scoped=true&lang=css& ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".page-button[data-v-0cac30e9] {\n  padding: 0px 10px;\n}\n", ""]);
 
 // exports
 
@@ -37099,6 +37211,36 @@ if(false) {}
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tables/Pagination.vue?vue&type=style&index=0&id=0cac30e9&scoped=true&lang=css&":
+/*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--7-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/tables/Pagination.vue?vue&type=style&index=0&id=0cac30e9&scoped=true&lang=css& ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../node_modules/css-loader??ref--7-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--7-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./Pagination.vue?vue&type=style&index=0&id=0cac30e9&scoped=true&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tables/Pagination.vue?vue&type=style&index=0&id=0cac30e9&scoped=true&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tables/RequestTable.vue?vue&type=style&index=0&id=069d878e&scoped=true&lang=css&":
 /*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader!./node_modules/css-loader??ref--7-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/tables/RequestTable.vue?vue&type=style&index=0&id=069d878e&scoped=true&lang=css& ***!
@@ -38115,8 +38257,8 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("RequestTable", {
-        attrs: { requests: _vm.requests, editable: true },
-        on: { edit: _vm.onEdit }
+        attrs: { requests: _vm.requests, meta: _vm.meta, editable: true },
+        on: { edit: _vm.onEdit, next: _vm.nextPage, prev: _vm.prevPage }
       })
     ],
     1
@@ -38272,7 +38414,7 @@ var render = function() {
           _c("div", { staticClass: "dropdown" }, [
             _c("label", { attrs: { for: "filter-category" } }, [
               _c("b", [_vm._v(_vm._s(_vm.countWorkers))]),
-              _vm._v(" працівників")
+              _vm._v(" працівник" + _vm._s(_vm.ending))
             ])
           ]),
           _vm._v(" "),
@@ -38371,7 +38513,15 @@ var render = function() {
         )
       ]),
       _vm._v(" "),
-      _c("Pagination")
+      _c("Pagination", {
+        attrs: {
+          total: _vm.meta.total,
+          page: _vm.meta.page,
+          perPage: _vm.meta.per_page,
+          lastPage: _vm.meta.last_page
+        },
+        on: { next: _vm.nextPage, prev: _vm.prevPage }
+      })
     ],
     1
   )
@@ -40542,10 +40692,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tables/Pagination.vue?vue&type=template&id=0cac30e9&":
-/*!********************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/tables/Pagination.vue?vue&type=template&id=0cac30e9& ***!
-  \********************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tables/Pagination.vue?vue&type=template&id=0cac30e9&scoped=true&":
+/*!********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/tables/Pagination.vue?vue&type=template&id=0cac30e9&scoped=true& ***!
+  \********************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -40559,56 +40709,83 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "toolbar" }, [
     _c("div", { staticClass: "text-lines" }, [
-      _vm._v("Рядків на сторінці: 50")
+      _vm._v("Рядків на сторінці: " + _vm._s(_vm.perPage))
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "pages" }, [
-      _c("span", [_vm._v("50-231")]),
+      _c("span", [_vm._v(_vm._s(_vm.current) + "-" + _vm._s(_vm.total))]),
       _vm._v(" "),
-      _c("a", { staticClass: "prev__page disabled", attrs: { href: "#" } }, [
-        _c(
-          "svg",
-          {
-            attrs: {
-              width: "6",
-              height: "13",
-              viewBox: "0 0 6 13",
-              fill: "none",
-              xmlns: "http://www.w3.org/2000/svg"
+      _c(
+        "a",
+        {
+          staticClass: "prev__page page-button",
+          class: { disabled: _vm.isFirst },
+          attrs: { href: "#" },
+          on: {
+            click: function($event) {
+              $event.preventDefault()
+              return _vm.onPrev($event)
             }
-          },
-          [
-            _c("path", {
+          }
+        },
+        [
+          _c(
+            "svg",
+            {
               attrs: {
-                d: "M9.83506e-07 6.5L6 0.00480921L6 12.9952L9.83506e-07 6.5Z",
-                "fill-opacity": "0.5"
+                width: "6",
+                height: "13",
+                viewBox: "0 0 6 13",
+                fill: "none",
+                xmlns: "http://www.w3.org/2000/svg"
               }
-            })
-          ]
-        )
-      ]),
+            },
+            [
+              _c("path", {
+                attrs: {
+                  d: "M9.83506e-07 6.5L6 0.00480921L6 12.9952L9.83506e-07 6.5Z"
+                }
+              })
+            ]
+          )
+        ]
+      ),
       _vm._v(" "),
-      _c("a", { staticClass: "next__page", attrs: { href: "#" } }, [
-        _c(
-          "svg",
-          {
-            attrs: {
-              width: "6",
-              height: "13",
-              viewBox: "0 0 6 13",
-              fill: "none",
-              xmlns: "http://www.w3.org/2000/svg"
+      _c(
+        "a",
+        {
+          staticClass: "next__page page-button",
+          class: { disabled: _vm.isLast },
+          attrs: { href: "#" },
+          on: {
+            click: function($event) {
+              $event.preventDefault()
+              return _vm.onNext($event)
             }
-          },
-          [
-            _c("path", {
+          }
+        },
+        [
+          _c(
+            "svg",
+            {
               attrs: {
-                d: "M6 6.5L-1.34912e-07 12.9952L4.32916e-07 0.00480912L6 6.5Z"
+                width: "6",
+                height: "13",
+                viewBox: "0 0 6 13",
+                fill: "none",
+                xmlns: "http://www.w3.org/2000/svg"
               }
-            })
-          ]
-        )
-      ])
+            },
+            [
+              _c("path", {
+                attrs: {
+                  d: "M6 6.5L-1.34912e-07 12.9952L4.32916e-07 0.00480912L6 6.5Z"
+                }
+              })
+            ]
+          )
+        ]
+      )
     ])
   ])
 }
@@ -40791,7 +40968,22 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _c("Pagination")
+      _c("Pagination", {
+        attrs: {
+          total: _vm.meta.total,
+          page: _vm.meta.page,
+          perPage: _vm.meta.per_page,
+          lastPage: _vm.meta.last_page
+        },
+        on: {
+          next: function($event) {
+            return _vm.$emit("next")
+          },
+          prev: function($event) {
+            return _vm.$emit("prev")
+          }
+        }
+      })
     ],
     1
   )
@@ -40995,7 +41187,12 @@ var render = function() {
         _vm._v(" "),
         _vm.isActive("requests")
           ? _c("RequestTable", {
-              attrs: { requests: _vm.requests, editable: false }
+              attrs: {
+                meta: _vm.meta,
+                requests: _vm.requests,
+                editable: false
+              },
+              on: { next: _vm.nextPage, prev: _vm.prevPage }
             })
           : _vm._e(),
         _vm._v(" "),
@@ -59731,9 +59928,11 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Pagination_vue_vue_type_template_id_0cac30e9___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Pagination.vue?vue&type=template&id=0cac30e9& */ "./resources/js/components/tables/Pagination.vue?vue&type=template&id=0cac30e9&");
+/* harmony import */ var _Pagination_vue_vue_type_template_id_0cac30e9_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Pagination.vue?vue&type=template&id=0cac30e9&scoped=true& */ "./resources/js/components/tables/Pagination.vue?vue&type=template&id=0cac30e9&scoped=true&");
 /* harmony import */ var _Pagination_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Pagination.vue?vue&type=script&lang=js& */ "./resources/js/components/tables/Pagination.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _Pagination_vue_vue_type_style_index_0_id_0cac30e9_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Pagination.vue?vue&type=style&index=0&id=0cac30e9&scoped=true&lang=css& */ "./resources/js/components/tables/Pagination.vue?vue&type=style&index=0&id=0cac30e9&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
 
 
 
@@ -59741,13 +59940,13 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
   _Pagination_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _Pagination_vue_vue_type_template_id_0cac30e9___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _Pagination_vue_vue_type_template_id_0cac30e9___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _Pagination_vue_vue_type_template_id_0cac30e9_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Pagination_vue_vue_type_template_id_0cac30e9_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
-  null,
+  "0cac30e9",
   null
   
 )
@@ -59773,19 +59972,35 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/components/tables/Pagination.vue?vue&type=template&id=0cac30e9&":
-/*!**************************************************************************************!*\
-  !*** ./resources/js/components/tables/Pagination.vue?vue&type=template&id=0cac30e9& ***!
-  \**************************************************************************************/
+/***/ "./resources/js/components/tables/Pagination.vue?vue&type=style&index=0&id=0cac30e9&scoped=true&lang=css&":
+/*!****************************************************************************************************************!*\
+  !*** ./resources/js/components/tables/Pagination.vue?vue&type=style&index=0&id=0cac30e9&scoped=true&lang=css& ***!
+  \****************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Pagination_vue_vue_type_style_index_0_id_0cac30e9_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader!../../../../node_modules/css-loader??ref--7-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--7-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./Pagination.vue?vue&type=style&index=0&id=0cac30e9&scoped=true&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tables/Pagination.vue?vue&type=style&index=0&id=0cac30e9&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Pagination_vue_vue_type_style_index_0_id_0cac30e9_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Pagination_vue_vue_type_style_index_0_id_0cac30e9_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Pagination_vue_vue_type_style_index_0_id_0cac30e9_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Pagination_vue_vue_type_style_index_0_id_0cac30e9_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+
+
+/***/ }),
+
+/***/ "./resources/js/components/tables/Pagination.vue?vue&type=template&id=0cac30e9&scoped=true&":
+/*!**************************************************************************************************!*\
+  !*** ./resources/js/components/tables/Pagination.vue?vue&type=template&id=0cac30e9&scoped=true& ***!
+  \**************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Pagination_vue_vue_type_template_id_0cac30e9___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Pagination.vue?vue&type=template&id=0cac30e9& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tables/Pagination.vue?vue&type=template&id=0cac30e9&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Pagination_vue_vue_type_template_id_0cac30e9___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Pagination_vue_vue_type_template_id_0cac30e9_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Pagination.vue?vue&type=template&id=0cac30e9&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tables/Pagination.vue?vue&type=template&id=0cac30e9&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Pagination_vue_vue_type_template_id_0cac30e9_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Pagination_vue_vue_type_template_id_0cac30e9___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Pagination_vue_vue_type_template_id_0cac30e9_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -60198,27 +60413,30 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   getRequests: function getRequests(filter) {
+    var _arguments = arguments;
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-      var response;
+      var page, response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              _context.next = 2;
-              return _requestService__WEBPACK_IMPORTED_MODULE_1__["default"].get('/api/requests', {
+              page = _arguments.length > 1 && _arguments[1] !== undefined ? _arguments[1] : 1;
+              _context.next = 3;
+              return _requestService__WEBPACK_IMPORTED_MODULE_1__["default"].get('/api/requests?page=' + page, {
                 'filter[search]': filter.search,
                 'filter[category]': filter.category,
                 'filter[requests]': filter.requests,
                 'filter[country]': filter.country
               });
 
-            case 2:
+            case 3:
               response = _context.sent;
               return _context.abrupt("return", (response === null || response === void 0 ? void 0 : response.data) || {
-                data: []
+                data: [],
+                meta: {}
               });
 
-            case 4:
+            case 5:
             case "end":
               return _context.stop();
           }
@@ -60314,21 +60532,24 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   getWorkers: function getWorkers(filter) {
+    var _arguments = arguments;
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+      var page;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              _context.next = 2;
-              return _services_requestService__WEBPACK_IMPORTED_MODULE_1__["default"].get('/api/workers', {
+              page = _arguments.length > 1 && _arguments[1] !== undefined ? _arguments[1] : 1;
+              _context.next = 3;
+              return _services_requestService__WEBPACK_IMPORTED_MODULE_1__["default"].get('/api/workers?page=' + page, {
                 'filter[country]': filter.country,
                 'filter[search]': filter.search
               });
 
-            case 2:
+            case 3:
               return _context.abrupt("return", _context.sent);
 
-            case 3:
+            case 4:
             case "end":
               return _context.stop();
           }
@@ -60337,18 +60558,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }))();
   },
   getRequests: function getRequests(workerId) {
+    var _arguments2 = arguments;
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+      var page;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              _context2.next = 2;
-              return _services_requestService__WEBPACK_IMPORTED_MODULE_1__["default"].get('/api/workers/' + workerId + '/requests');
-
-            case 2:
-              return _context2.abrupt("return", _context2.sent);
+              page = _arguments2.length > 1 && _arguments2[1] !== undefined ? _arguments2[1] : 1;
+              _context2.next = 3;
+              return _services_requestService__WEBPACK_IMPORTED_MODULE_1__["default"].get('/api/workers/' + workerId + '/requests?page=' + page);
 
             case 3:
+              return _context2.abrupt("return", _context2.sent);
+
+            case 4:
             case "end":
               return _context2.stop();
           }
@@ -61095,15 +61319,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             case 0:
               commit = _ref.commit, state = _ref.state;
               _context.next = 3;
-              return _services_userRequestsService__WEBPACK_IMPORTED_MODULE_1__["default"].getRequests(state.filter);
+              return _services_userRequestsService__WEBPACK_IMPORTED_MODULE_1__["default"].getRequests(state.filter, state.meta.page);
 
             case 3:
               response = _context.sent;
               commit(_types__WEBPACK_IMPORTED_MODULE_2__["SET_REQUESTS"], {
                 requests: response.data
               });
+              commit(_types__WEBPACK_IMPORTED_MODULE_2__["SET_META"], response.meta);
 
-            case 5:
+            case 6:
             case "end":
               return _context.stop();
           }
@@ -61155,10 +61380,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 filter: filter,
                 value: value
               });
-              _context3.next = 5;
+              commit(_types__WEBPACK_IMPORTED_MODULE_2__["SET_PAGE"], 1);
+              _context3.next = 6;
               return dispatch('getRequests');
 
-            case 5:
+            case 6:
             case "end":
               return _context3.stop();
           }
@@ -61191,6 +61417,46 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }
       }, _callee4);
     }))();
+  },
+  nextPage: function nextPage(_ref7) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
+      var commit, state, dispatch;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
+        while (1) {
+          switch (_context5.prev = _context5.next) {
+            case 0:
+              commit = _ref7.commit, state = _ref7.state, dispatch = _ref7.dispatch;
+              commit(_types__WEBPACK_IMPORTED_MODULE_2__["SET_PAGE"], state.meta.page + 1);
+              _context5.next = 4;
+              return dispatch('getRequests');
+
+            case 4:
+            case "end":
+              return _context5.stop();
+          }
+        }
+      }, _callee5);
+    }))();
+  },
+  prevPage: function prevPage(_ref8) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6() {
+      var commit, state, dispatch;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
+        while (1) {
+          switch (_context6.prev = _context6.next) {
+            case 0:
+              commit = _ref8.commit, state = _ref8.state, dispatch = _ref8.dispatch;
+              commit(_types__WEBPACK_IMPORTED_MODULE_2__["SET_PAGE"], state.meta.page - 1);
+              _context6.next = 4;
+              return dispatch('getRequests');
+
+            case 4:
+            case "end":
+              return _context6.stop();
+          }
+        }
+      }, _callee6);
+    }))();
   }
 });
 
@@ -61211,6 +61477,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   filter: function filter(state) {
     return state.filter;
+  },
+  meta: function meta(state) {
+    return state.meta;
   }
 });
 
@@ -61241,6 +61510,12 @@ __webpack_require__.r(__webpack_exports__);
         requests: 'my',
         category: '0',
         country: ''
+      },
+      meta: {
+        total: 0,
+        page: 1,
+        per_page: 20,
+        last_page: 1
       }
     };
   },
@@ -61303,6 +61578,21 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
   var filter = _ref4.filter,
       value = _ref4.value;
   state.filter = _objectSpread(_objectSpread({}, state.filter), {}, _defineProperty({}, filter, value));
+}), _defineProperty(_types$SET_REQUESTS$t, _types__WEBPACK_IMPORTED_MODULE_1__["SET_META"], function (state, _ref5) {
+  var total = _ref5.total,
+      per_page = _ref5.per_page,
+      current_page = _ref5.current_page,
+      last_page = _ref5.last_page;
+  state.meta = {
+    total: total,
+    page: current_page,
+    per_page: per_page,
+    last_page: last_page
+  };
+}), _defineProperty(_types$SET_REQUESTS$t, _types__WEBPACK_IMPORTED_MODULE_1__["SET_PAGE"], function (state, page) {
+  state.meta = _objectSpread(_objectSpread({}, state.meta), {}, {
+    page: page
+  });
 }), _types$SET_REQUESTS$t);
 
 /***/ }),
@@ -61311,7 +61601,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 /*!**********************************************!*\
   !*** ./resources/js/store/requests/types.js ***!
   \**********************************************/
-/*! exports provided: SET_REQUESTS, UPDATE_REQUEST, CHANGE_FILTER */
+/*! exports provided: SET_REQUESTS, UPDATE_REQUEST, CHANGE_FILTER, SET_PAGE, SET_META */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -61319,9 +61609,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_REQUESTS", function() { return SET_REQUESTS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UPDATE_REQUEST", function() { return UPDATE_REQUEST; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CHANGE_FILTER", function() { return CHANGE_FILTER; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_PAGE", function() { return SET_PAGE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_META", function() { return SET_META; });
 var SET_REQUESTS = 'SET_REQUESTS';
 var UPDATE_REQUEST = 'UPDATE_REQUEST';
 var CHANGE_FILTER = 'CHANGE_FILTER';
+var SET_PAGE = 'SET_PAGE';
+var SET_META = 'SET_META';
 
 /***/ }),
 
@@ -61551,7 +61845,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 /* harmony default export */ __webpack_exports__["default"] = ({
   getWorkers: function getWorkers(_ref) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-      var _response$data, _response$data2, _response$data2$meta;
+      var _response$data, _response$data2;
 
       var commit, state, response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
@@ -61560,15 +61854,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             case 0:
               commit = _ref.commit, state = _ref.state;
               _context.next = 3;
-              return _services_workerService__WEBPACK_IMPORTED_MODULE_1__["default"].getWorkers(state.filter);
+              return _services_workerService__WEBPACK_IMPORTED_MODULE_1__["default"].getWorkers(state.filter, state.meta.page);
 
             case 3:
               response = _context.sent;
               commit(_types__WEBPACK_IMPORTED_MODULE_2__["SET_WORKERS"], response === null || response === void 0 ? void 0 : (_response$data = response.data) === null || _response$data === void 0 ? void 0 : _response$data.data);
-              commit(_types__WEBPACK_IMPORTED_MODULE_2__["SET_META"], {
-                key: 'total',
-                value: (response === null || response === void 0 ? void 0 : (_response$data2 = response.data) === null || _response$data2 === void 0 ? void 0 : (_response$data2$meta = _response$data2.meta) === null || _response$data2$meta === void 0 ? void 0 : _response$data2$meta.total) || 0
-              });
+              commit(_types__WEBPACK_IMPORTED_MODULE_2__["SET_META"], response === null || response === void 0 ? void 0 : (_response$data2 = response.data) === null || _response$data2 === void 0 ? void 0 : _response$data2.meta);
 
             case 6:
             case "end":
@@ -61591,10 +61882,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 filter: filter,
                 value: value
               });
-              _context2.next = 5;
+              commit(_types__WEBPACK_IMPORTED_MODULE_2__["SET_PAGE"], 1);
+              _context2.next = 6;
               return dispatch('getWorkers');
 
-            case 5:
+            case 6:
             case "end":
               return _context2.stop();
           }
@@ -61604,25 +61896,31 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   getRequests: function getRequests(_ref4, workerId) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
-      var _response$data3;
-
-      var commit, response;
+      var commit, state, meta, response, data;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
             case 0:
-              commit = _ref4.commit;
-              _context3.next = 3;
-              return _services_workerService__WEBPACK_IMPORTED_MODULE_1__["default"].getRequests(workerId);
+              commit = _ref4.commit, state = _ref4.state;
+              meta = state.metaByWorkerId[workerId] || {
+                page: 1
+              };
+              _context3.next = 4;
+              return _services_workerService__WEBPACK_IMPORTED_MODULE_1__["default"].getRequests(workerId, meta.page);
 
-            case 3:
+            case 4:
               response = _context3.sent;
+              data = response === null || response === void 0 ? void 0 : response.data;
               commit(_types__WEBPACK_IMPORTED_MODULE_2__["SET_REQUESTS"], {
                 workerId: workerId,
-                requests: response === null || response === void 0 ? void 0 : (_response$data3 = response.data) === null || _response$data3 === void 0 ? void 0 : _response$data3.data
+                requests: data === null || data === void 0 ? void 0 : data.data
+              });
+              commit(_types__WEBPACK_IMPORTED_MODULE_2__["SET_META_BY_WORKER"], {
+                workerId: workerId,
+                meta: data === null || data === void 0 ? void 0 : data.meta
               });
 
-            case 5:
+            case 8:
             case "end":
               return _context3.stop();
           }
@@ -61632,7 +61930,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   getWorker: function getWorker(_ref5, workerId) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
-      var _response$data4;
+      var _response$data3;
 
       var commit, state, worker, response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
@@ -61653,7 +61951,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
             case 5:
               response = _context4.sent;
-              commit(_types__WEBPACK_IMPORTED_MODULE_2__["SET_WORKER"], response === null || response === void 0 ? void 0 : (_response$data4 = response.data) === null || _response$data4 === void 0 ? void 0 : _response$data4.data);
+              commit(_types__WEBPACK_IMPORTED_MODULE_2__["SET_WORKER"], response === null || response === void 0 ? void 0 : (_response$data3 = response.data) === null || _response$data3 === void 0 ? void 0 : _response$data3.data);
 
             case 7:
             case "end":
@@ -61665,7 +61963,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   uploadPhoto: function uploadPhoto(_ref6, _ref7) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
-      var _response$data5;
+      var _response$data4;
 
       var commit, workerId, file, response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
@@ -61679,7 +61977,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
             case 4:
               response = _context5.sent;
-              commit(_types__WEBPACK_IMPORTED_MODULE_2__["UPLOAD_PHOTO"], response === null || response === void 0 ? void 0 : (_response$data5 = response.data) === null || _response$data5 === void 0 ? void 0 : _response$data5.data.photo);
+              commit(_types__WEBPACK_IMPORTED_MODULE_2__["UPLOAD_PHOTO"], response === null || response === void 0 ? void 0 : (_response$data4 = response.data) === null || _response$data4 === void 0 ? void 0 : _response$data4.data.photo);
 
             case 6:
             case "end":
@@ -61691,7 +61989,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   deletePhoto: function deletePhoto(_ref8, _ref9) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6() {
-      var _response$data6;
+      var _response$data5;
 
       var commit, workerId, response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
@@ -61705,7 +62003,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
             case 4:
               response = _context6.sent;
-              commit(_types__WEBPACK_IMPORTED_MODULE_2__["UPLOAD_PHOTO"], response === null || response === void 0 ? void 0 : (_response$data6 = response.data) === null || _response$data6 === void 0 ? void 0 : _response$data6.data.photo);
+              commit(_types__WEBPACK_IMPORTED_MODULE_2__["UPLOAD_PHOTO"], response === null || response === void 0 ? void 0 : (_response$data5 = response.data) === null || _response$data5 === void 0 ? void 0 : _response$data5.data.photo);
 
             case 6:
             case "end":
@@ -61717,7 +62015,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   updateWorker: function updateWorker(_ref10, worker) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee7() {
-      var _response$data7;
+      var _response$data6;
 
       var commit, response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee7$(_context7) {
@@ -61730,7 +62028,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
             case 3:
               response = _context7.sent;
-              commit(_types__WEBPACK_IMPORTED_MODULE_2__["SET_WORKER"], response === null || response === void 0 ? void 0 : (_response$data7 = response.data) === null || _response$data7 === void 0 ? void 0 : _response$data7.data);
+              commit(_types__WEBPACK_IMPORTED_MODULE_2__["SET_WORKER"], response === null || response === void 0 ? void 0 : (_response$data6 = response.data) === null || _response$data6 === void 0 ? void 0 : _response$data6.data);
 
             case 5:
             case "end":
@@ -61764,7 +62062,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   getWorkerList: function getWorkerList(_ref12) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee9() {
-      var _response$data8;
+      var _response$data7;
 
       var commit, state, response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee9$(_context9) {
@@ -61777,7 +62075,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
             case 3:
               response = _context9.sent;
-              commit(_types__WEBPACK_IMPORTED_MODULE_2__["SET_WORKER_LIST"], response === null || response === void 0 ? void 0 : (_response$data8 = response.data) === null || _response$data8 === void 0 ? void 0 : _response$data8.data);
+              commit(_types__WEBPACK_IMPORTED_MODULE_2__["SET_WORKER_LIST"], response === null || response === void 0 ? void 0 : (_response$data7 = response.data) === null || _response$data7 === void 0 ? void 0 : _response$data7.data);
 
             case 5:
             case "end":
@@ -61785,6 +62083,98 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }
       }, _callee9);
+    }))();
+  },
+  nextPageByWorker: function nextPageByWorker(_ref13, workerId) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee10() {
+      var commit, state, dispatch, meta;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee10$(_context10) {
+        while (1) {
+          switch (_context10.prev = _context10.next) {
+            case 0:
+              commit = _ref13.commit, state = _ref13.state, dispatch = _ref13.dispatch;
+              meta = state.metaByWorkerId[workerId] || {
+                page: 1
+              };
+              commit(_types__WEBPACK_IMPORTED_MODULE_2__["SET_REQUEST_PAGE"], {
+                workerId: workerId,
+                page: meta.page + 1
+              });
+              _context10.next = 5;
+              return dispatch('getRequests', workerId);
+
+            case 5:
+            case "end":
+              return _context10.stop();
+          }
+        }
+      }, _callee10);
+    }))();
+  },
+  prevPageByWorker: function prevPageByWorker(_ref14, workerId) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee11() {
+      var commit, state, dispatch, meta;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee11$(_context11) {
+        while (1) {
+          switch (_context11.prev = _context11.next) {
+            case 0:
+              commit = _ref14.commit, state = _ref14.state, dispatch = _ref14.dispatch;
+              meta = state.metaByWorkerId[workerId] || {
+                page: 1
+              };
+              commit(_types__WEBPACK_IMPORTED_MODULE_2__["SET_REQUEST_PAGE"], {
+                workerId: workerId,
+                page: meta.page - 1
+              });
+              _context11.next = 5;
+              return dispatch('getRequests', workerId);
+
+            case 5:
+            case "end":
+              return _context11.stop();
+          }
+        }
+      }, _callee11);
+    }))();
+  },
+  nextPage: function nextPage(_ref15) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee12() {
+      var commit, state, dispatch;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee12$(_context12) {
+        while (1) {
+          switch (_context12.prev = _context12.next) {
+            case 0:
+              commit = _ref15.commit, state = _ref15.state, dispatch = _ref15.dispatch;
+              commit(_types__WEBPACK_IMPORTED_MODULE_2__["SET_PAGE"], state.meta.page + 1);
+              _context12.next = 4;
+              return dispatch('getWorkers');
+
+            case 4:
+            case "end":
+              return _context12.stop();
+          }
+        }
+      }, _callee12);
+    }))();
+  },
+  prevPage: function prevPage(_ref16) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee13() {
+      var commit, state, dispatch;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee13$(_context13) {
+        while (1) {
+          switch (_context13.prev = _context13.next) {
+            case 0:
+              commit = _ref16.commit, state = _ref16.state, dispatch = _ref16.dispatch;
+              commit(_types__WEBPACK_IMPORTED_MODULE_2__["SET_PAGE"], state.meta.page - 1);
+              _context13.next = 4;
+              return dispatch('getWorkers');
+
+            case 4:
+            case "end":
+              return _context13.stop();
+          }
+        }
+      }, _callee13);
     }))();
   }
 });
@@ -61813,18 +62203,25 @@ __webpack_require__.r(__webpack_exports__);
       workerList: [],
       workersByCountry: [],
       meta: {
-        total: 0
+        total: 0,
+        page: 1,
+        per_page: 20,
+        last_page: 1
       },
       filter: {
         country: '',
         search: ''
       },
-      requestsByWorkerId: {}
+      requestsByWorkerId: {},
+      metaByWorkerId: {}
     };
   },
   getters: {
     workers: function workers(state) {
       return state.workers;
+    },
+    meta: function meta(state) {
+      return state.meta;
     },
     workersByCountry: function workersByCountry(state) {
       return state.workerList.reduce(function (hash, worker) {
@@ -61844,6 +62241,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     requestsByWorkerId: function requestsByWorkerId(state) {
       return state.requestsByWorkerId;
+    },
+    metaByWorkerId: function metaByWorkerId(state) {
+      return state.metaByWorkerId;
     },
     worker: function worker(state) {
       return state.worker;
@@ -61885,9 +62285,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       value = _ref.value;
   state.filter = _objectSpread(_objectSpread({}, state.filter), {}, _defineProperty({}, filter, value));
 }), _defineProperty(_types$SET_WORKERS$ty, _types__WEBPACK_IMPORTED_MODULE_2__["SET_META"], function (state, _ref2) {
-  var key = _ref2.key,
-      value = _ref2.value;
-  state.meta = _objectSpread(_objectSpread({}, state.meta), {}, _defineProperty({}, key, value));
+  var total = _ref2.total,
+      per_page = _ref2.per_page,
+      current_page = _ref2.current_page,
+      last_page = _ref2.last_page;
+  state.meta = {
+    total: total,
+    page: current_page,
+    per_page: per_page,
+    last_page: last_page
+  };
+}), _defineProperty(_types$SET_WORKERS$ty, _types__WEBPACK_IMPORTED_MODULE_2__["SET_PAGE"], function (state, page) {
+  state.meta = _objectSpread(_objectSpread({}, state.meta), {}, {
+    page: page
+  });
 }), _defineProperty(_types$SET_WORKERS$ty, _types__WEBPACK_IMPORTED_MODULE_2__["SET_REQUESTS"], function (state, _ref3) {
   var requests = _ref3.requests,
       workerId = _ref3.workerId;
@@ -61905,6 +62316,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   });
 }), _defineProperty(_types$SET_WORKERS$ty, _types__WEBPACK_IMPORTED_MODULE_2__["SET_WORKER_LIST"], function (state, workers) {
   state.workerList = workers.map(_services_workerService__WEBPACK_IMPORTED_MODULE_0__["default"].mapWorkerListItem);
+}), _defineProperty(_types$SET_WORKERS$ty, _types__WEBPACK_IMPORTED_MODULE_2__["SET_META_BY_WORKER"], function (state, _ref4) {
+  var workerId = _ref4.workerId,
+      meta = _ref4.meta;
+  state.metaByWorkerId = _objectSpread(_objectSpread({}, state.metaByWorkerId), {}, _defineProperty({}, workerId, {
+    total: (meta === null || meta === void 0 ? void 0 : meta.total) || 0,
+    page: (meta === null || meta === void 0 ? void 0 : meta.current_page) || 1,
+    per_page: (meta === null || meta === void 0 ? void 0 : meta.per_page) || 20,
+    last_page: (meta === null || meta === void 0 ? void 0 : meta.last_page) || 1
+  }));
+}), _defineProperty(_types$SET_WORKERS$ty, _types__WEBPACK_IMPORTED_MODULE_2__["SET_REQUEST_PAGE"], function (state, _ref5) {
+  var workerId = _ref5.workerId,
+      page = _ref5.page;
+  state.metaByWorkerId = _objectSpread(_objectSpread({}, state.metaByWorkerId), {}, _defineProperty({}, workerId, _objectSpread(_objectSpread({}, state.metaByWorkerId[workerId] || {}), {}, {
+    page: page
+  })));
 }), _types$SET_WORKERS$ty);
 
 /***/ }),
@@ -61913,7 +62339,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /*!*********************************************!*\
   !*** ./resources/js/store/workers/types.js ***!
   \*********************************************/
-/*! exports provided: SET_WORKERS, SET_WORKER_LIST, SET_WORKER, SET_META, CHANGE_FILTER, SET_REQUESTS, UPLOAD_PHOTO, DELETE_WORKER, UPDATE_WORKER */
+/*! exports provided: SET_WORKERS, SET_WORKER_LIST, SET_WORKER, SET_META, CHANGE_FILTER, SET_REQUESTS, UPLOAD_PHOTO, DELETE_WORKER, UPDATE_WORKER, SET_META_BY_WORKER, SET_REQUEST_PAGE, SET_PAGE */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -61927,6 +62353,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UPLOAD_PHOTO", function() { return UPLOAD_PHOTO; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DELETE_WORKER", function() { return DELETE_WORKER; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UPDATE_WORKER", function() { return UPDATE_WORKER; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_META_BY_WORKER", function() { return SET_META_BY_WORKER; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_REQUEST_PAGE", function() { return SET_REQUEST_PAGE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_PAGE", function() { return SET_PAGE; });
 var SET_WORKERS = 'SET_WORKERS';
 var SET_WORKER_LIST = 'SET_WORKER_LIST';
 var SET_WORKER = 'SET_WORKER';
@@ -61936,6 +62365,9 @@ var SET_REQUESTS = 'SET_REQUESTS';
 var UPLOAD_PHOTO = 'UPLOAD_PHOTO';
 var DELETE_WORKER = 'DELETE_WORKER';
 var UPDATE_WORKER = 'UPDATE_WORKER';
+var SET_META_BY_WORKER = 'SET_META_BY_WORKER';
+var SET_REQUEST_PAGE = 'SET_REQUEST_PAGE';
+var SET_PAGE = 'SET_PAGE';
 
 /***/ }),
 

@@ -28,8 +28,11 @@
 		</div>
 		<RequestTable
 			:requests="requests"
+			:meta="meta"
 			:editable="true"
 			@edit="onEdit"
+			@next="nextPage"
+			@prev="prevPage"
 		/>
 	</div>
 </template>
@@ -54,6 +57,7 @@ export default {
 		...mapGetters('requests', [
 			'requests',
 			'filter',
+			'meta',
 		]),
 		...mapGetters('page', [
 			'categories',
@@ -67,6 +71,8 @@ export default {
 		...mapActions('requests', [
 			'getRequests',
 			'changeFilter',
+			'nextPage',
+			'prevPage',
 		]),
 		onEdit(request) {
 			if (!this.isAdmin) {

@@ -12,13 +12,16 @@ class GetRequestsByWorker
 	{
 		$response = new RequestsResponse();
 
-		$builder = QAndA::getTelegramRequests();
-		$builder->where('responsible_user_id', $workerId)
-			->get()
+		$paginator = QAndA::getTelegramRequests()
+			->where('responsible_user_id', $workerId)
+			->paginate(20);
+		collect($paginator->items())
 			->each(function (QAndA $data) use ($response) {
 				$response->add(Request::fromEntity($data));
 			});
 		
+		$response->setPaginator($paginator);
+
 		return $response;
 	}
 }

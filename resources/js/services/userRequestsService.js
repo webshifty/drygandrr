@@ -1,15 +1,15 @@
 import requestService from "./requestService";
 
 export default {
-	async getRequests(filter) {
-		const response = await requestService.get('/api/requests', {
+	async getRequests(filter, page = 1) {
+		const response = await requestService.get('/api/requests?page=' + page, {
 			'filter[search]': filter.search,
 			'filter[category]': filter.category,
 			'filter[requests]': filter.requests,
 			'filter[country]': filter.country,
 		});
 
-		return response?.data || { data: [] };
+		return response?.data || { data: [], meta: {} };
 	},
 	async updateRequest(id, request) {
 		const response = await requestService.put('/api/requests/' + id, request);

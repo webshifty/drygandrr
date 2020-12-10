@@ -45,7 +45,14 @@
 				</tbody>
 			</table>
 		</div>
-		<Pagination />
+		<Pagination
+			:total="meta.total"
+			:page="meta.page"
+			:perPage="meta.per_page"
+			:lastPage="meta.last_page"
+			@next="$emit('next')"
+			@prev="$emit('prev')"
+		/>
 	</div>
 </template>
 
@@ -59,6 +66,7 @@ export default {
 	props: {
 		requests: Array,
 		editable: Boolean,
+		meta: Object,
 	},
 	components: {
 		Dropdown,

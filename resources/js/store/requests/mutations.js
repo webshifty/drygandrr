@@ -25,5 +25,21 @@ export default {
 			...state.filter,
 			[filter]: value,
 		};
-	}
+	},
+
+	[types.SET_META]: (state, { total, per_page, current_page, last_page }) => {
+		state.meta = {
+			total: total,
+			page: current_page,
+			per_page: per_page,
+			last_page: last_page,
+		};
+	},
+
+	[types.SET_PAGE]: (state, page) => {
+		state.meta = {
+			...state.meta,
+			page,
+		};
+	},
 };

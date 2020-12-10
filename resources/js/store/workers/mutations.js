@@ -12,10 +12,18 @@ export default {
 			[filter]: value,
 		};
 	},
-	[types.SET_META]: (state, { key, value }) => {
+	[types.SET_META]: (state, { total, per_page, current_page, last_page }) => {
+		state.meta = {
+			total: total,
+			page: current_page,
+			per_page: per_page,
+			last_page: last_page,
+		};
+	},
+	[types.SET_PAGE]: (state, page) => {
 		state.meta = {
 			...state.meta,
-			[key]: value,
+			page,
 		};
 	},
 	[types.SET_REQUESTS]: (state, { requests, workerId }) => {
@@ -39,5 +47,25 @@ export default {
 	},
 	[types.SET_WORKER_LIST]: (state, workers) => {
 		state.workerList = workers.map(workerService.mapWorkerListItem);
-	}
+	},
+	[types.SET_META_BY_WORKER]: (state, { workerId, meta }) => {
+		state.metaByWorkerId = {
+			...state.metaByWorkerId,
+			[workerId]: {
+				total: meta?.total || 0,
+				page: meta?.current_page || 1,
+				per_page: meta?.per_page || 20,
+				last_page: meta?.last_page || 1,
+			},
+		};
+	},
+	[types.SET_REQUEST_PAGE]: (state, { workerId, page }) => {
+		state.metaByWorkerId = {
+			...state.metaByWorkerId,
+			[workerId]: {
+				...(state.metaByWorkerId[workerId] || {}),
+				page,
+			},
+		};
+	},
 };

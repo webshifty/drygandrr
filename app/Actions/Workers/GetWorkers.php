@@ -20,22 +20,22 @@ class GetWorkers
 			'work_country',
 			'access',
 		]);
-		$userBuilder = $this->applyFilter($filter, $userBuilder);
+		$userBuilder = $this->applyFilter($filter, $userBuilder)
+			->with('country')
+			->withCount('requests')
+			->orderBy('name');
 
-		$userBuilder
-		->with('country')
-		->withCount('requests')
-		->orderBy('name')
-		->get()
+		$paginator = $userBuilder->paginate(20);
+
+		collect($paginator->items())
 		->each(function ($user) use ($response) {
 			$response->add(
 				Worker::fromUser($user)
 			);
 		});
 
-		$countOfUsers = $userBuilder->count();
-		$response->addMeta('total', $countOfUsers);
-		
+		$response->setPaginator($paginator);
+
 		return $response;
 	}
 

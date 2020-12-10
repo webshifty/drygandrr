@@ -3,7 +3,7 @@
 		<div class="action-block">
 			<div class="action-block__left">
 				<div class="dropdown">
-					<label for="filter-category"><b>{{ countWorkers }}</b> працівників</label>
+					<label for="filter-category"><b>{{ countWorkers }}</b> працівник{{ ending }}</label>
 				</div>
 				<div class="dropdown">
 					<label for="filter-country">Країна:</label>
@@ -44,7 +44,14 @@
 				</tr>
 			</table>
 		</div>
-		<Pagination />
+		<Pagination
+			:total="meta.total"
+			:page="meta.page"
+			:perPage="meta.per_page"
+			:lastPage="meta.last_page"
+			@next="nextPage"
+			@prev="prevPage"
+		/>
 	</div>
 </template>
 
@@ -61,16 +68,32 @@ export default {
 			'countWorkers',
 			'workers',
 			'filter',
+			'meta',
 		]),
 		...mapGetters('page', [
 			'countries',
 		]),
+		ending() {
+			const str = this.countWorkers + '';
+
+			if (/1$/.test(str) && !/11$/.test(str)) {
+				return '';
+			}
+
+			if (/[234]$/.test(str) && !/1[234]$/.test(str)) {
+				return 'а';
+			}
+
+			return 'ів';
+		},
 	},
 
 	methods: {
 		...mapActions('workers', [
 			'getWorkers',
 			'changeFilter',
+			'nextPage',
+			'prevPage',
 		]),
 
 		getRole(worker) {

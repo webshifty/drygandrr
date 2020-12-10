@@ -18,8 +18,11 @@
 			</div>
 			<RequestTable
 				v-if="isActive('requests')"
+				:meta="meta"
 				:requests="requests"
 				:editable="false"
+				@next="nextPage"
+				@prev="prevPage"
 			/>
 			<div v-if="isActive('info')" class="profile-container">
 				<WorkerProfile
@@ -50,18 +53,30 @@ export default {
 			'workers',
 			'worker',
 			'requestsByWorkerId',
+			'metaByWorkerId',
 		]),
 		requests() {
 			return this.requestsByWorkerId[this.$route.params.id] || [];
+		},
+		meta() {
+			return this.metaByWorkerId[this.$route.params.id] || { total: 0, per_page: 20, page: 1, last_page: 1 };
 		}
 	},
 	methods: {
 		...mapActions('workers', [
 			'getRequests',
 			'getWorker',
+			'nextPageByWorker',
+			'prevPageByWorker',
 		]),
 		isActive(tab) {
 			return this.tab === tab;
+		},
+		nextPage() {
+			this.nextPageByWorker(this.$route.params.id);
+		},
+		prevPage() {
+			this.prevPageByWorker(this.$route.params.id);
 		}
 	},
 	async mounted() {
