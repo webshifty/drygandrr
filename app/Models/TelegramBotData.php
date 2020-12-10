@@ -28,13 +28,19 @@ class TelegramBotData extends Model
 
     public static function addCountry($id, $country)
     {
-        $data = [
-            'country' => $country,
-            'updated_at' => Carbon::now()
-        ];
-        $country = DB::table('tg_users')->where('tg_id', $id)->update($data);
+        $countryName = DB::table('countries')->select('name')->orWhere('name', 'LIKE', '%' . $country . '%')->orWhere('name_ru', 'LIKE', '%' . $country . '%')->orWhere('name_en', 'LIKE', '%' . $country . '%')->first();
 
-        return $country;
+        if (!is_null($countryName)) {
+            $data = [
+                'country' => $countryName,
+                'updated_at' => Carbon::now()
+            ];
+            $country = DB::table('tg_users')->where('tg_id', $id)->update($data);
+
+            return $country;
+        } else {
+            return false;
+        }
     }
 
     public static function getUserCountry($id)
