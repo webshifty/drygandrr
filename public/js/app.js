@@ -5289,6 +5289,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -5678,6 +5679,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -5692,6 +5694,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       sending: false
     };
   },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])('user', ['isAdmin'])),
   methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapActions"])('questions', ['updateQuestion'])), {}, {
     onSave: function onSave(data) {
       var _this = this;
@@ -6369,7 +6372,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   props: {
     title: String,
     data: Object,
-    disableButton: Boolean
+    disableButton: Boolean,
+    editCategory: Boolean
   },
   data: function data() {
     return {
@@ -6383,7 +6387,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     };
   },
-  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])('page', ['countries', 'categories'])), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])('user', ['isAdmin', 'isOperator', 'user'])),
+  computed: _objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])('page', ['countries', 'categories'])), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])('user', ['isAdmin', 'isOperator', 'user'])), {}, {
+    disableCategory: function disableCategory() {
+      return !this.editCategory;
+    }
+  }),
   methods: {
     onSave: function onSave() {
       this.$emit('save', _objectSpread({}, this.question));
@@ -39489,6 +39497,7 @@ var render = function() {
     attrs: {
       title: "Додати запитання",
       data: _vm.data,
+      editCategory: true,
       disableButton: _vm.sending
     },
     on: { save: _vm.onSave, cancel: _vm.onClose }
@@ -39601,7 +39610,8 @@ var render = function() {
     attrs: {
       title: "Редагувати запитання",
       data: _vm.data,
-      disableButton: _vm.sending
+      disableButton: _vm.sending,
+      editCategory: _vm.isAdmin
     },
     on: { save: _vm.onSave, cancel: _vm.onClose }
   })
@@ -40586,48 +40596,56 @@ var render = function() {
         ]
       ),
       _vm._v(" "),
-      _c("div", { staticClass: "field styling-label" }, [
-        _c("label", [_vm._v("Категорія")]),
-        _vm._v(" "),
-        _c(
-          "select",
-          {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.question.category,
-                expression: "question.category"
+      _c(
+        "div",
+        {
+          staticClass: "field styling-label",
+          class: { disabled: _vm.disableCategory }
+        },
+        [
+          _c("label", [_vm._v("Категорія")]),
+          _vm._v(" "),
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.question.category,
+                  expression: "question.category"
+                }
+              ],
+              attrs: { disabled: _vm.disableCategory },
+              on: {
+                change: function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.$set(
+                    _vm.question,
+                    "category",
+                    $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                  )
+                }
               }
-            ],
-            on: {
-              change: function($event) {
-                var $$selectedVal = Array.prototype.filter
-                  .call($event.target.options, function(o) {
-                    return o.selected
-                  })
-                  .map(function(o) {
-                    var val = "_value" in o ? o._value : o.value
-                    return val
-                  })
-                _vm.$set(
-                  _vm.question,
-                  "category",
-                  $event.target.multiple ? $$selectedVal : $$selectedVal[0]
-                )
-              }
-            }
-          },
-          _vm._l(_vm.categories, function(category, key) {
-            return _c(
-              "option",
-              { key: key, domProps: { value: category.id } },
-              [_vm._v(_vm._s(category.name))]
-            )
-          }),
-          0
-        )
-      ])
+            },
+            _vm._l(_vm.categories, function(category, key) {
+              return _c(
+                "option",
+                { key: key, domProps: { value: category.id } },
+                [_vm._v(_vm._s(category.name))]
+              )
+            }),
+            0
+          )
+        ]
+      )
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "field styling-label" }, [

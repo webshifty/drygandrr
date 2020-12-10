@@ -2,6 +2,7 @@
 <QuestionForm
 	:title="'Додати запитання'"
 	:data="data"
+	:editCategory="true"
 	:disableButton="sending"
 	v-on:save="onSave"
 	v-on:cancel="onClose"

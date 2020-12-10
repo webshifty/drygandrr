@@ -3,6 +3,7 @@
 	:title="'Редагувати запитання'"
 	:data="data"
 	:disableButton="sending"
+	:editCategory="isAdmin"
 	v-on:save="onSave"
 	v-on:cancel="onClose"
 />
@@ -10,7 +11,7 @@
 
 <script>
 import QuestionForm from './forms/QuestionForm.vue'
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
 	components: {
@@ -23,6 +24,11 @@ export default {
 		return {
 			sending: false,
 		};
+	},
+	computed: {
+		...mapGetters('user', [
+			'isAdmin',
+		]),
 	},
 	methods: {
 		...mapActions('questions', [

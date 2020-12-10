@@ -8,9 +8,9 @@
 				<option v-for="(country, key) in countries" :key="key" :value="country.id">{{ country.name }}</option>
 			</select>  
 		</div>
-		<div class="field styling-label">
+		<div class="field styling-label" :class="{ disabled: disableCategory }">
 			<label>Категорія</label>
-			<select v-model="question.category">
+			<select v-model="question.category" :disabled="disableCategory">
 				<option v-for="(category, key) in categories" :key="key" :value="category.id">{{ category.name }}</option>
 			</select>
 		</div>
@@ -37,7 +37,8 @@ export default {
 	props: {
 		title: String,
 		data: Object,
-		disableButton: Boolean
+		disableButton: Boolean,
+		editCategory: Boolean,
 	},
 	data() {
 		return {
@@ -61,6 +62,9 @@ export default {
 			'isOperator',
 			'user',
 		]),
+		disableCategory() {
+			return !this.editCategory;
+		}
 	},
 	methods: {
 		onSave() {
