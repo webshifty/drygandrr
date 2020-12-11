@@ -255,6 +255,7 @@ class BotController extends Controller
                         $questionId = str_replace('question', "", $update->callback_query->data);
                         $answer = TelegramBotData::getAnswerById($questionId);
                         $client->sendPhoto($message_chat_id, asset('/img/telegram/byebye_2.png'));
+                        $reply = "<b>Ваше запитання:</b>\n" . $answer->question . "\n\n<b>Вiдповiдь:</b>\n" . $answer->answer;
                         $client->sendMessage($message_chat_id, $answer->answer, null, null, null, null, null, null, $menuQuestion);
                         exit();
                         break;

@@ -118,7 +118,7 @@ class TelegramBotData extends Model
 
     public static function getAnswerById($id)
     {
-        $answer = DB::table('questions')->select('answer')->where('id', $id)->first();
+        $answer = DB::table('questions')->select('answer', 'question')->where('id', $id)->first();
 
         return $answer;
     }
