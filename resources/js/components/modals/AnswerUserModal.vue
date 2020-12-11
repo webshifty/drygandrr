@@ -29,15 +29,20 @@ export default {
 			'updateRequest',
 			'sendMessage',
 		]),
+		...mapActions('alerts', [
+			'success',
+		]),
 
 		async onSave(data) {
 			try {
 				this.sending = true;
 				await this.updateRequest(data);
+				this.success({ message: 'Запит збережено' });
 			} catch (error) {
 				throw error;
 			} finally {
 				this.sending = false;
+				this.$emit('close');
 			}
 		},
 
@@ -45,6 +50,7 @@ export default {
 			try {
 				this.sending = true;
 				await this.sendMessage(data);
+				this.success({ message: 'Повідомлення надіслано' });
 			} catch (error) {
 				throw error;
 			} finally {
