@@ -290,7 +290,7 @@ class BotController extends Controller
                         break;
 
                     case strpos($update->callback_query->data, 'countryId'):
-                        $countryId = str_replace('countryId', "", $update->callback_query->data);
+                        $countryId = trim(str_replace('countryId', "", $update->callback_query->data));
                         $addCountry = TelegramBotData::addCountryById($client->easy->from_id, $countryId);
 
                         if ($addCountry == true) {
@@ -298,7 +298,7 @@ class BotController extends Controller
                             $client->sendPhoto($message_chat_id, asset('/img/telegram/have_question_2.png'));
                             $reply = " - Країна обрана.\nНапишіть ваше запитання.\xF0\x9F\x98\x89";
                             $reply2 = json_encode($countryId);
-                            $client->sendMessage($message_chat_id, $reply2, null, null, null, null, null, null, $menuInBase);
+                            $client->sendMessage($message_chat_id, $reply, null, null, null, null, null, null, $menuInBase);
                             exit();
                             break;
                         } else {
