@@ -23,7 +23,8 @@ use App\Http\Controllers\Api\CategoriesController;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::post('/bot/getupdates', BotController::income());
+//Route::post('/bot/getupdates', BotController::income());
+Route::post('/bot/getupdates', [BotController::class, 'income']);
 
 //Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 //    return view('admin.dashboard');
