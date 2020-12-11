@@ -1,15 +1,15 @@
 import requestService from '../services/requestService';
 
 export default {
-	async getWorkers(filter) {
-		return await requestService.get('/api/workers', {
+	async getWorkers(filter, page = 1) {
+		return await requestService.get('/api/workers?page=' + page, {
 			'filter[country]': filter.country,
 			'filter[search]': filter.search,
 		});
 	},
 
-	async getRequests(workerId) {
-		return await requestService.get('/api/workers/' + workerId + '/requests');
+	async getRequests(workerId, page = 1) {
+		return await requestService.get('/api/workers/' + workerId + '/requests?page=' + page);
 	},
 
 	async getWorker(workerId) {

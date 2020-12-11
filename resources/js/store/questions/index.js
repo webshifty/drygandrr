@@ -10,6 +10,12 @@ export default {
 			country: '',
 			category: '',
 			search: '',
+		},
+		meta: {
+			total: 0,
+			page: 1,
+			per_page: 20,
+			last_page: 1,
 		}
 	}),
 	actions,

@@ -1,15 +1,16 @@
 import requestService from "./requestService";
 
 export default {
-	async getQuestions(filter) {
-		const response = await requestService.get('/api/questions', {
+	async getQuestions(filter, page = 1) {
+		const response = await requestService.get('/api/questions?page=' + page, {
 			'filter[category]': filter.category,
 			'filter[country]': filter.country,
 			'filter[search]': filter.search,
 		});
 
 		return response?.data || {
-			data: []
+			data: [],
+			meta: {},
 		};
 	},
 

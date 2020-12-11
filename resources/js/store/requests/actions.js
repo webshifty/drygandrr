@@ -1,25 +1,23 @@
 import userRequestsService from "../../services/userRequestsService";
-import {
-	SET_REQUESTS,
-	UPDATE_REQUEST,
-	CHANGE_FILTER,
-} from "./types";
+import * as types from "./types";
 
 export default {
 	async getRequests({ commit, state }) {
 		const response = await userRequestsService.getRequests(
-			state.filter
+			state.filter,
+			state.meta.page,
 		);
 
-		commit(SET_REQUESTS, {
+		commit(types.SET_REQUESTS, {
 			requests: response.data,
 		});
+		commit(types.SET_META, response.meta);
 	},
 
 	async updateRequest({ commit, dispatch }, request) {
 		const response = await userRequestsService.updateRequest(request.id, request);
 
-		commit(UPDATE_REQUEST, {
+		commit(types.UPDATE_REQUEST, {
 			request: response.data,
 		});
 
@@ -29,8 +27,8 @@ export default {
 	},
 
 	async changeFilter({ commit, dispatch }, { filter, value }) {
-		commit(CHANGE_FILTER, { filter, value });
-
+		commit(types.CHANGE_FILTER, { filter, value });
+		commit(types.SET_PAGE, 1);
 		await dispatch('getRequests');
 	},
 
@@ -40,8 +38,18 @@ export default {
 			userId
 		);
 
-		commit(UPDATE_REQUEST, {
+		commit(types.UPDATE_REQUEST, {
 			request: response.data,
 		});
+	},
+
+	async nextPage({ commit, state, dispatch }) {
+		commit(types.SET_PAGE, state.meta.page + 1);
+		await dispatch('getRequests');
+	},
+
+	async prevPage({ commit, state, dispatch }) {
+		commit(types.SET_PAGE, state.meta.page - 1);
+		await dispatch('getRequests');
 	}
 };

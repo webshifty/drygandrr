@@ -3,7 +3,7 @@
 namespace App\Actions\General;
 
 use App\Contracts\Arrayable;
-
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 abstract class BaseResponse
 {
 	protected array $entities = [];
@@ -29,5 +29,13 @@ abstract class BaseResponse
 	public function getMeta(): array
 	{
 		return $this->meta;
+	}
+
+	public function setPaginator(LengthAwarePaginator $paginator): void
+	{
+		$this->addMeta('total', $paginator->total());
+		$this->addMeta('per_page', $paginator->perPage());
+		$this->addMeta('current_page', $paginator->currentPage());
+		$this->addMeta('last_page', $paginator->lastPage());
 	}
 }

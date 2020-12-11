@@ -1,25 +1,19 @@
 import questionService from "../../services/questionService";
-import {
-	SET_QUESTIONS,
-	ADD_QUESTION,
-	UPDATE_QUESTION,
-	DELETE_QUESTION,
-	CHANGE_FILTER,
-} from "./types";
+import * as types from "./types";
 
 export default {
-	[SET_QUESTIONS]: (state, { questions }) => {
+	[types.SET_QUESTIONS]: (state, { questions }) => {
 		state.questions = questions.map(questionService.mapQuestion);
 	},
 
-	[ADD_QUESTION]: (state, { question }) => {
+	[types.ADD_QUESTION]: (state, { question }) => {
 		state.questions = [
 			questionService.mapQuestion(question),
 			...state.questions
 		];
 	},
 	
-	[UPDATE_QUESTION]: (state, { question }) => {
+	[types.UPDATE_QUESTION]: (state, { question }) => {
 		const questionIndex = state.questions.findIndex(({ id }) => id === question.id);
 
 		if (questionIndex === -1) {
@@ -33,14 +27,30 @@ export default {
 		];
 	},
 
-	[DELETE_QUESTION]: (state, questionId) => {
+	[types.DELETE_QUESTION]: (state, questionId) => {
 		state.questions = state.questions.filter(({ id }) => id !== questionId);
 	},
 
-	[CHANGE_FILTER]: (state, { filter, value }) => {
+	[types.CHANGE_FILTER]: (state, { filter, value }) => {
 		state.filter = {
 			...state.filter,
 			[filter]: value,
 		};
-	}
+	},
+
+	[types.SET_META]: (state, { total, per_page, current_page, last_page }) => {
+		state.meta = {
+			total: total,
+			page: current_page,
+			per_page: per_page,
+			last_page: last_page,
+		};
+	},
+
+	[types.SET_PAGE]: (state, page) => {
+		state.meta = {
+			...state.meta,
+			page,
+		};
+	},
 };

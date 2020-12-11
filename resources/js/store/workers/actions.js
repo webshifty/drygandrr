@@ -3,25 +3,28 @@ import * as types from './types';
 
 export default {
 	async getWorkers({ commit, state }) {
-		const response = await workerService.getWorkers(state.filter);
+		const response = await workerService.getWorkers(state.filter, state.meta.page);
 
 		commit(types.SET_WORKERS, response?.data?.data);
-		commit(types.SET_META, { key: 'total', value: response?.data?.meta?.total || 0} );
+		commit(types.SET_META, response?.data?.meta );
 	},
 
 	async changeFilter({ commit, dispatch }, { filter, value }) {
 		commit(types.CHANGE_FILTER, { filter, value });
-
+		commit(types.SET_PAGE, 1);
 		await dispatch('getWorkers');
 	},
 
-	async getRequests({ commit }, workerId) {
-		const response = await workerService.getRequests(workerId);
+	async getRequests({ commit, state }, workerId) {
+		const meta = state.metaByWorkerId[workerId] || { page: 1 };
+		const response = await workerService.getRequests(workerId, meta.page);
+		const data = response?.data;
 
 		commit(types.SET_REQUESTS, {
 			workerId,
-			requests: response?.data?.data,
+			requests: data?.data,
 		});
+		commit(types.SET_META_BY_WORKER, { workerId, meta: data?.meta });
 	},
 
 	async getWorker({ commit, state }, workerId) {
@@ -65,4 +68,26 @@ export default {
 
 		commit(types.SET_WORKER_LIST, response?.data?.data);
 	},
+
+	async nextPageByWorker({ commit, state, dispatch }, workerId) {
+		const meta = state.metaByWorkerId[workerId] || { page: 1 };
+		commit(types.SET_REQUEST_PAGE, { workerId, page: meta.page + 1 });
+		await dispatch('getRequests', workerId);
+	},
+
+	async prevPageByWorker({ commit, state, dispatch }, workerId) {
+		const meta = state.metaByWorkerId[workerId] || { page: 1 };
+		commit(types.SET_REQUEST_PAGE, { workerId, page: meta.page - 1 });
+		await dispatch('getRequests', workerId);
+	},
+
+	async nextPage({ commit, state, dispatch }) {
+		commit(types.SET_PAGE, state.meta.page + 1);
+		await dispatch('getWorkers');
+	},
+
+	async prevPage({ commit, state, dispatch }) {
+		commit(types.SET_PAGE, state.meta.page - 1);
+		await dispatch('getWorkers');
+	}
 };

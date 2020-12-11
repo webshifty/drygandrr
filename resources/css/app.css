@@ -1,2 +1,17 @@
 @import 'bootstrap/dist/css/bootstrap.min.css';
 @import './common.css';
+
+*::-webkit-scrollbar {
+	width: 8px;
+}
+
+*::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+	background-color: #b1b1b1;
+	border-radius: 20px;
+	opacity: .5;
+}
+

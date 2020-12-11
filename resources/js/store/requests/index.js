@@ -11,6 +11,12 @@ export default {
 			requests: 'my',
 			category: '0',
 			country: ''
+		},
+		meta: {
+			total: 0,
+			page: 1,
+			per_page: 20,
+			last_page: 1,
 		}
 	}),
 	actions,

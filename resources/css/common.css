@@ -582,13 +582,15 @@ select.executor {
     padding: 10px 40px;
 }
 
-.prev__page svg {
-    fill: rgba(87, 87, 87, 0.5);
-}
-
+.prev__page svg,
 .next__page svg {
     fill: #252525;
 }
+
+.disabled svg {
+    fill: rgba(87, 87, 87, 0.5);
+}
+
 .pages span {
     display: block;
     margin-right: 12px;

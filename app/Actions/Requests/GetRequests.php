@@ -17,10 +17,15 @@ class GetRequests
 
 		$builder = QAndA::getTelegramRequests();
 		$builder = $this->applyFilter($filter, $builder);
-		$builder->get()
+		
+		$paginator = $builder->paginate(20);
+		
+		collect($paginator->items())
 			->each(function (QAndA $data) use ($response) {
 				$response->add(Request::fromEntity($data));
 			});
+
+		$response->setPaginator($paginator);
 		
 		return $response;
 	}
