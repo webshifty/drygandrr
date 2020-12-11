@@ -19,7 +19,11 @@ export default {
 		};
 	},
 	async sendMessage(id, message) {
-		return await requestService.put('/api/requests/' + id + '/respond', { message_text: message });
+		const response = await requestService.put('/api/requests/' + id + '/respond', { message_text: message });
+
+		return response?.data || {
+			data: []
+		};
 	},
 	async assignResponsible(id, responsible) {
 		const response = await requestService.put('/api/requests/' + id + '/responsible', {

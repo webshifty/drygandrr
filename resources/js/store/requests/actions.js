@@ -27,9 +27,8 @@ export default {
 	},
 
 	async sendMessage({ dispatch }, request) {
-		await dispatch('updateRequest', request);
 		await userRequestsService.sendMessage(request.id, request.answer);
-		dispatch('alerts/success', { message: 'Повідомлення надіслано' });
+		await dispatch('updateRequest', request);
 	},
 
 	async changeFilter({ commit, dispatch }, { filter, value }) {

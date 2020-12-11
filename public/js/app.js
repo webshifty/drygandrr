@@ -5484,7 +5484,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       sending: false
     };
   },
-  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])('requests', ['updateRequest', 'sendMessage'])), {}, {
+  methods: _objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])('requests', ['updateRequest', 'sendMessage'])), Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])('alerts', ['success'])), {}, {
     onSave: function onSave(data) {
       var _this = this;
 
@@ -5499,25 +5499,32 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 return _this.updateRequest(data);
 
               case 4:
-                _context.next = 9;
+                _this.success({
+                  message: 'Запит збережено'
+                });
+
+                _context.next = 10;
                 break;
 
-              case 6:
-                _context.prev = 6;
+              case 7:
+                _context.prev = 7;
                 _context.t0 = _context["catch"](0);
                 throw _context.t0;
 
-              case 9:
-                _context.prev = 9;
+              case 10:
+                _context.prev = 10;
                 _this.sending = false;
-                return _context.finish(9);
 
-              case 12:
+                _this.$emit('close');
+
+                return _context.finish(10);
+
+              case 14:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[0, 6, 9, 12]]);
+        }, _callee, null, [[0, 7, 10, 14]]);
       }))();
     },
     onSend: function onSend(data) {
@@ -5534,28 +5541,32 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 return _this2.sendMessage(data);
 
               case 4:
-                _context2.next = 9;
+                _this2.success({
+                  message: 'Повідомлення надіслано'
+                });
+
+                _context2.next = 10;
                 break;
 
-              case 6:
-                _context2.prev = 6;
+              case 7:
+                _context2.prev = 7;
                 _context2.t0 = _context2["catch"](0);
                 throw _context2.t0;
 
-              case 9:
-                _context2.prev = 9;
+              case 10:
+                _context2.prev = 10;
                 _this2.sending = false;
 
                 _this2.$emit('close');
 
-                return _context2.finish(9);
+                return _context2.finish(10);
 
-              case 13:
+              case 14:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, null, [[0, 6, 9, 13]]);
+        }, _callee2, null, [[0, 7, 10, 14]]);
       }))();
     },
     onClose: function onClose() {
@@ -61377,6 +61388,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   sendMessage: function sendMessage(id, message) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+      var response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
@@ -61387,9 +61399,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               });
 
             case 2:
-              return _context3.abrupt("return", _context3.sent);
+              response = _context3.sent;
+              return _context3.abrupt("return", (response === null || response === void 0 ? void 0 : response.data) || {
+                data: []
+              });
 
-            case 3:
+            case 4:
             case "end":
               return _context3.stop();
           }
@@ -62375,18 +62390,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             case 0:
               dispatch = _ref3.dispatch;
               _context3.next = 3;
-              return dispatch('updateRequest', request);
+              return _services_userRequestsService__WEBPACK_IMPORTED_MODULE_1__["default"].sendMessage(request.id, request.answer);
 
             case 3:
               _context3.next = 5;
-              return _services_userRequestsService__WEBPACK_IMPORTED_MODULE_1__["default"].sendMessage(request.id, request.answer);
+              return dispatch('updateRequest', request);
 
             case 5:
-              dispatch('alerts/success', {
-                message: 'Повідомлення надіслано'
-              });
-
-            case 6:
             case "end":
               return _context3.stop();
           }
