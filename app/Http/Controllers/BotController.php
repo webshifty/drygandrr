@@ -296,7 +296,7 @@ class BotController extends Controller
                         if ($addCountry == true) {
                             //$country = TelegramBotData::getUserCountryName($client->easy->from_id);
                             $client->sendPhoto($message_chat_id, asset('/img/telegram/have_question_2.png'));
-                            $reply = " - Країна обрана.\nНапишіть ваше запитання.\xF0\x9F\x98\x89";
+                            $reply0 = " - Країна обрана.\nНапишіть ваше запитання.\xF0\x9F\x98\x89";
                             $reply2 = $countryId;
                             $client->sendMessage($message_chat_id, $reply2, null, null, null, null, null, null, $menuInBase);
                             exit();
