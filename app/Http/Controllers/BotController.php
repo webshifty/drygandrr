@@ -237,6 +237,7 @@ class BotController extends Controller
                         $questions = TelegramBotData::getQuestionByCountryByCategory($userId, $categoryId);
                         $menuQuestions["inline_keyboard"] = [];
 
+                        if (!empty($questions)) {
                         foreach ($questions as $question) {
                             $menuQuestions["inline_keyboard"][] = [
                                 [
@@ -247,17 +248,20 @@ class BotController extends Controller
                         }
                         $client->sendPhoto($message_chat_id, asset('/img/telegram/search_in_base_2.png'));
                         $reply = "Оберiть питання яке вас цiкавить";
-                        $reply2 = json_encode($questions);
-                        $client->sendMessage($message_chat_id, $reply2, null, null, null, null, null, null, $menuQuestions);
+                        $client->sendMessage($message_chat_id, $reply, null, null, null, null, null, null, $menuQuestions);
                         exit();
                         break;
+                        } else {
+                            exit();
+                            break;
+                        }
 
                     case strpos($update->callback_query->data, 'question'):
                         $questionId = str_replace('question', "", $update->callback_query->data);
                         $answer = TelegramBotData::getAnswerById($questionId);
                         $client->sendPhoto($message_chat_id, asset('/img/telegram/byebye_2.png'));
                         $reply = "<b>Ваше запитання:</b>\n" . $answer->question . "\n\n<b>Вiдповiдь:</b>\n" . $answer->answer;
-                        $client->sendMessage($message_chat_id, $answer->answer, null, null, null, null, null, null, $menuQuestion);
+                        $client->sendMessage($message_chat_id, $reply, null, null, null, null, null, null, $menuQuestion);
                         exit();
                         break;
 
