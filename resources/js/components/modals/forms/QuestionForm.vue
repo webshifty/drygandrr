@@ -24,7 +24,7 @@
 		<textarea class="textarea" name="answer" v-model="question.answer"></textarea>
 	</div>
 	<div class="actions">
-		<button class="button" :disabled="disableButton" v-on:click.prevent="onSave">Надіслати</button>
+		<button class="button" :disabled="disableButton" v-on:click.prevent="onSave">Зберегти</button>
 		<button class="button secondary close" v-on:click.prevent="onCancel">Скасувати</button>
 	</div>
 </form>
