@@ -161,6 +161,7 @@ class BotController extends Controller
                             $client->sendMessage($chatId, $reply, null, null, null, null, null, null, $menuQuestion);
                             exit();
                         } else {
+                            $client->sendSticker($chatId, 'CAACAgIAAxkBAAEBq45f0mrUq4zYoRR4KEffps6Xm95vbQACMwAD3OdiCEuFU2oXL1LqHgQ');
                             $reply = "Такої країни в нашій великій базі немає. Виберіть будь ласка першу букву назви країни:";
                             $client->sendMessage($chatId, $reply, null, null, null, null, null, null, $menuAlphabet);
                             exit();
