@@ -3,7 +3,7 @@
 	<h3>Ви впевнені, що хочете видалити {{ entityName }}?</h3>
 	<div class="actions">
 		<button class="button" :disabled="disableButton" @click.prevent="onDelete">Так</button>
-		<button class="button secondary close" @click.prevent="onCancel">Відхилити</button>
+		<button class="button secondary close" @click.prevent="onCancel">Скасувати</button>
 	</div>
 </form>
 </template>

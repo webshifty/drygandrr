@@ -25,7 +25,7 @@
 	</div>
 	<div class="actions">
 		<button class="button" :disabled="disableButton" v-on:click.prevent="onSave">Надіслати</button>
-		<button class="button secondary close" v-on:click.prevent="onCancel">Відхилити</button>
+		<button class="button secondary close" v-on:click.prevent="onCancel">Скасувати</button>
 	</div>
 </form>
 </template>

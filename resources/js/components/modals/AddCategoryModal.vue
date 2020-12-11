@@ -7,7 +7,7 @@
 	</div>
 	<div class="actions">
 		<button class="button" :disabled="sending" v-on:click.prevent="onSave">Додати</button>
-		<button class="button secondary close" v-on:click.prevent="onCancel">Відхилити</button>
+		<button class="button secondary close" v-on:click.prevent="onCancel">Скасувати</button>
 	</div>
 </form>
 </template>
