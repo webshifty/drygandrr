@@ -208,7 +208,7 @@ class BotController extends Controller
                 switch ($update->callback_query->data) {
                     case "writeQuestion":
                         $client->sendPhoto($message_chat_id, asset('/img/telegram/question_to_consul_2.png'));
-                        $reply = "Введіть ваше запитання. Починайте текст питання з команди /consul Далі питання";
+                        $reply = "Введіть ваше запитання.";
                         $client->sendMessage($message_chat_id, $reply, null, null, null, null, null, null, $menuInBase);
                         exit();
                         break;
@@ -261,7 +261,7 @@ class BotController extends Controller
                         $answer = TelegramBotData::getAnswerById($questionId);
                         $client->sendPhoto($message_chat_id, asset('/img/telegram/byebye_2.png'));
                         $reply = "<b>Ваше запитання:</b>\n" . $answer->question . "\n\n<b>Вiдповiдь:</b>\n" . $answer->answer;
-                        $client->sendMessage($message_chat_id, $reply, null, null, null, null, null, null, $menuQuestion);
+                        $client->sendMessage($message_chat_id, $reply, 'HTML', null, null, null, null, null, $menuQuestion);
                         exit();
                         break;
 
