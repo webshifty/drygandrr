@@ -119,6 +119,7 @@ class BotController extends Controller
                     $client->sendMessage($chatId, $reply, null, null, null, null, null, null, $menuQuestion);
                     exit();
                 } else {
+                    $client->sendSticker($chatId, 'CAACAgIAAxkBAAEBq45f0mrUq4zYoRR4KEffps6Xm95vbQACMwAD3OdiCEuFU2oXL1LqHgQ');
                     $reply = "Такої країни в нашій великій базі немає. Виберіть будь ласка першу букву назви країни:";
                     $client->sendMessage($chatId, $reply, null, null, null, null, null, null, $menuAlphabet);
                     exit();
@@ -160,6 +161,7 @@ class BotController extends Controller
                             $client->sendMessage($chatId, $reply, null, null, null, null, null, null, $menuQuestion);
                             exit();
                         } else {
+                            $client->sendSticker($chatId, 'CAACAgIAAxkBAAEBq45f0mrUq4zYoRR4KEffps6Xm95vbQACMwAD3OdiCEuFU2oXL1LqHgQ');
                             $reply = "Такої країни в нашій великій базі немає. Виберіть будь ласка першу букву назви країни:";
                             $client->sendMessage($chatId, $reply, null, null, null, null, null, null, $menuAlphabet);
                             exit();
@@ -237,6 +239,7 @@ class BotController extends Controller
                         $questions = TelegramBotData::getQuestionByCountryByCategory($userId, $categoryId);
                         $menuQuestions["inline_keyboard"] = [];
 
+                        if (!empty($questions)) {
                         foreach ($questions as $question) {
                             $menuQuestions["inline_keyboard"][] = [
                                 [
@@ -250,12 +253,17 @@ class BotController extends Controller
                         $client->sendMessage($message_chat_id, $reply, null, null, null, null, null, null, $menuQuestions);
                         exit();
                         break;
+                        } else {
+                            exit();
+                            break;
+                        }
 
                     case strpos($update->callback_query->data, 'question'):
                         $questionId = str_replace('question', "", $update->callback_query->data);
                         $answer = TelegramBotData::getAnswerById($questionId);
                         $client->sendPhoto($message_chat_id, asset('/img/telegram/byebye_2.png'));
-                        $client->sendMessage($message_chat_id, $answer->answer, null, null, null, null, null, null, $menuQuestion);
+                        $reply = "<b>Ваше запитання:</b>\n" . $answer->question . "\n\n<b>Вiдповiдь:</b>\n" . $answer->answer;
+                        $client->sendMessage($message_chat_id, $reply, 'HTML', null, null, null, null, null, $menuQuestion);
                         exit();
                         break;
 
@@ -272,6 +280,7 @@ class BotController extends Controller
                                 ],
                             ];
                         }
+                        $client->sendSticker($message_chat_id, 'CAACAgIAAxkBAAEBrApf08LLYXnaJK2Iw0jawqgyQPfdNAACNwAD3OdiCGCQcXER-sVkHgQ');
                         $reply = "Виберіть країну зі списку:";
                         $client->sendMessage($message_chat_id, $reply, null, null, null, null, null, null, $menuCountries);
                         exit();

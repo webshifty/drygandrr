@@ -92,7 +92,7 @@ class TelegramBotData extends Model
 
     public static function getQuestionByCountryByCategory($userId, $category)
     {
-        $userCountry = DB::table('tg_users')->select('tg_users.country', 'countries.id')->where('tg_id', $userId)->join('countries', 'name', 'LIKE', 'tg_users.country')->first();
+        $userCountry = DB::table('tg_users')->select('tg_users.country', 'countries.id')->where('tg_id', $userId)->join('countries', 'name', '=', 'tg_users.country')->first();
 
         if (is_null($userCountry)){
             $questions = DB::table('questions')->select('id','question')->where('category', $category)->get()->toArray();
@@ -118,7 +118,7 @@ class TelegramBotData extends Model
 
     public static function getAnswerById($id)
     {
-        $answer = DB::table('questions')->select('answer')->where('id', $id)->first();
+        $answer = DB::table('questions')->select('answer', 'question')->where('id', $id)->first();
 
         return $answer;
     }
