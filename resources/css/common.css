@@ -632,3 +632,8 @@ select.executor {
 	height: calc(100% - 44px);
 	overflow: auto;
 }
+
+.button.close {
+    border-color: #EB5757;
+    color: #EB5757;
+}

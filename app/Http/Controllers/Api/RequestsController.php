@@ -8,6 +8,7 @@ use App\Actions\Requests\AssignResponsible;
 use App\Actions\Requests\DTO\Request as UserRequest;
 use App\Actions\Requests\GetRequests;
 use App\Actions\Requests\DTO\FilterRequest;
+use App\Actions\Requests\SendMessage;
 use App\Models\QAndA;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -68,5 +69,12 @@ class RequestsController extends Controller
         $response = $assignResponsible->execute($id, $request->input('responsible'));
 
         return $this->success($response);
+    }
+
+    public function respondUser(Request $request, int $id, SendMessage $sendMessage)
+    {
+        $sendMessage->execute($id, $request->input('message_text'));
+
+        return $this->empty();
     }
 }

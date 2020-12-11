@@ -5469,6 +5469,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -5483,7 +5484,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       sending: false
     };
   },
-  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])('requests', ['updateRequest'])), {}, {
+  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])('requests', ['updateRequest', 'sendMessage'])), {}, {
     onSave: function onSave(data) {
       var _this = this;
 
@@ -5509,17 +5510,52 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
               case 9:
                 _context.prev = 9;
                 _this.sending = false;
-
-                _this.$emit('close');
-
                 return _context.finish(9);
 
-              case 13:
+              case 12:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[0, 6, 9, 13]]);
+        }, _callee, null, [[0, 6, 9, 12]]);
+      }))();
+    },
+    onSend: function onSend(data) {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.prev = 0;
+                _this2.sending = true;
+                _context2.next = 4;
+                return _this2.sendMessage(data);
+
+              case 4:
+                _context2.next = 9;
+                break;
+
+              case 6:
+                _context2.prev = 6;
+                _context2.t0 = _context2["catch"](0);
+                throw _context2.t0;
+
+              case 9:
+                _context2.prev = 9;
+                _this2.sending = false;
+
+                _this2.$emit('close');
+
+                return _context2.finish(9);
+
+              case 13:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, null, [[0, 6, 9, 13]]);
       }))();
     },
     onClose: function onClose() {
@@ -6297,6 +6333,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -6328,6 +6365,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
 
       return this.countries;
+    },
+    disableSend: function disableSend() {
+      if (this.disableButton) {
+        return true;
+      } else if (!this.request.answer) {
+        return true;
+      } else {
+        return false;
+      }
     }
   }),
   methods: {
@@ -6342,7 +6388,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         return -1;
       }
     },
-    onSave: function onSave() {
+    getData: function getData() {
       var _this = this;
 
       var country = this.countryList.find(function (country) {
@@ -6350,9 +6396,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }) || {
         name: this.data.country
       };
-      this.$emit('save', _objectSpread(_objectSpread({}, this.request), {}, {
+      return _objectSpread(_objectSpread({}, this.request), {}, {
         countryName: country.name
-      }));
+      });
+    },
+    onSave: function onSave() {
+      this.$emit('save', this.getData());
+    },
+    onSend: function onSend() {
+      this.$emit('send', this.getData());
     },
     onCancel: function onCancel() {
       this.$emit('cancel');
@@ -7355,7 +7407,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".alert[data-v-ac95bce2] {\n  min-width: 300px;\n  min-height: 50px;\n  position: fixed;\n  bottom: 10px;\n  right: 30px;\n}\n", ""]);
+exports.push([module.i, ".alert[data-v-ac95bce2] {\n  min-width: 300px;\n  min-height: 50px;\n  position: fixed;\n  bottom: 10px;\n  right: 30px;\n  z-index: 100;\n}\n", ""]);
 
 // exports
 
@@ -7564,7 +7616,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, ".textarea[data-v-c409eda0] {\n  background: #FFFFFF;\n  border: 1px solid #BABABA;\n  border-radius: 4px;\n  padding: 16px;\n  font-size: 18px;\n  width: 100%;\n  resize: none;\n  height: 200px;\n}\n.form[data-v-c409eda0] {\n  min-width: 800px;\n}\n", ""]);
+exports.push([module.i, ".textarea[data-v-c409eda0] {\n  background: #FFFFFF;\n  border: 1px solid #BABABA;\n  border-radius: 4px;\n  padding: 16px;\n  font-size: 18px;\n  width: 100%;\n  resize: none;\n  height: 200px;\n}\n.form[data-v-c409eda0] {\n  min-width: 800px;\n}\n.actions[data-v-c409eda0] {\n  display: block;\n}\n.disabled[data-v-c409eda0]:active,\n.disabled[data-v-c409eda0]:hover,\n.disabled[data-v-c409eda0] {\n  opacity: 0.5;\n  cursor: not-allowed;\n}\n.close[data-v-c409eda0] {\n  opacity: 1;\n}\n.button[data-v-c409eda0] {\n  box-shadow: none;\n}\nselect[data-v-c409eda0]:disabled {\n  background-color: #fff;\n}\n", ""]);
 
 // exports
 
@@ -39915,7 +39967,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("AnswerForm", {
     attrs: { data: _vm.data, disableButton: _vm.sending },
-    on: { save: _vm.onSave, cancel: _vm.onClose }
+    on: { save: _vm.onSave, send: _vm.onSend, cancel: _vm.onClose }
   })
 }
 var staticRenderFns = []
@@ -40693,6 +40745,7 @@ var render = function() {
                 expression: "request.status"
               }
             ],
+            attrs: { disabled: "" },
             on: {
               change: function($event) {
                 var $$selectedVal = Array.prototype.filter
@@ -40821,6 +40874,7 @@ var render = function() {
         "button",
         {
           staticClass: "button",
+          class: { disabled: _vm.disableButton },
           attrs: { disabled: _vm.disableButton },
           on: {
             click: function($event) {
@@ -40829,13 +40883,29 @@ var render = function() {
             }
           }
         },
-        [_vm._v("Надіслати")]
+        [_vm._v("Зберегти")]
       ),
       _vm._v(" "),
       _c(
         "button",
         {
-          staticClass: "button secondary close",
+          staticClass: "button secondary",
+          class: { disabled: _vm.disableSend },
+          attrs: { disabled: _vm.disableSend },
+          on: {
+            click: function($event) {
+              $event.preventDefault()
+              return _vm.onSend($event)
+            }
+          }
+        },
+        [_vm._v("Відповісти користувачу")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "button secondary close float-right",
           on: {
             click: function($event) {
               $event.preventDefault()
@@ -61305,30 +61375,52 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }, _callee2);
     }))();
   },
-  assignResponsible: function assignResponsible(id, responsible) {
+  sendMessage: function sendMessage(id, message) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
-      var response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
             case 0:
               _context3.next = 2;
-              return _requestService__WEBPACK_IMPORTED_MODULE_1__["default"].put('/api/requests/' + id + '/responsible', {
-                responsible: responsible
+              return _requestService__WEBPACK_IMPORTED_MODULE_1__["default"].put('/api/requests/' + id + '/respond', {
+                message_text: message
               });
 
             case 2:
-              response = _context3.sent;
-              return _context3.abrupt("return", (response === null || response === void 0 ? void 0 : response.data) || {
-                data: []
-              });
+              return _context3.abrupt("return", _context3.sent);
 
-            case 4:
+            case 3:
             case "end":
               return _context3.stop();
           }
         }
       }, _callee3);
+    }))();
+  },
+  assignResponsible: function assignResponsible(id, responsible) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+      var response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              _context4.next = 2;
+              return _requestService__WEBPACK_IMPORTED_MODULE_1__["default"].put('/api/requests/' + id + '/responsible', {
+                responsible: responsible
+              });
+
+            case 2:
+              response = _context4.sent;
+              return _context4.abrupt("return", (response === null || response === void 0 ? void 0 : response.data) || {
+                data: []
+              });
+
+            case 4:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4);
     }))();
   },
   mapRequest: function mapRequest(request) {
@@ -62274,22 +62366,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }, _callee2);
     }))();
   },
-  changeFilter: function changeFilter(_ref3, _ref4) {
+  sendMessage: function sendMessage(_ref3, request) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
-      var commit, dispatch, filter, value;
+      var dispatch;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
             case 0:
-              commit = _ref3.commit, dispatch = _ref3.dispatch;
-              filter = _ref4.filter, value = _ref4.value;
-              commit(_types__WEBPACK_IMPORTED_MODULE_2__["CHANGE_FILTER"], {
-                filter: filter,
-                value: value
+              dispatch = _ref3.dispatch;
+              _context3.next = 3;
+              return dispatch('updateRequest', request);
+
+            case 3:
+              _context3.next = 5;
+              return _services_userRequestsService__WEBPACK_IMPORTED_MODULE_1__["default"].sendMessage(request.id, request.answer);
+
+            case 5:
+              dispatch('alerts/success', {
+                message: 'Повідомлення надіслано'
               });
-              commit(_types__WEBPACK_IMPORTED_MODULE_2__["SET_PAGE"], 1);
-              _context3.next = 6;
-              return dispatch('getRequests');
 
             case 6:
             case "end":
@@ -62299,23 +62394,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }, _callee3);
     }))();
   },
-  assignRequest: function assignRequest(_ref5, _ref6) {
+  changeFilter: function changeFilter(_ref4, _ref5) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
-      var commit, requestId, userId, response;
+      var commit, dispatch, filter, value;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
         while (1) {
           switch (_context4.prev = _context4.next) {
             case 0:
-              commit = _ref5.commit;
-              requestId = _ref6.requestId, userId = _ref6.userId;
-              _context4.next = 4;
-              return _services_userRequestsService__WEBPACK_IMPORTED_MODULE_1__["default"].assignResponsible(requestId, userId);
-
-            case 4:
-              response = _context4.sent;
-              commit(_types__WEBPACK_IMPORTED_MODULE_2__["UPDATE_REQUEST"], {
-                request: response.data
+              commit = _ref4.commit, dispatch = _ref4.dispatch;
+              filter = _ref5.filter, value = _ref5.value;
+              commit(_types__WEBPACK_IMPORTED_MODULE_2__["CHANGE_FILTER"], {
+                filter: filter,
+                value: value
               });
+              commit(_types__WEBPACK_IMPORTED_MODULE_2__["SET_PAGE"], 1);
+              _context4.next = 6;
+              return dispatch('getRequests');
 
             case 6:
             case "end":
@@ -62325,19 +62419,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }, _callee4);
     }))();
   },
-  nextPage: function nextPage(_ref7) {
+  assignRequest: function assignRequest(_ref6, _ref7) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
-      var commit, state, dispatch;
+      var commit, requestId, userId, response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
         while (1) {
           switch (_context5.prev = _context5.next) {
             case 0:
-              commit = _ref7.commit, state = _ref7.state, dispatch = _ref7.dispatch;
-              commit(_types__WEBPACK_IMPORTED_MODULE_2__["SET_PAGE"], state.meta.page + 1);
+              commit = _ref6.commit;
+              requestId = _ref7.requestId, userId = _ref7.userId;
               _context5.next = 4;
-              return dispatch('getRequests');
+              return _services_userRequestsService__WEBPACK_IMPORTED_MODULE_1__["default"].assignResponsible(requestId, userId);
 
             case 4:
+              response = _context5.sent;
+              commit(_types__WEBPACK_IMPORTED_MODULE_2__["UPDATE_REQUEST"], {
+                request: response.data
+              });
+
+            case 6:
             case "end":
               return _context5.stop();
           }
@@ -62345,7 +62445,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }, _callee5);
     }))();
   },
-  prevPage: function prevPage(_ref8) {
+  nextPage: function nextPage(_ref8) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6() {
       var commit, state, dispatch;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
@@ -62353,7 +62453,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           switch (_context6.prev = _context6.next) {
             case 0:
               commit = _ref8.commit, state = _ref8.state, dispatch = _ref8.dispatch;
-              commit(_types__WEBPACK_IMPORTED_MODULE_2__["SET_PAGE"], state.meta.page - 1);
+              commit(_types__WEBPACK_IMPORTED_MODULE_2__["SET_PAGE"], state.meta.page + 1);
               _context6.next = 4;
               return dispatch('getRequests');
 
@@ -62363,6 +62463,26 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }
       }, _callee6);
+    }))();
+  },
+  prevPage: function prevPage(_ref9) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee7() {
+      var commit, state, dispatch;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee7$(_context7) {
+        while (1) {
+          switch (_context7.prev = _context7.next) {
+            case 0:
+              commit = _ref9.commit, state = _ref9.state, dispatch = _ref9.dispatch;
+              commit(_types__WEBPACK_IMPORTED_MODULE_2__["SET_PAGE"], state.meta.page - 1);
+              _context7.next = 4;
+              return dispatch('getRequests');
+
+            case 4:
+            case "end":
+              return _context7.stop();
+          }
+        }
+      }, _callee7);
     }))();
   }
 });

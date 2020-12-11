@@ -49,6 +49,7 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
     Route::get('requests', [RequestsController::class, 'requests']);
     Route::put('requests/{id}', [RequestsController::class, 'updateRequest']);
     Route::put('requests/{id}/responsible', [RequestsController::class, 'assignResponsible']);
+    Route::put('requests/{id}/respond', [RequestsController::class, 'respondUser']);
 
     Route::post('user/photo', [UserController::class, 'uploadPhoto']);
     Route::delete('user/photo', [UserController::class, 'deletePhoto']);

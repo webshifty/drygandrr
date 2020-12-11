@@ -3,6 +3,7 @@
 	:data="data"
 	:disableButton="sending"
 	v-on:save="onSave"
+	v-on:send="onSend"
 	v-on:cancel="onClose"
 />
 </template>
@@ -25,13 +26,25 @@ export default {
 	},
 	methods: {
 		...mapActions('requests', [
-			'updateRequest'
+			'updateRequest',
+			'sendMessage',
 		]),
 
 		async onSave(data) {
 			try {
 				this.sending = true;
 				await this.updateRequest(data);
+			} catch (error) {
+				throw error;
+			} finally {
+				this.sending = false;
+			}
+		},
+
+		async onSend(data) {
+			try {
+				this.sending = true;
+				await this.sendMessage(data);
 			} catch (error) {
 				throw error;
 			} finally {

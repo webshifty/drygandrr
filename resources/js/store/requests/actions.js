@@ -26,6 +26,12 @@ export default {
 		}
 	},
 
+	async sendMessage({ dispatch }, request) {
+		await dispatch('updateRequest', request);
+		await userRequestsService.sendMessage(request.id, request.answer);
+		dispatch('alerts/success', { message: 'Повідомлення надіслано' });
+	},
+
 	async changeFilter({ commit, dispatch }, { filter, value }) {
 		commit(types.CHANGE_FILTER, { filter, value });
 		commit(types.SET_PAGE, 1);

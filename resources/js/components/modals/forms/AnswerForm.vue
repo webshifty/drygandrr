@@ -17,7 +17,7 @@
 		</div>
 		<div class="field styling-label">
 			<label>Статус</label>
-			<select v-model="request.status">
+			<select v-model="request.status" disabled>
 				<option v-for="(status, key) in statuses" :key="key" :value="status.id">{{ status.name }}</option>
 			</select>
 		</div>
@@ -35,8 +35,9 @@
 		<input type="checkbox" name="add" v-model="request.publish" >
 	</div>
 	<div class="actions">
-		<button class="button" :disabled="disableButton" v-on:click.prevent="onSave">Надіслати</button>
-		<button class="button secondary close" v-on:click.prevent="onCancel">Скасувати</button>
+		<button class="button" :disabled="disableButton" :class="{ disabled: disableButton }" v-on:click.prevent="onSave">Зберегти</button>
+		<button class="button secondary" :class="{ disabled: disableSend }" :disabled="disableSend" v-on:click.prevent="onSend">Відповісти користувачу</button>
+		<button class="button secondary close float-right" v-on:click.prevent="onCancel">Скасувати</button>
 	</div>
 </form>
 </template>
@@ -84,6 +85,16 @@ export default {
 			}
 
 			return this.countries;
+		},
+
+		disableSend() {
+			if (this.disableButton) {
+				return true;
+			} else if (!this.request.answer) {
+				return true;
+			} else {
+				return false;
+			}
 		}
 	},
 	methods: {
@@ -99,12 +110,20 @@ export default {
 			}
 		},
 
-		onSave() {
+		getData() {
 			const country = this.countryList.find(country => country.id === this.request.country) || { name: this.data.country };
-			this.$emit('save', {
+
+			return {
 				...this.request,
 				countryName: country.name,
-			});
+			};
+		},
+
+		onSave() {
+			this.$emit('save', this.getData());
+		},
+		onSend() {
+			this.$emit('send', this.getData());
 		},
 		onCancel() {
 			this.$emit('cancel');
@@ -131,5 +150,26 @@ export default {
 }
 .form {
 	min-width: 800px;
+}
+.actions {
+	display: block;
+}
+
+.disabled:active,
+.disabled:hover,
+.disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
+.close {
+	opacity: 1;
+}
+.button {
+	box-shadow: none;
+}
+
+select:disabled {
+	background-color: #fff;
 }
 </style>
