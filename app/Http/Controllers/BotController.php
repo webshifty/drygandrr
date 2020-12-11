@@ -114,9 +114,10 @@ class BotController extends Controller
                 $addCountry = TelegramBotData::addCountry($client->easy->from_id, $text);
 
                 if ($addCountry == true) {
+                    $country = TelegramBotData::getUserCountryName($client->easy->from_id);
                     $client->sendPhoto($chatId, asset('/img/telegram/have_question_2.png'));
-                    $reply = $text . " - Країна обрана.\nНапишіть ваше запитання.\xF0\x9F\x98\x89";
-                    $client->sendMessage($chatId, $reply, null, null, null, null, null, null, $menuQuestion);
+                    $reply = $country->country . " - Країна обрана.\nНапишіть ваше запитання.\xF0\x9F\x98\x89";
+                    $client->sendMessage($chatId, $reply, null, null, null, null, null, null, $menuInBase);
                     exit();
                 } else {
                     $client->sendSticker($chatId, 'CAACAgIAAxkBAAEBq45f0mrUq4zYoRR4KEffps6Xm95vbQACMwAD3OdiCEuFU2oXL1LqHgQ');
@@ -156,9 +157,10 @@ class BotController extends Controller
                         $addCountry = TelegramBotData::addCountry($client->easy->from_id, $userCountry);
 
                         if ($addCountry == true) {
+                            $country = TelegramBotData::getUserCountryName($client->easy->from_id);
                             $client->sendPhoto($chatId, asset('/img/telegram/have_question_2.png'));
-                            $reply = $text . " - Країна обрана.\nНапишіть ваше запитання.\xF0\x9F\x98\x89";
-                            $client->sendMessage($chatId, $reply, null, null, null, null, null, null, $menuQuestion);
+                            $reply = $country->country . " - Країна обрана.\nНапишіть ваше запитання.\xF0\x9F\x98\x89";
+                            $client->sendMessage($chatId, $reply, null, null, null, null, null, null, $menuInBase);
                             exit();
                         } else {
                             $client->sendSticker($chatId, 'CAACAgIAAxkBAAEBq45f0mrUq4zYoRR4KEffps6Xm95vbQACMwAD3OdiCEuFU2oXL1LqHgQ');
@@ -186,9 +188,10 @@ class BotController extends Controller
                             $client->sendMessage($chatId, $reply, null, null, null, null, null, null, $menuQuestions);
                             exit();
                         } else {
+                            TelegramBotData::saveUserQuestion($chatId, $client->easy->from_id, $text);
                             $client->sendPhoto($chatId, asset('/img/telegram/no_answer_2.png'));
-                            $reply = "За цим запитом в базі нічого не знайдено. Але ви можете пошукати відповідь в нашій базі знань або передати питання консулу.";
-                            $client->sendMessage($chatId, $reply, null, null, null, null, null, null, $menuQuestion);
+                            $reply = "В нашій базі немає відповіді на це питання. \nЯ все передала консулу. Він повернеться з відповіддю в свої робочі години, протягом двох робочих днів. \nВи можете пошукати відповідь в нашій базі знань вручну.";
+                            $client->sendMessage($chatId, $reply, null, null, null, null, null, null, $menuInBase);
                             exit();
                         }
                     }
@@ -263,7 +266,7 @@ class BotController extends Controller
                         $answer = TelegramBotData::getAnswerById($questionId);
                         $client->sendPhoto($message_chat_id, asset('/img/telegram/byebye_2.png'));
                         $reply = "<b>Ваше запитання:</b>\n" . $answer->question . "\n\n<b>Вiдповiдь:</b>\n" . $answer->answer;
-                        $client->sendMessage($message_chat_id, $reply, 'HTML', null, null, null, null, null, $menuQuestion);
+                        $client->sendMessage($message_chat_id, $reply, 'HTML', null, null, null, null, null, $menuInBase);
                         exit();
                         break;
 
@@ -291,9 +294,10 @@ class BotController extends Controller
                         $addCountry = TelegramBotData::addCountryById($client->easy->from_id, $countryId);
 
                         if ($addCountry == true) {
+                            $country = TelegramBotData::getUserCountryName($client->easy->from_id);
                             $client->sendPhoto($message_chat_id, asset('/img/telegram/have_question_2.png'));
-                            $reply = "Країна обрана.\nНапишіть ваше запитання.\xF0\x9F\x98\x89";
-                            $client->sendMessage($message_chat_id, $reply, null, null, null, null, null, null, $menuQuestion);
+                            $reply = $country->country . " - Країна обрана.\nНапишіть ваше запитання.\xF0\x9F\x98\x89";
+                            $client->sendMessage($message_chat_id, $reply, null, null, null, null, null, null, $menuInBase);
                             exit();
                             break;
                         } else {

@@ -68,6 +68,13 @@ class TelegramBotData extends Model
         return $countryId;
     }
 
+    public static function getUserCountryName($id)
+    {
+        $country = DB::table('tg_users')->select('country')->where('tg_id', $id)->first();
+
+        return $country;
+    }
+
     public static function getCountryByLetter($letter)
     {
         $countries = DB::table('countries')->select('id', 'name')->where('name', 'LIKE', $letter . '%')->get();
