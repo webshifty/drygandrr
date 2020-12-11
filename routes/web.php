@@ -21,7 +21,7 @@ use App\Http\Controllers\Api\CategoriesController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 Route::post('/bot/getupdates', BotController::income());
 
