@@ -29,7 +29,7 @@ class TelegramBotData extends Model
     public static function addCountry($id, $country)
     {
         $countryName = DB::table('countries')->select('name')->orWhere('name', 'LIKE', '%' . $country . '%')->orWhere('name_ru', 'LIKE', '%' . $country . '%')->orWhere('name_en', 'LIKE', '%' . $country . '%')->first();
-
+dd($countryName);
         if (!is_null($countryName)) {
             $data = [
                 'country' => $countryName->name,
@@ -66,6 +66,13 @@ class TelegramBotData extends Model
         }
 
         return $countryId;
+    }
+
+    public static function getUserCountryName($id)
+    {
+        $country = DB::table('tg_users')->select('country')->where('tg_id', $id)->first();
+
+        return $country;
     }
 
     public static function getCountryByLetter($letter)
