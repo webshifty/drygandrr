@@ -5330,7 +5330,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }, _callee, null, [[0, 6, 9, 13]]);
       }))();
     },
-    onClose: function onClose() {
+    onCancel: function onCancel() {
       this.$emit('close');
     }
   })

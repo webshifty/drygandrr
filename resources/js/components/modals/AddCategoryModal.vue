@@ -42,7 +42,7 @@ export default {
 			}
 		},
 
-		onClose() {
+		onCancel() {
 			this.$emit('close');
 		}
 	}
