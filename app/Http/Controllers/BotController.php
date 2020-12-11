@@ -186,8 +186,10 @@ class BotController extends Controller
                             $client->sendMessage($chatId, $reply, null, null, null, null, null, null, $menuQuestions);
                             exit();
                         } else {
+                            TelegramBotData::saveUserQuestion($chatId, $client->easy->from_id, $text);
                             $client->sendPhoto($chatId, asset('/img/telegram/no_answer_2.png'));
-                            $reply = "За цим запитом в базі нічого не знайдено. Але ви можете пошукати відповідь в нашій базі знань або передати питання консулу.";
+                            $reply = "В нашій базі немає відповіді на це питання. Я все передала консулу. Він повернеться з відповіддю в свої робочі години, протягом двох робочих днів. Ви можете пошукати відповідь в нашій базі знань вручну.";
+                            //$reply = "За цим запитом в базі нічого не знайдено. Але ви можете пошукати відповідь в нашій базі знань або передати питання консулу.";
                             $client->sendMessage($chatId, $reply, null, null, null, null, null, null, $menuQuestion);
                             exit();
                         }
