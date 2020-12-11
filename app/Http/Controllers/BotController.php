@@ -119,6 +119,7 @@ class BotController extends Controller
                     $client->sendMessage($chatId, $reply, null, null, null, null, null, null, $menuQuestion);
                     exit();
                 } else {
+                    $client->sendSticker($chatId, 'CAACAgIAAxkBAAEBq45f0mrUq4zYoRR4KEffps6Xm95vbQACMwAD3OdiCEuFU2oXL1LqHgQ');
                     $reply = "Такої країни в нашій великій базі немає. Виберіть будь ласка першу букву назви країни:";
                     $client->sendMessage($chatId, $reply, null, null, null, null, null, null, $menuAlphabet);
                     exit();
@@ -208,7 +209,7 @@ class BotController extends Controller
                 switch ($update->callback_query->data) {
                     case "writeQuestion":
                         $client->sendPhoto($message_chat_id, asset('/img/telegram/question_to_consul_2.png'));
-                        $reply = "Введіть ваше запитання.";
+                        $reply = "Введіть ваше запитання. Починайте текст питання з команди /consul Далі питання";
                         $client->sendMessage($message_chat_id, $reply, null, null, null, null, null, null, $menuInBase);
                         exit();
                         break;
@@ -278,6 +279,7 @@ class BotController extends Controller
                                 ],
                             ];
                         }
+                        $client->sendSticker($message_chat_id, 'CAACAgIAAxkBAAEBrApf08LLYXnaJK2Iw0jawqgyQPfdNAACNwAD3OdiCGCQcXER-sVkHgQ');
                         $reply = "Виберіть країну зі списку:";
                         $client->sendMessage($message_chat_id, $reply, null, null, null, null, null, null, $menuCountries);
                         exit();
