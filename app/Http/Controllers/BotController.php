@@ -247,7 +247,8 @@ class BotController extends Controller
                         }
                         $client->sendPhoto($message_chat_id, asset('/img/telegram/search_in_base_2.png'));
                         $reply = "Оберiть питання яке вас цiкавить";
-                        $client->sendMessage($message_chat_id, $reply, null, null, null, null, null, null, $menuQuestions);
+                        $reply2 = json_decode($questions);
+                        $client->sendMessage($message_chat_id, $reply2, null, null, null, null, null, null, $menuQuestions);
                         exit();
                         break;
 
